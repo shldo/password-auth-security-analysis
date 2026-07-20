@@ -8,7 +8,7 @@
 
 Show the dashboard flow:
 
-Client baseline -> password choices -> database leak -> offline cracking -> login with/without MFA -> recommendation.
+Client assessment -> password types -> database leak -> offline cracking -> login with/without MFA -> final assessment.
 
 ## Slide 3: Technical Experiment
 
@@ -26,11 +26,11 @@ Use dashboard screenshots:
 - bcrypt and Argon2id increase attacker cost.
 - MFA scenario controls show how account takeover changes when MFA is off, mixed, or required.
 
-## Slide 5: Recommendation
+## Slide 5: Final Assessment
 
 Password security should be layered:
 
-- long no-space password phrases
+- long password phrases
 - block common or breached passwords
 - Argon2id or bcrypt
 - MFA

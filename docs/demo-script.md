@@ -8,7 +8,7 @@ Use this as the presentation story. The audience is a non-technical client.
 
 Before moving through the stages, click **Start simulation**. The dashboard will step through the database-leak attack chain automatically.
 
-## Step 1: Client Baseline
+## Step 1: Client Assessment
 
 Show the current design:
 
@@ -27,7 +27,7 @@ Show password forms rather than individual users.
 
 Client message:
 
-"Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long no-space phrases."
+"Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long password phrases."
 
 ## Step 3: Database Leak
 
@@ -53,9 +53,9 @@ Client message:
 
 "The simulation rule is simple: if the password is known and MFA is off, the attacker can take over the account. If MFA is on, the login is blocked or challenged. Hashing affects whether the password is cracked; MFA affects whether the cracked password becomes account takeover."
 
-## Step 6: Recommendation
+## Step 6: Final Assessment
 
-Show final recommendation.
+Show the final assessment and recommended layered design.
 
 Client message:
 

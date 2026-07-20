@@ -1,6 +1,6 @@
 const state = {
   data: null,
-  activeView: "baseline",
+  activeView: "assessment",
   activeMethod: "sha256",
   activeMfaScenario: "current",
   isRunning: false,
@@ -25,14 +25,14 @@ const mfaScenarios = [
     description: "Every cracked password is challenged by MFA.",
   },
 ];
-const chainViews = ["baseline", "choices", "leak", "cracking", "login", "recommendation"];
+const chainViews = ["assessment", "choices", "leak", "cracking", "login", "final"];
 const chainLabels = {
-  baseline: "Client baseline",
+  assessment: "Assessment",
   choices: "Password types",
   leak: "Database leak",
   cracking: "Offline cracking",
   login: "Login risk",
-  recommendation: "Recommendation",
+  final: "Final assessment",
 };
 
 const passwordTypeExamples = [
@@ -73,22 +73,22 @@ const passwordTypeExamples = [
     note: "Substituting letters with numbers is common enough to appear in cracking rules.",
   },
   {
-    title: "Long no-space phrase",
+    title: "Long phrase",
     example: "RiverLanternMuseumOrbit",
-    shape: "Multiple words joined without spaces",
+    shape: "Multiple words joined into one long password",
     riskLabel: "strong_passphrase",
     complexity: "Rejected",
     layered: "Accepted",
     note: "Longer and more memorable, but old complexity rules may reject it for lacking digits or symbols.",
   },
   {
-    title: "No-space phrase with number",
+    title: "Phrase with number",
     example: "VioletMapleCoffee27",
     shape: "Several words joined together + number",
     riskLabel: "strong_passphrase",
     complexity: "Rejected",
     layered: "Accepted",
-    note: "Combines length with lower predictability without relying on spaces.",
+    note: "Combines length with lower predictability while still being practical for typical password fields.",
   },
 ];
 
@@ -99,7 +99,7 @@ const recommendationItems = [
   },
   {
     title: "Use blocklists and long passwords",
-    body: "Reject common, breached, and context-specific passwords while allowing long no-space phrases that users can remember.",
+    body: "Reject common, breached, and context-specific passwords while allowing long password phrases that users can remember.",
   },
   {
     title: "Require MFA for risky accounts",
@@ -163,7 +163,7 @@ async function loadData() {
 
 function getHashView() {
   const hashView = window.location.hash.replace("#", "");
-  return chainViews.includes(hashView) ? hashView : "baseline";
+  return chainViews.includes(hashView) ? hashView : "assessment";
 }
 
 function updateSummaryMetrics() {
@@ -211,7 +211,7 @@ function resetSimulation() {
     runButton.disabled = false;
     runButton.textContent = "Start simulation";
   }
-  setActiveView("baseline");
+  setActiveView("assessment");
   qs("#execution-status").textContent = "Ready to evaluate the client's password authentication design.";
 }
 
@@ -260,12 +260,12 @@ function renderActiveView() {
   }
 
   const renderers = {
-    baseline: renderBaseline,
+    assessment: renderClientAssessment,
     choices: renderChoices,
     leak: renderLeak,
     cracking: renderCracking,
     login: renderLoginRisk,
-    recommendation: renderRecommendation,
+    final: renderFinalAssessment,
   };
 
   qs("#view-panel").innerHTML = renderers[state.activeView]();
@@ -347,19 +347,19 @@ function riskBadge(label) {
   return '<span class="risk-badge high">weak/common</span>';
 }
 
-function renderBaseline() {
-  const baseline = state.data.attack_chain_summary.client_baseline;
+function renderClientAssessment() {
+  const assessment = state.data.attack_chain_summary.client_assessment;
   return `
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 1</p>
-        <h2>Client baseline</h2>
-        <p>The client believes the system is safe because users must create complex-looking passwords. The experiment tests this assumption after a database leak.</p>
+        <h2>Client assessment</h2>
+        <p>The client believes the system is safe because users must create complex-looking passwords. This assessment tests that assumption after a database leak.</p>
         <div class="flow-line">
-          <div class="flow-item"><span>1</span><div><strong>Password policy</strong><br><span class="small-muted">${baseline.password_policy}</span></div></div>
-          <div class="flow-item"><span>2</span><div><strong>Password storage</strong><br><span class="small-muted">${baseline.storage}</span></div></div>
-          <div class="flow-item"><span>3</span><div><strong>MFA</strong><br><span class="small-muted">${baseline.mfa}</span></div></div>
-          <div class="flow-item"><span>4</span><div><strong>Breached-password check</strong><br><span class="small-muted">${baseline.breached_password_check}</span></div></div>
+          <div class="flow-item"><span>1</span><div><strong>Password policy</strong><br><span class="small-muted">${assessment.password_policy}</span></div></div>
+          <div class="flow-item"><span>2</span><div><strong>Password storage</strong><br><span class="small-muted">${assessment.storage}</span></div></div>
+          <div class="flow-item"><span>3</span><div><strong>MFA</strong><br><span class="small-muted">${assessment.mfa}</span></div></div>
+          <div class="flow-item"><span>4</span><div><strong>Breached-password check</strong><br><span class="small-muted">${assessment.breached_password_check}</span></div></div>
         </div>
       </div>
       <div class="sub-card">
@@ -600,12 +600,12 @@ function renderLoginRisk() {
   `;
 }
 
-function renderRecommendation() {
+function renderFinalAssessment() {
   return `
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 6</p>
-        <h2>Security recommendation</h2>
+        <h2>Final assessment</h2>
         <p>${state.data.attack_chain_summary.main_finding}</p>
         <div class="flow-line">
           ${state.data.attack_chain_summary.risk_reduction_story

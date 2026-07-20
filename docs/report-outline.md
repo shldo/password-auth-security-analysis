@@ -51,9 +51,9 @@
 - Which password policies rejected weak or predictable passwords?
 - What trade-offs appeared between security and usability?
 
-## 8. Recommendation
+## 8. Final Assessment
 
-- Support long no-space password phrases where spaces are not accepted.
+- Support long password phrases that are practical for the target system.
 - Block common, breached, and context-specific passwords.
 - Store passwords with Argon2id or bcrypt, not plaintext or fast general-purpose hashes.
 - Use MFA for high-risk accounts and sensitive actions.

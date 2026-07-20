@@ -15,9 +15,9 @@ Generated from `results/analysis_results.json`.
 | Storage method | Cracked within budget | Guesses/sec | Average verify time | Takeover without MFA | Takeover with MFA state |
 |---|---:|---:|---:|---:|---:|
 | Plain text | 10/10 | Direct exposure | 0 ms | 10 | 5 |
-| Salted SHA-256 | 10/10 | 522,287.11 | 0.00 ms | 10 | 5 |
-| bcrypt | 4/10 | 18.86 | 53.02 ms | 4 | 2 |
-| Argon2id | 1/10 | 5.31 | 188.33 ms | 1 | 0 |
+| Salted SHA-256 | 10/10 | 516,014.05 | 0.00 ms | 10 | 5 |
+| bcrypt | 3/10 | 15.84 | 63.13 ms | 3 | 2 |
+| Argon2id | 1/10 | 3.78 | 264.40 ms | 1 | 0 |
 
 ## Password Policy Results
 

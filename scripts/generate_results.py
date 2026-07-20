@@ -155,7 +155,7 @@ METHOD_DESCRIPTIONS = {
     "plaintext": {
         "label": "Plain text",
         "summary": "Database leak directly exposes the original password.",
-        "security_role": "Failure case used as a baseline.",
+        "security_role": "Failure case used as a comparison reference.",
     },
     "sha256": {
         "label": "Salted SHA-256",
@@ -330,7 +330,7 @@ POLICY_DEFINITIONS: dict[str, dict] = {
     },
     "length": {
         "label": "Length-first rule",
-        "description": "At least 14 characters. Allows long no-space phrases.",
+        "description": "At least 14 characters. Allows long password phrases.",
     },
     "blocklist": {
         "label": "Blocklist rule",
@@ -338,7 +338,7 @@ POLICY_DEFINITIONS: dict[str, dict] = {
     },
     "layered": {
         "label": "Layered policy",
-        "description": "At least 12 characters, blocklisted passwords rejected, long no-space phrases allowed.",
+        "description": "At least 12 characters, blocklisted passwords rejected, long password phrases allowed.",
     },
 }
 
@@ -436,7 +436,7 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
     layered_policy = next(result for result in policy_results if result["policy"] == "layered")
 
     return {
-        "client_baseline": {
+        "client_assessment": {
             "password_policy": "Complexity rule: uppercase, lowercase, number, symbol",
             "storage": "Salted SHA-256",
             "mfa": "Optional, not required for all users",

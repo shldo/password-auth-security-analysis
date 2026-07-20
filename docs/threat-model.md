@@ -4,7 +4,7 @@
 
 The client is a fictional small web service with password-based authentication. The client currently believes their authentication system is reasonably secure because users must create complex-looking passwords.
 
-Baseline configuration:
+Current configuration:
 
 - Password policy: at least 8 characters, uppercase, lowercase, number, and symbol.
 - Password storage: salted SHA-256.
@@ -51,7 +51,7 @@ flowchart TD
     J --> K{"MFA enabled?"}
     K -->|No| L["Account takeover"]
     K -->|Yes| M["Login blocked or challenged"]
-    L --> N["Security recommendation"]
+    L --> N["Final assessment"]
     M --> N
 ```
 
