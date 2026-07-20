@@ -138,6 +138,62 @@ h3 {
   line-height: 1;
 }
 
+.simulation-control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(47, 125, 90, 0.35);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(225, 240, 232, 0.92), rgba(220, 232, 248, 0.72));
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.simulation-control h2 {
+  margin-bottom: 8px;
+  font-size: clamp(1.35rem, 2.2vw, 2rem);
+}
+
+.simulation-control p:last-child {
+  margin-bottom: 0;
+  color: var(--muted);
+}
+
+.simulation-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.primary-action,
+.secondary-action {
+  min-height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 10px 16px;
+  font-weight: 700;
+}
+
+.primary-action {
+  border: 1px solid var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.primary-action:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.secondary-action {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink);
+}
+
 .chain-nav {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -159,7 +215,7 @@ h3 {
   text-align: left;
 }
 
-.chain-step span {
+.chain-step > span {
   display: inline-grid;
   flex: 0 0 26px;
   width: 26px;
@@ -176,9 +232,18 @@ h3 {
   background: var(--green-soft);
 }
 
-.chain-step.is-active span {
+.chain-step.is-active > span {
   background: var(--green);
   color: #fff;
+}
+
+.chain-step.is-complete {
+  border-color: rgba(47, 125, 90, 0.42);
+}
+
+.chain-step.is-complete > span {
+  background: var(--green-soft);
+  color: var(--green);
 }
 
 .view-card {
@@ -239,8 +304,9 @@ h3 {
   align-items: start;
 }
 
-.flow-item span {
+.flow-item > span {
   display: inline-grid;
+  flex: 0 0 34px;
   width: 34px;
   height: 34px;
   place-items: center;
@@ -384,12 +450,21 @@ h3 {
 
 @media (max-width: 920px) {
   .topbar,
+  .simulation-control,
   .view-grid {
     grid-template-columns: 1fr;
   }
 
   .topbar {
     display: grid;
+  }
+
+  .simulation-control {
+    display: grid;
+  }
+
+  .simulation-actions {
+    justify-content: flex-start;
   }
 
   .metric-grid {

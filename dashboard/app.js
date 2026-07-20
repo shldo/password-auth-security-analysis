@@ -2,9 +2,20 @@ const state = {
   data: null,
   activeView: "baseline",
   activeMethod: "sha256",
+  isRunning: false,
+  runTimer: null,
 };
 
 const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
+const chainViews = ["baseline", "choices", "leak", "cracking", "login", "recommendation"];
+const chainLabels = {
+  baseline: "Client baseline",
+  choices: "Password choices",
+  leak: "Database leak",
+  cracking: "Offline cracking",
+  login: "Login risk",
+  recommendation: "Recommendation",
+};
 
 const recommendationItems = [
   {
@@ -86,10 +97,70 @@ function updateSummaryMetrics() {
 
 function setActiveView(view) {
   state.activeView = view;
+  const activeIndex = chainViews.indexOf(view);
   document.querySelectorAll(".chain-step").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.view === view);
+    button.classList.toggle("is-complete", chainViews.indexOf(button.dataset.view) < activeIndex);
   });
+  updateExecutionStatus(view);
   renderActiveView();
+}
+
+function updateExecutionStatus(view = state.activeView) {
+  const status = qs("#execution-status");
+  if (!status) {
+    return;
+  }
+  const label = chainLabels[view];
+  status.textContent = state.isRunning
+    ? `Running evaluation: ${label}`
+    : `Current stage: ${label}`;
+}
+
+function resetSimulation() {
+  if (state.runTimer) {
+    window.clearTimeout(state.runTimer);
+  }
+  state.runTimer = null;
+  state.isRunning = false;
+  const runButton = qs("#run-chain");
+  if (runButton) {
+    runButton.disabled = false;
+    runButton.textContent = "Start simulation";
+  }
+  setActiveView("baseline");
+  qs("#execution-status").textContent = "Ready to evaluate the client's password authentication design.";
+}
+
+function startSimulation() {
+  if (!state.data || state.isRunning) {
+    return;
+  }
+
+  state.isRunning = true;
+  const runButton = qs("#run-chain");
+  runButton.disabled = true;
+  runButton.textContent = "Simulation running";
+
+  let index = 0;
+  const advance = () => {
+    setActiveView(chainViews[index]);
+    index += 1;
+
+    if (index < chainViews.length) {
+      state.runTimer = window.setTimeout(advance, 1400);
+      return;
+    }
+
+    state.runTimer = window.setTimeout(() => {
+      state.isRunning = false;
+      runButton.disabled = false;
+      runButton.textContent = "Run again";
+      qs("#execution-status").textContent = "Evaluation complete: review the layered authentication recommendation.";
+    }, 1400);
+  };
+
+  advance();
 }
 
 function getStorageResult(method = state.activeMethod) {
@@ -430,5 +501,8 @@ function renderRecommendation() {
 document.querySelectorAll(".chain-step").forEach((button) => {
   button.addEventListener("click", () => setActiveView(button.dataset.view));
 });
+
+qs("#run-chain").addEventListener("click", startSimulation);
+qs("#reset-chain").addEventListener("click", resetSimulation);
 
 loadData();

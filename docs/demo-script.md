@@ -6,6 +6,8 @@ Use this as the presentation story. The audience is a non-technical client.
 
 "You currently require complex passwords, so the system looks secure. I tested what happens if the user database is leaked. The key question is not just whether passwords look complex, but whether the whole authentication chain reduces attacker success."
 
+Before moving through the stages, click **Start simulation**. The dashboard will step through the database-leak attack chain automatically.
+
 ## Step 1: Client Baseline
 
 Show the current design:
