@@ -1,6 +1,6 @@
 {
   "project": "Password Authentication Security Analysis",
-  "generated_at": "2026-07-20 16:20:11",
+  "generated_at": "2026-07-20 16:22:19",
   "experiment_context": {
     "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
@@ -154,31 +154,31 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$2213BFvsT/CF5Ud11.28se/PL83...",
+        "leaked_value": "$2b$10$qRHxU4oFKVDjh6TBL5S4ZOxlqcC...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$imo0/D4a8E.WvVHVFXM5eue2Gct...",
+        "leaked_value": "$2b$10$tjY4KfrfFwhuovMVaPBt1ejpq1i...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$Mhy.EU2Eu4aTAuFPrtdb1.JOl.S...",
+        "leaked_value": "$2b$10$tx/PiufzsVIoeEKNOJVkreR6qq9...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$5MEfdHzv7N/uvmoGZUpgdOvnRmE...",
+        "leaked_value": "$2b$10$eQVUsaxZt6dXJ/LTy9dEJuRoWti...",
         "mfa_enabled": true,
         "profile": "Long passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$C/bl379IF/X9rksA94bZRuEqbzi...",
+        "leaked_value": "$2b$10$jXQnbuMmyO2IOmtHJml2peD5JQr...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -186,31 +186,31 @@
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$5tV...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$oEs...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$I5p...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$dzT...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$/yf...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$uAW...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Z+j...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$TLx...",
         "mfa_enabled": true,
         "profile": "Long passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$n+i...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$N8q...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -227,9 +227,9 @@
       "budget_exhausted": false,
       "total_seconds": 0.0001,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0002,
-      "median_verify_ms": 0.0001,
-      "guesses_per_second": 1300448.71,
+      "average_verify_ms": 0.0003,
+      "median_verify_ms": 0.0002,
+      "guesses_per_second": 877458.67,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
@@ -337,11 +337,11 @@
       "attempts": 116,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": false,
-      "total_seconds": 0.0002,
+      "total_seconds": 0.0003,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0012,
-      "median_verify_ms": 0.001,
-      "guesses_per_second": 660216.06,
+      "average_verify_ms": 0.0017,
+      "median_verify_ms": 0.0015,
+      "guesses_per_second": 462151.52,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
@@ -449,11 +449,11 @@
       "attempts": 39,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0287,
+      "total_seconds": 2.0498,
       "time_to_first_crack_seconds": 0.1128,
-      "average_verify_ms": 52.0123,
-      "median_verify_ms": 51.7252,
-      "guesses_per_second": 19.22,
+      "average_verify_ms": 52.5542,
+      "median_verify_ms": 51.9815,
+      "guesses_per_second": 19.03,
       "cracked_accounts": 4,
       "total_accounts": 10,
       "cracked_rate": 0.4,
@@ -477,7 +477,7 @@
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
           "attempts_for_user": 10,
-          "seconds_for_user": 0.5257
+          "seconds_for_user": 0.5352
         },
         {
           "username": "chen",
@@ -486,7 +486,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": false,
           "attempts_for_user": 5,
-          "seconds_for_user": 0.2625
+          "seconds_for_user": 0.2627
         },
         {
           "username": "diya",
@@ -495,7 +495,7 @@
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 16,
-          "seconds_for_user": 0.816
+          "seconds_for_user": 0.8256
         }
       ]
     },
@@ -507,11 +507,11 @@
       "attempts": 11,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0789,
-      "time_to_first_crack_seconds": 0.4037,
-      "average_verify_ms": 188.9814,
-      "median_verify_ms": 186.1461,
-      "guesses_per_second": 5.29,
+      "total_seconds": 2.1374,
+      "time_to_first_crack_seconds": 0.3952,
+      "average_verify_ms": 194.3045,
+      "median_verify_ms": 196.1192,
+      "guesses_per_second": 5.15,
       "cracked_accounts": 1,
       "total_accounts": 10,
       "cracked_rate": 0.1,
@@ -526,7 +526,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.4037
+          "seconds_for_user": 0.3952
         }
       ]
     }
@@ -912,8 +912,8 @@
       "Account recovery must be protected because it can bypass the password and MFA path."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 660216.06,
-      "argon2id_guesses_per_second": 5.29,
+      "sha256_guesses_per_second": 462151.52,
+      "argon2id_guesses_per_second": 5.15,
       "layered_policy_weak_rejection_rate": 1.0,
       "mfa_blocked_takeovers_under_sha256": 5
     }

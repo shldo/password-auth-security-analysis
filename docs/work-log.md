@@ -7,6 +7,9 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 1.0h | Read the project information and tutor report notes. Narrowed the topic to a password authentication security engineering analysis. | `docs/report-outline.md`, `docs/assessment-traceability.md` |
 | 2026-07-20 | 1.0h | Designed the project attack chain and deliverable structure. | `README.md`, `docs/presentation-outline.md` |
 | 2026-07-20 | 1.0h | Created synthetic user password dataset and local demonstration wordlist. | `data/sample_passwords.csv`, `data/attack_wordlist.txt` |
+| 2026-07-20 | 2.0h | Implemented controlled password storage and offline cracking simulation. | `scripts/generate_results.py`, `results/analysis_results.json` |
+| 2026-07-20 | 2.0h | Built first dashboard version around the database-leak attack chain. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
+| 2026-07-20 | 0.5h | Wrote client-facing demo script for the 5-minute presentation. | `docs/demo-script.md` |
 
 ## Planned Time Budget
 
