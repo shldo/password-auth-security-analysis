@@ -33,6 +33,13 @@ function formatNumber(value) {
   return Number(value).toLocaleString(undefined, { maximumFractionDigits: 2 });
 }
 
+function formatOptionalNumber(value, suffix = "") {
+  if (value === null || value === undefined) {
+    return "Direct exposure";
+  }
+  return `${formatNumber(value)}${suffix}`;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -298,9 +305,9 @@ function renderCracking() {
       (result) => `
         <tr>
           <td>${result.label}</td>
-          <td>${formatNumber(result.guesses_per_second)}</td>
-          <td>${formatNumber(result.average_verify_ms)} ms</td>
-          <td>${formatNumber(result.time_to_first_crack_seconds)} s</td>
+          <td>${formatOptionalNumber(result.guesses_per_second)}</td>
+          <td>${formatOptionalNumber(result.average_verify_ms, " ms")}</td>
+          <td>${formatOptionalNumber(result.time_to_first_crack_seconds, " s")}</td>
         </tr>
       `,
     )

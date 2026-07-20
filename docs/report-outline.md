@@ -18,6 +18,7 @@
 - OWASP Password Storage Cheat Sheet.
 - OWASP Authentication and Credential Stuffing guidance.
 - Key concepts: hashing, salting, adaptive password hashing, MFA, password blocklists.
+- Detailed notes: `docs/research-notes.md`
 
 ## 4. Threat Model
 
@@ -25,6 +26,7 @@
 - Attacker: has a leaked password database and can run offline guesses.
 - Attack path: leak database, crack password hashes, attempt login, bypass or encounter MFA.
 - Out of scope: attacking real services, phishing real users, collecting real credentials.
+- Detailed model: `docs/threat-model.md`
 
 ## 5. Methodology
 

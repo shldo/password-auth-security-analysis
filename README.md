@@ -34,6 +34,7 @@ Generate experiment results:
 
 ```powershell
 python scripts/generate_results.py
+python scripts/export_analysis_summary.py
 ```
 
 Open the dashboard:

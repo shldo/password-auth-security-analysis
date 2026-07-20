@@ -176,6 +176,41 @@ METHOD_DESCRIPTIONS = {
 
 
 def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]) -> dict:
+    if method == "plaintext":
+        cracked = [
+            {
+                "username": record["username"],
+                "password": record["stored"],
+                "profile": record["profile"],
+                "risk_label": record["risk_label"],
+                "mfa_enabled": record["mfa_enabled"],
+                "attempts_for_user": 0,
+                "seconds_for_user": 0,
+            }
+            for record in method_records
+        ]
+        takeover_without_mfa = len(cracked)
+        takeover_with_mfa = sum(1 for account in cracked if not account["mfa_enabled"])
+        return {
+            "method": method,
+            **METHOD_DESCRIPTIONS[method],
+            "attempts": 0,
+            "attack_budget_seconds": ATTACK_BUDGET_SECONDS,
+            "budget_exhausted": False,
+            "total_seconds": 0,
+            "time_to_first_crack_seconds": 0,
+            "average_verify_ms": 0,
+            "median_verify_ms": 0,
+            "guesses_per_second": None,
+            "cracked_accounts": len(cracked),
+            "total_accounts": len(method_records),
+            "cracked_rate": 1.0,
+            "account_takeover_without_mfa": takeover_without_mfa,
+            "account_takeover_with_mfa": takeover_with_mfa,
+            "mfa_blocked_takeovers": takeover_without_mfa - takeover_with_mfa,
+            "cracked": cracked,
+        }
+
     verify = VERIFY_FUNCTIONS[method]
     cracked: list[dict] = []
     verification_times: list[float] = []
@@ -492,10 +527,15 @@ def main() -> None:
 
     print(f"Wrote {output_path.relative_to(ROOT)}")
     for storage_result in storage_results:
+        speed = (
+            "direct exposure"
+            if storage_result["guesses_per_second"] is None
+            else f"{storage_result['guesses_per_second']} guesses/sec"
+        )
         print(
             f"{storage_result['label']}: "
             f"{storage_result['cracked_accounts']}/{storage_result['total_accounts']} cracked, "
-            f"{storage_result['guesses_per_second']} guesses/sec"
+            f"{speed}"
         )
 
 

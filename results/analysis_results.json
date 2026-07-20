@@ -1,6 +1,6 @@
 {
   "project": "Password Authentication Security Analysis",
-  "generated_at": "2026-07-20 16:22:19",
+  "generated_at": "2026-07-20 19:32:17",
   "experiment_context": {
     "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
@@ -154,31 +154,31 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$qRHxU4oFKVDjh6TBL5S4ZOxlqcC...",
+        "leaked_value": "$2b$10$3IwXh0W.1dDapfHY03H5B.bPvpq...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$tjY4KfrfFwhuovMVaPBt1ejpq1i...",
+        "leaked_value": "$2b$10$nRA/Ix5mxa/EyuG9rDMpXeLkU2R...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$tx/PiufzsVIoeEKNOJVkreR6qq9...",
+        "leaked_value": "$2b$10$hb2L9oPQYtOXv.nEIjSdKepXNtW...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$eQVUsaxZt6dXJ/LTy9dEJuRoWti...",
+        "leaked_value": "$2b$10$EGO0vtRj5yzgUTF.KTEt5OLtUQF...",
         "mfa_enabled": true,
         "profile": "Long passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$jXQnbuMmyO2IOmtHJml2peD5JQr...",
+        "leaked_value": "$2b$10$xk5ft9licd3c7BETPij2pue3D2J...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -186,31 +186,31 @@
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$oEs...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Dmk...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$dzT...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Y7U...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$uAW...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$bYz...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$TLx...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$AZl...",
         "mfa_enabled": true,
         "profile": "Long passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$N8q...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$V4w...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -222,14 +222,14 @@
       "label": "Plain text",
       "summary": "Database leak directly exposes the original password.",
       "security_role": "Failure case used as a baseline.",
-      "attempts": 116,
+      "attempts": 0,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": false,
-      "total_seconds": 0.0001,
-      "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0003,
-      "median_verify_ms": 0.0002,
-      "guesses_per_second": 877458.67,
+      "total_seconds": 0,
+      "time_to_first_crack_seconds": 0,
+      "average_verify_ms": 0,
+      "median_verify_ms": 0,
+      "guesses_per_second": null,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
@@ -243,8 +243,8 @@
           "profile": "Complex but common",
           "risk_label": "weak_common",
           "mfa_enabled": true,
-          "attempts_for_user": 2,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "ben",
@@ -252,8 +252,8 @@
           "profile": "Season and year pattern",
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
-          "attempts_for_user": 10,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "chen",
@@ -261,8 +261,8 @@
           "profile": "Common base with year",
           "risk_label": "weak_common",
           "mfa_enabled": false,
-          "attempts_for_user": 5,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "diya",
@@ -270,8 +270,8 @@
           "profile": "Long passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
-          "attempts_for_user": 16,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "eli",
@@ -279,8 +279,8 @@
           "profile": "Context-specific pattern",
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
-          "attempts_for_user": 12,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "fay",
@@ -288,8 +288,8 @@
           "profile": "Classic transformed word",
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
-          "attempts_for_user": 14,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "gio",
@@ -297,8 +297,8 @@
           "profile": "Random-style passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
-          "attempts_for_user": 17,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "hannah",
@@ -306,8 +306,8 @@
           "profile": "Very common password",
           "risk_label": "weak_common",
           "mfa_enabled": false,
-          "attempts_for_user": 7,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "ian",
@@ -315,8 +315,8 @@
           "profile": "Phrase with current year",
           "risk_label": "predictable_pattern",
           "mfa_enabled": true,
-          "attempts_for_user": 15,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         },
         {
           "username": "jin",
@@ -324,8 +324,8 @@
           "profile": "Long passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
-          "attempts_for_user": 18,
-          "seconds_for_user": 0.0
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         }
       ]
     },
@@ -337,11 +337,11 @@
       "attempts": 116,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": false,
-      "total_seconds": 0.0003,
+      "total_seconds": 0.0002,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0017,
-      "median_verify_ms": 0.0015,
-      "guesses_per_second": 462151.52,
+      "average_verify_ms": 0.0011,
+      "median_verify_ms": 0.0008,
+      "guesses_per_second": 617678.27,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
@@ -446,14 +446,14 @@
       "label": "bcrypt",
       "summary": "Adaptive password hashing with a cost factor.",
       "security_role": "Raises offline guessing cost after a database leak.",
-      "attempts": 39,
+      "attempts": 38,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0498,
-      "time_to_first_crack_seconds": 0.1128,
-      "average_verify_ms": 52.5542,
-      "median_verify_ms": 51.9815,
-      "guesses_per_second": 19.03,
+      "total_seconds": 2.0098,
+      "time_to_first_crack_seconds": 0.1043,
+      "average_verify_ms": 52.8854,
+      "median_verify_ms": 52.6133,
+      "guesses_per_second": 18.91,
       "cracked_accounts": 4,
       "total_accounts": 10,
       "cracked_rate": 0.4,
@@ -468,7 +468,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.1128
+          "seconds_for_user": 0.1043
         },
         {
           "username": "ben",
@@ -477,7 +477,7 @@
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
           "attempts_for_user": 10,
-          "seconds_for_user": 0.5352
+          "seconds_for_user": 0.5384
         },
         {
           "username": "chen",
@@ -486,7 +486,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": false,
           "attempts_for_user": 5,
-          "seconds_for_user": 0.2627
+          "seconds_for_user": 0.2669
         },
         {
           "username": "diya",
@@ -495,7 +495,7 @@
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 16,
-          "seconds_for_user": 0.8256
+          "seconds_for_user": 0.8232
         }
       ]
     },
@@ -507,11 +507,11 @@
       "attempts": 11,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.1374,
-      "time_to_first_crack_seconds": 0.3952,
-      "average_verify_ms": 194.3045,
-      "median_verify_ms": 196.1192,
-      "guesses_per_second": 5.15,
+      "total_seconds": 2.1121,
+      "time_to_first_crack_seconds": 0.429,
+      "average_verify_ms": 192.0014,
+      "median_verify_ms": 187.799,
+      "guesses_per_second": 5.21,
       "cracked_accounts": 1,
       "total_accounts": 10,
       "cracked_rate": 0.1,
@@ -526,7 +526,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.3952
+          "seconds_for_user": 0.429
         }
       ]
     }
@@ -912,8 +912,8 @@
       "Account recovery must be protected because it can bypass the password and MFA path."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 462151.52,
-      "argon2id_guesses_per_second": 5.15,
+      "sha256_guesses_per_second": 617678.27,
+      "argon2id_guesses_per_second": 5.21,
       "layered_policy_weak_rejection_rate": 1.0,
       "mfa_blocked_takeovers_under_sha256": 5
     }

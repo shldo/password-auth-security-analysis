@@ -10,6 +10,8 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 2.0h | Implemented controlled password storage and offline cracking simulation. | `scripts/generate_results.py`, `results/analysis_results.json` |
 | 2026-07-20 | 2.0h | Built first dashboard version around the database-leak attack chain. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
 | 2026-07-20 | 0.5h | Wrote client-facing demo script for the 5-minute presentation. | `docs/demo-script.md` |
+| 2026-07-20 | 1.5h | Added source-grounded research notes and formal threat model. | `docs/research-notes.md`, `docs/threat-model.md` |
+| 2026-07-20 | 1.0h | Added report-ready result summary generation. | `scripts/export_analysis_summary.py`, `results/analysis_summary.md` |
 
 ## Planned Time Budget
 
