@@ -24,7 +24,7 @@ Use dashboard screenshots:
 - Plaintext fails immediately.
 - Fast hash is much easier to test offline.
 - bcrypt and Argon2id increase attacker cost.
-- MFA reduces account takeover after a password is cracked.
+- MFA scenario controls show how account takeover changes when MFA is off, mixed, or required.
 
 ## Slide 5: Recommendation
 

@@ -47,11 +47,11 @@ Client message:
 
 ## Step 5: Login Risk
 
-Switch methods and show cracked passwords with MFA outcomes.
+Switch methods and show cracked passwords with three MFA scenarios: MFA off, current mixed state, and MFA required.
 
 Client message:
 
-"Hashing affects whether the password is cracked. MFA affects whether a cracked password becomes account takeover. These controls protect different stages of the same attack chain."
+"The simulation rule is simple: if the password is known and MFA is off, the attacker can take over the account. If MFA is on, the login is blocked or challenged. Hashing affects whether the password is cracked; MFA affects whether the cracked password becomes account takeover."
 
 ## Step 6: Recommendation
 

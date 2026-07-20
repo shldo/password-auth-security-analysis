@@ -75,4 +75,5 @@ This project uses synthetic users, synthetic passwords, and a local wordlist. It
 - The exact timing results depend on the machine running the experiment.
 - The synthetic password set is designed to illustrate categories, not to represent all user behaviour.
 - The dashboard models MFA as a binary control, while real MFA strength depends on the factor type, recovery process, and phishing resistance.
+- MFA is evaluated after offline cracking because it is not a password-quality property; it controls whether a known password is enough to complete login.
 - The project does not evaluate session management, rate limiting, bot detection, or passkeys in depth.

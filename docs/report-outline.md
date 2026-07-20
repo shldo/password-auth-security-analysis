@@ -47,6 +47,7 @@
 - Which storage methods exposed passwords fastest?
 - Which users were cracked under each method?
 - How did MFA change account takeover risk?
+- Why is MFA evaluated after cracking rather than during password-type analysis?
 - Which password policies rejected weak or predictable passwords?
 - What trade-offs appeared between security and usability?
 

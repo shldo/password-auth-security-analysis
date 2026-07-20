@@ -2,11 +2,29 @@ const state = {
   data: null,
   activeView: "baseline",
   activeMethod: "sha256",
+  activeMfaScenario: "current",
   isRunning: false,
   runTimer: null,
 };
 
 const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
+const mfaScenarios = [
+  {
+    id: "off",
+    label: "MFA off",
+    description: "Every cracked password can be used directly.",
+  },
+  {
+    id: "current",
+    label: "Current mixed state",
+    description: "Some sample accounts have MFA enabled and some do not.",
+  },
+  {
+    id: "required",
+    label: "MFA required",
+    description: "Every cracked password is challenged by MFA.",
+  },
+];
 const chainViews = ["baseline", "choices", "leak", "cracking", "login", "recommendation"];
 const chainLabels = {
   baseline: "Client baseline",
@@ -261,6 +279,12 @@ function bindViewEvents() {
       renderActiveView();
     });
   });
+  document.querySelectorAll("[data-mfa-scenario]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.activeMfaScenario = button.dataset.mfaScenario;
+      renderActiveView();
+    });
+  });
 }
 
 function methodButtons() {
@@ -275,6 +299,42 @@ function methodButtons() {
         .join("")}
     </div>
   `;
+}
+
+function mfaScenarioButtons() {
+  return `
+    <div class="control-row" aria-label="MFA scenario selector">
+      ${mfaScenarios
+        .map((scenario) => {
+          const active = scenario.id === state.activeMfaScenario ? " is-active" : "";
+          return `<button class="method-button${active}" type="button" data-mfa-scenario="${scenario.id}">${scenario.label}</button>`;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function getMfaEnabledForScenario(account) {
+  if (state.activeMfaScenario === "off") {
+    return false;
+  }
+  if (state.activeMfaScenario === "required") {
+    return true;
+  }
+  return account.mfa_enabled;
+}
+
+function getMfaScenarioStats(crackedAccounts) {
+  const blocked = crackedAccounts.filter((account) => getMfaEnabledForScenario(account)).length;
+  return {
+    cracked: crackedAccounts.length,
+    takeover: crackedAccounts.length - blocked,
+    blocked,
+  };
+}
+
+function getActiveMfaScenario() {
+  return mfaScenarios.find((scenario) => scenario.id === state.activeMfaScenario);
 }
 
 function riskBadge(label) {
@@ -473,52 +533,65 @@ function renderCracking() {
 
 function renderLoginRisk() {
   const selected = getStorageResult();
+  const scenario = getActiveMfaScenario();
+  const stats = getMfaScenarioStats(selected.cracked);
   return `
     <div>
       <p class="eyebrow">Step 5</p>
       <h2>Login risk after cracking</h2>
       <p>Hashing affects whether the attacker obtains passwords. MFA affects whether cracked passwords become account takeover.</p>
+      <div class="simulation-rule">
+        <strong>Simulation rule:</strong> cracked password + MFA off = account takeover; cracked password + MFA on = blocked or challenged.
+      </div>
       ${methodButtons()}
+      <div class="scenario-panel">
+        <div>
+          <h3>MFA scenario</h3>
+          <p class="small-muted">${scenario.description}</p>
+        </div>
+        ${mfaScenarioButtons()}
+      </div>
       <div class="pipeline">
         <div class="pipeline-step">
           <span class="table-label">Cracked passwords</span>
-          <strong>${selected.cracked_accounts}</strong>
+          <strong>${stats.cracked}</strong>
           <small class="small-muted">known passwords from offline attack</small>
         </div>
         <div class="pipeline-step">
-          <span class="table-label">Takeover without MFA</span>
-          <strong>${selected.account_takeover_without_mfa}</strong>
-          <small class="small-muted">password alone is enough</small>
+          <span class="table-label">Account takeovers</span>
+          <strong>${stats.takeover}</strong>
+          <small class="small-muted">password was enough to log in</small>
         </div>
         <div class="pipeline-step">
-          <span class="table-label">Takeover with MFA state</span>
-          <strong>${selected.account_takeover_with_mfa}</strong>
-          <small class="small-muted">${selected.mfa_blocked_takeovers} blocked by MFA</small>
+          <span class="table-label">MFA blocked/challenged</span>
+          <strong>${stats.blocked}</strong>
+          <small class="small-muted">extra factor prevented direct takeover</small>
         </div>
       </div>
       <div class="sub-card" style="margin-top: 14px;">
-        <h3>Cracked accounts under ${selected.label}</h3>
+        <h3>Login attempts under ${selected.label}</h3>
         <table class="data-table">
           <thead>
             <tr>
               <th>User</th>
               <th>Password found</th>
-              <th>MFA</th>
+              <th>MFA in scenario</th>
               <th>Outcome</th>
             </tr>
           </thead>
           <tbody>
             ${selected.cracked
-              .map(
-                (account) => `
+              .map((account) => {
+                const mfaEnabled = getMfaEnabledForScenario(account);
+                return `
                   <tr>
                     <td>${escapeHtml(account.username)}</td>
                     <td><code>${escapeHtml(account.password)}</code></td>
-                    <td>${account.mfa_enabled ? "On" : "Off"}</td>
-                    <td>${account.mfa_enabled ? "Blocked or challenged" : "Account takeover"}</td>
+                    <td>${mfaEnabled ? "On" : "Off"}</td>
+                    <td>${mfaEnabled ? "Blocked or challenged" : "Account takeover"}</td>
                   </tr>
-                `,
-              )
+                `;
+              })
               .join("")}
           </tbody>
         </table>
