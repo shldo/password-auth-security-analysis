@@ -12,7 +12,7 @@ Client baseline -> password choices -> database leak -> offline cracking -> logi
 
 ## Slide 3: Technical Experiment
 
-- Same fake users.
+- Same synthetic password samples.
 - Same wordlist.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
 - Metrics: cracked rate, verification time, time to first crack, account takeover rate.

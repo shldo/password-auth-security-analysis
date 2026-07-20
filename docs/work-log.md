@@ -13,6 +13,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 1.5h | Added source-grounded research notes and formal threat model. | `docs/research-notes.md`, `docs/threat-model.md` |
 | 2026-07-20 | 1.0h | Added report-ready result summary generation. | `scripts/export_analysis_summary.py`, `results/analysis_summary.md` |
 | 2026-07-20 | 1.0h | Fixed dashboard layout issue and added a start button for the attack-chain demo. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
+| 2026-07-20 | 0.5h | Reworked the password choice screen into password type comparison for clearer presentation logic. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
 
 ## Planned Time Budget
 

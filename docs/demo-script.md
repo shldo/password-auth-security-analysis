@@ -21,13 +21,13 @@ Client message:
 
 "This is a common design. It is better than plaintext, but it still has gaps after a database leak."
 
-## Step 2: Password Choices
+## Step 2: Password Types
 
-Show fake user passwords.
+Show password forms rather than individual users.
 
 Client message:
 
-"Some passwords satisfy complexity rules but are predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific passwords while allowing long passphrases."
+"Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long passphrases."
 
 ## Step 3: Database Leak
 
@@ -43,7 +43,7 @@ Show the two-second attack budget chart.
 
 Client message:
 
-"Using the same fake users, same wordlist, and same attack budget, fast storage methods allow many more guesses. The security value of bcrypt and Argon2id is that they change the attacker's cost."
+"Using the same password samples, same wordlist, and same attack budget, fast storage methods allow many more guesses. The security value of bcrypt and Argon2id is that they change the attacker's cost."
 
 ## Step 5: Login Risk
 

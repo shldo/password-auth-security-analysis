@@ -10,12 +10,69 @@ const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
 const chainViews = ["baseline", "choices", "leak", "cracking", "login", "recommendation"];
 const chainLabels = {
   baseline: "Client baseline",
-  choices: "Password choices",
+  choices: "Password types",
   leak: "Database leak",
   cracking: "Offline cracking",
   login: "Login risk",
   recommendation: "Recommendation",
 };
+
+const passwordTypeExamples = [
+  {
+    title: "Complex but common",
+    example: "Password123!",
+    shape: "Dictionary word + number sequence + symbol",
+    riskLabel: "weak_common",
+    complexity: "Accepted",
+    layered: "Rejected",
+    note: "Looks compliant, but it follows one of the most common password patterns.",
+  },
+  {
+    title: "Season and year pattern",
+    example: "Summer2026!",
+    shape: "Season + current year + symbol",
+    riskLabel: "predictable_pattern",
+    complexity: "Accepted",
+    layered: "Rejected",
+    note: "Predictable because attackers often try dates, seasons, and recent years.",
+  },
+  {
+    title: "Context-specific pattern",
+    example: "UNSW2026!",
+    shape: "Organisation keyword + year + symbol",
+    riskLabel: "predictable_pattern",
+    complexity: "Rejected",
+    layered: "Rejected",
+    note: "A targeted attacker can guess school, company, product, or event names.",
+  },
+  {
+    title: "Transformed dictionary word",
+    example: "Tr0ub4dor&3",
+    shape: "Word with character substitutions",
+    riskLabel: "predictable_pattern",
+    complexity: "Accepted",
+    layered: "Rejected",
+    note: "Substituting letters with numbers is common enough to appear in cracking rules.",
+  },
+  {
+    title: "Long passphrase",
+    example: "correct horse battery staple",
+    shape: "Multiple words with length and spacing",
+    riskLabel: "strong_passphrase",
+    complexity: "Rejected",
+    layered: "Accepted",
+    note: "Longer and more memorable, but old complexity rules may reject it for lacking symbols or digits.",
+  },
+  {
+    title: "Random-style passphrase",
+    example: "violet-maple-coffee-27",
+    shape: "Several unrelated words + separator + number",
+    riskLabel: "strong_passphrase",
+    complexity: "Rejected",
+    layered: "Accepted",
+    note: "Combines length with lower predictability while remaining easier to remember.",
+  },
+];
 
 const recommendationItems = [
   {
@@ -71,7 +128,7 @@ async function loadData() {
     }
     state.data = await response.json();
     updateSummaryMetrics();
-    renderActiveView();
+    setActiveView(getHashView(), { updateHash: false });
     qs("#dataset-status").textContent = `Results generated ${state.data.generated_at}`;
   } catch (error) {
     panel.innerHTML = `
@@ -86,6 +143,11 @@ async function loadData() {
   }
 }
 
+function getHashView() {
+  const hashView = window.location.hash.replace("#", "");
+  return chainViews.includes(hashView) ? hashView : "baseline";
+}
+
 function updateSummaryMetrics() {
   const context = state.data.experiment_context;
   const summary = state.data.attack_chain_summary.headline_metrics;
@@ -95,8 +157,11 @@ function updateSummaryMetrics() {
   qs("#metric-mfa").textContent = summary.mfa_blocked_takeovers_under_sha256;
 }
 
-function setActiveView(view) {
+function setActiveView(view, options = { updateHash: true }) {
   state.activeView = view;
+  if (options.updateHash && window.location.hash !== `#${view}`) {
+    window.history.replaceState(null, "", `#${view}`);
+  }
   const activeIndex = chainViews.indexOf(view);
   document.querySelectorAll(".chain-step").forEach((button) => {
     button.classList.toggle("is-active", button.dataset.view === view);
@@ -253,28 +318,32 @@ function renderBaseline() {
 function renderChoices() {
   const composition = getPolicyResult("composition");
   const layered = getPolicyResult("layered");
-  const rows = state.data.users
-    .map((user) => {
-      const compositionDecision = composition.decisions.find((item) => item.username === user.username);
-      const layeredDecision = layered.decisions.find((item) => item.username === user.username);
-      return `
-        <tr>
-          <td>${escapeHtml(user.username)}</td>
-          <td><code>${escapeHtml(user.password)}</code></td>
-          <td>${riskBadge(user.risk_label)}</td>
-          <td>${compositionDecision.accepted ? "Accepted" : "Rejected"}</td>
-          <td>${layeredDecision.accepted ? "Accepted" : "Rejected"}</td>
-        </tr>
-      `;
-    })
+  const typeCards = passwordTypeExamples
+    .map(
+      (item) => `
+        <article class="password-type-card">
+          <div class="password-type-heading">
+            <h3>${escapeHtml(item.title)}</h3>
+            ${riskBadge(item.riskLabel)}
+          </div>
+          <code>${escapeHtml(item.example)}</code>
+          <p><strong>Form:</strong> ${escapeHtml(item.shape)}</p>
+          <div class="policy-pair" aria-label="Policy result comparison">
+            <span><strong>Complexity:</strong> ${escapeHtml(item.complexity)}</span>
+            <span><strong>Layered:</strong> ${escapeHtml(item.layered)}</span>
+          </div>
+          <p class="small-muted">${escapeHtml(item.note)}</p>
+        </article>
+      `,
+    )
     .join("");
 
   return `
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 2</p>
-        <h2>Password choices</h2>
-        <p>Complexity rules can accept predictable passwords and reject memorable passphrases. The layered policy is stricter about common patterns while allowing longer phrases.</p>
+        <h2>Password types</h2>
+        <p>This stage compares password forms so the client can see why "looks complex" and "hard to guess" are different ideas.</p>
         <div class="stack">
           <div class="sub-card">
             <h3>Complexity rule</h3>
@@ -291,19 +360,8 @@ function renderChoices() {
         </div>
       </div>
       <div class="sub-card">
-        <h3>Synthetic password set</h3>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Password</th>
-              <th>Risk label</th>
-              <th>Complexity</th>
-              <th>Layered</th>
-            </tr>
-          </thead>
-          <tbody>${rows}</tbody>
-        </table>
+        <h3>Password form comparison</h3>
+        <div class="password-type-grid">${typeCards}</div>
       </div>
     </div>
   `;
@@ -504,5 +562,10 @@ document.querySelectorAll(".chain-step").forEach((button) => {
 
 qs("#run-chain").addEventListener("click", startSimulation);
 qs("#reset-chain").addEventListener("click", resetSimulation);
+window.addEventListener("hashchange", () => {
+  if (!state.isRunning) {
+    setActiveView(getHashView(), { updateHash: false });
+  }
+});
 
 loadData();
