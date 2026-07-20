@@ -1,0 +1,921 @@
+{
+  "project": "Password Authentication Security Analysis",
+  "generated_at": "2026-07-20 16:20:11",
+  "experiment_context": {
+    "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
+    "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
+    "wordlist_size": 18,
+    "user_count": 10,
+    "attack_budget_seconds_per_method": 2.0,
+    "bcrypt_rounds": 10,
+    "argon2id_parameters": {
+      "time_cost": 3,
+      "memory_cost_kib": 65536,
+      "parallelism": 1
+    }
+  },
+  "users": [
+    {
+      "username": "alice",
+      "password": "Password123!",
+      "profile": "Complex but common",
+      "mfa_enabled": true,
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "ben",
+      "password": "Summer2026!",
+      "profile": "Season and year pattern",
+      "mfa_enabled": false,
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "chen",
+      "password": "qwerty2024!",
+      "profile": "Common base with year",
+      "mfa_enabled": false,
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "diya",
+      "password": "correct horse battery staple",
+      "profile": "Long passphrase",
+      "mfa_enabled": true,
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "eli",
+      "password": "UNSW2026!",
+      "profile": "Context-specific pattern",
+      "mfa_enabled": false,
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "fay",
+      "password": "Tr0ub4dor&3",
+      "profile": "Classic transformed word",
+      "mfa_enabled": false,
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "gio",
+      "password": "violet-maple-coffee-27",
+      "profile": "Random-style passphrase",
+      "mfa_enabled": true,
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "hannah",
+      "password": "letmein!",
+      "profile": "Very common password",
+      "mfa_enabled": false,
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "ian",
+      "password": "AvocadoToast2026!",
+      "profile": "Phrase with current year",
+      "mfa_enabled": true,
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "jin",
+      "password": "river lantern museum orbit",
+      "profile": "Long passphrase",
+      "mfa_enabled": true,
+      "risk_label": "strong_passphrase"
+    }
+  ],
+  "leaked_record_previews": {
+    "plaintext": [
+      {
+        "username": "alice",
+        "leaked_value": "Password123!",
+        "mfa_enabled": true,
+        "profile": "Complex but common"
+      },
+      {
+        "username": "ben",
+        "leaked_value": "Summer2026!",
+        "mfa_enabled": false,
+        "profile": "Season and year pattern"
+      },
+      {
+        "username": "chen",
+        "leaked_value": "qwerty2024!",
+        "mfa_enabled": false,
+        "profile": "Common base with year"
+      },
+      {
+        "username": "diya",
+        "leaked_value": "correct horse battery staple",
+        "mfa_enabled": true,
+        "profile": "Long passphrase"
+      },
+      {
+        "username": "eli",
+        "leaked_value": "UNSW2026!",
+        "mfa_enabled": false,
+        "profile": "Context-specific pattern"
+      }
+    ],
+    "sha256": [
+      {
+        "username": "alice",
+        "leaked_value": "5c51767fb94b8bdaea89f72236250ddbb4...",
+        "mfa_enabled": true,
+        "profile": "Complex but common"
+      },
+      {
+        "username": "ben",
+        "leaked_value": "864446c2a5f48b2a470630827f05abadfa...",
+        "mfa_enabled": false,
+        "profile": "Season and year pattern"
+      },
+      {
+        "username": "chen",
+        "leaked_value": "8b30d11629e424117cfcd7594fb38ca285...",
+        "mfa_enabled": false,
+        "profile": "Common base with year"
+      },
+      {
+        "username": "diya",
+        "leaked_value": "3062d5801930065c36cde5bd0b33627105...",
+        "mfa_enabled": true,
+        "profile": "Long passphrase"
+      },
+      {
+        "username": "eli",
+        "leaked_value": "8ab48a1ae14b773ebb3793b4fc761e0d6c...",
+        "mfa_enabled": false,
+        "profile": "Context-specific pattern"
+      }
+    ],
+    "bcrypt": [
+      {
+        "username": "alice",
+        "leaked_value": "$2b$10$2213BFvsT/CF5Ud11.28se/PL83...",
+        "mfa_enabled": true,
+        "profile": "Complex but common"
+      },
+      {
+        "username": "ben",
+        "leaked_value": "$2b$10$imo0/D4a8E.WvVHVFXM5eue2Gct...",
+        "mfa_enabled": false,
+        "profile": "Season and year pattern"
+      },
+      {
+        "username": "chen",
+        "leaked_value": "$2b$10$Mhy.EU2Eu4aTAuFPrtdb1.JOl.S...",
+        "mfa_enabled": false,
+        "profile": "Common base with year"
+      },
+      {
+        "username": "diya",
+        "leaked_value": "$2b$10$5MEfdHzv7N/uvmoGZUpgdOvnRmE...",
+        "mfa_enabled": true,
+        "profile": "Long passphrase"
+      },
+      {
+        "username": "eli",
+        "leaked_value": "$2b$10$C/bl379IF/X9rksA94bZRuEqbzi...",
+        "mfa_enabled": false,
+        "profile": "Context-specific pattern"
+      }
+    ],
+    "argon2id": [
+      {
+        "username": "alice",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$5tV...",
+        "mfa_enabled": true,
+        "profile": "Complex but common"
+      },
+      {
+        "username": "ben",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$I5p...",
+        "mfa_enabled": false,
+        "profile": "Season and year pattern"
+      },
+      {
+        "username": "chen",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$/yf...",
+        "mfa_enabled": false,
+        "profile": "Common base with year"
+      },
+      {
+        "username": "diya",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Z+j...",
+        "mfa_enabled": true,
+        "profile": "Long passphrase"
+      },
+      {
+        "username": "eli",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$n+i...",
+        "mfa_enabled": false,
+        "profile": "Context-specific pattern"
+      }
+    ]
+  },
+  "storage_results": [
+    {
+      "method": "plaintext",
+      "label": "Plain text",
+      "summary": "Database leak directly exposes the original password.",
+      "security_role": "Failure case used as a baseline.",
+      "attempts": 116,
+      "attack_budget_seconds": 2.0,
+      "budget_exhausted": false,
+      "total_seconds": 0.0001,
+      "time_to_first_crack_seconds": 0.0,
+      "average_verify_ms": 0.0002,
+      "median_verify_ms": 0.0001,
+      "guesses_per_second": 1300448.71,
+      "cracked_accounts": 10,
+      "total_accounts": 10,
+      "cracked_rate": 1.0,
+      "account_takeover_without_mfa": 10,
+      "account_takeover_with_mfa": 5,
+      "mfa_blocked_takeovers": 5,
+      "cracked": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "profile": "Complex but common",
+          "risk_label": "weak_common",
+          "mfa_enabled": true,
+          "attempts_for_user": 2,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 10,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "profile": "Common base with year",
+          "risk_label": "weak_common",
+          "mfa_enabled": false,
+          "attempts_for_user": 5,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 16,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 12,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 14,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 17,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "profile": "Very common password",
+          "risk_label": "weak_common",
+          "mfa_enabled": false,
+          "attempts_for_user": 7,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": true,
+          "attempts_for_user": 15,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 18,
+          "seconds_for_user": 0.0
+        }
+      ]
+    },
+    {
+      "method": "sha256",
+      "label": "Salted SHA-256",
+      "summary": "A fast general-purpose hash. Salt helps, but fast verification still helps offline attackers.",
+      "security_role": "Shows why hash alone is not enough for password storage.",
+      "attempts": 116,
+      "attack_budget_seconds": 2.0,
+      "budget_exhausted": false,
+      "total_seconds": 0.0002,
+      "time_to_first_crack_seconds": 0.0,
+      "average_verify_ms": 0.0012,
+      "median_verify_ms": 0.001,
+      "guesses_per_second": 660216.06,
+      "cracked_accounts": 10,
+      "total_accounts": 10,
+      "cracked_rate": 1.0,
+      "account_takeover_without_mfa": 10,
+      "account_takeover_with_mfa": 5,
+      "mfa_blocked_takeovers": 5,
+      "cracked": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "profile": "Complex but common",
+          "risk_label": "weak_common",
+          "mfa_enabled": true,
+          "attempts_for_user": 2,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 10,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "profile": "Common base with year",
+          "risk_label": "weak_common",
+          "mfa_enabled": false,
+          "attempts_for_user": 5,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 16,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 12,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 14,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 17,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "profile": "Very common password",
+          "risk_label": "weak_common",
+          "mfa_enabled": false,
+          "attempts_for_user": 7,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": true,
+          "attempts_for_user": 15,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 18,
+          "seconds_for_user": 0.0
+        }
+      ]
+    },
+    {
+      "method": "bcrypt",
+      "label": "bcrypt",
+      "summary": "Adaptive password hashing with a cost factor.",
+      "security_role": "Raises offline guessing cost after a database leak.",
+      "attempts": 39,
+      "attack_budget_seconds": 2.0,
+      "budget_exhausted": true,
+      "total_seconds": 2.0287,
+      "time_to_first_crack_seconds": 0.1128,
+      "average_verify_ms": 52.0123,
+      "median_verify_ms": 51.7252,
+      "guesses_per_second": 19.22,
+      "cracked_accounts": 4,
+      "total_accounts": 10,
+      "cracked_rate": 0.4,
+      "account_takeover_without_mfa": 4,
+      "account_takeover_with_mfa": 2,
+      "mfa_blocked_takeovers": 2,
+      "cracked": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "profile": "Complex but common",
+          "risk_label": "weak_common",
+          "mfa_enabled": true,
+          "attempts_for_user": 2,
+          "seconds_for_user": 0.1128
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern",
+          "mfa_enabled": false,
+          "attempts_for_user": 10,
+          "seconds_for_user": 0.5257
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "profile": "Common base with year",
+          "risk_label": "weak_common",
+          "mfa_enabled": false,
+          "attempts_for_user": 5,
+          "seconds_for_user": 0.2625
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase",
+          "mfa_enabled": true,
+          "attempts_for_user": 16,
+          "seconds_for_user": 0.816
+        }
+      ]
+    },
+    {
+      "method": "argon2id",
+      "label": "Argon2id",
+      "summary": "Modern memory-hard password hashing.",
+      "security_role": "Raises CPU and memory cost for offline guessing.",
+      "attempts": 11,
+      "attack_budget_seconds": 2.0,
+      "budget_exhausted": true,
+      "total_seconds": 2.0789,
+      "time_to_first_crack_seconds": 0.4037,
+      "average_verify_ms": 188.9814,
+      "median_verify_ms": 186.1461,
+      "guesses_per_second": 5.29,
+      "cracked_accounts": 1,
+      "total_accounts": 10,
+      "cracked_rate": 0.1,
+      "account_takeover_without_mfa": 1,
+      "account_takeover_with_mfa": 0,
+      "mfa_blocked_takeovers": 1,
+      "cracked": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "profile": "Complex but common",
+          "risk_label": "weak_common",
+          "mfa_enabled": true,
+          "attempts_for_user": 2,
+          "seconds_for_user": 0.4037
+        }
+      ]
+    }
+  ],
+  "policy_results": [
+    {
+      "policy": "composition",
+      "label": "Complexity rule",
+      "description": "At least 8 characters with uppercase, lowercase, digit, and symbol.",
+      "weak_password_rejection_rate": 0.429,
+      "strong_password_acceptance_rate": 0.0,
+      "false_accepts": 4,
+      "false_rejects": 3,
+      "decisions": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Complex but common",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common base with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Very common password",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        }
+      ]
+    },
+    {
+      "policy": "length",
+      "label": "Length-first rule",
+      "description": "At least 14 characters. Allows passphrases.",
+      "weak_password_rejection_rate": 0.857,
+      "strong_password_acceptance_rate": 1.0,
+      "false_accepts": 1,
+      "false_rejects": 0,
+      "decisions": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Complex but common",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common base with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Very common password",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        }
+      ]
+    },
+    {
+      "policy": "blocklist",
+      "label": "Blocklist rule",
+      "description": "At least 8 characters and not common, breached, or context-specific.",
+      "weak_password_rejection_rate": 0.857,
+      "strong_password_acceptance_rate": 1.0,
+      "false_accepts": 1,
+      "false_rejects": 0,
+      "decisions": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Complex but common",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common base with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Very common password",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        }
+      ]
+    },
+    {
+      "policy": "layered",
+      "label": "Layered policy",
+      "description": "At least 12 characters, blocklisted passwords rejected, passphrases allowed.",
+      "weak_password_rejection_rate": 1.0,
+      "strong_password_acceptance_rate": 1.0,
+      "false_accepts": 0,
+      "false_rejects": 0,
+      "decisions": [
+        {
+          "username": "alice",
+          "password": "Password123!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Complex but common",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ben",
+          "password": "Summer2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "chen",
+          "password": "qwerty2024!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Common base with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "diya",
+          "password": "correct horse battery staple",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "eli",
+          "password": "UNSW2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Context-specific pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "fay",
+          "password": "Tr0ub4dor&3",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Classic transformed word",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "gio",
+          "password": "violet-maple-coffee-27",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Random-style passphrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hannah",
+          "password": "letmein!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Very common password",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "ian",
+          "password": "AvocadoToast2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Phrase with current year",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "jin",
+          "password": "river lantern museum orbit",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long passphrase",
+          "risk_label": "strong_passphrase"
+        }
+      ]
+    }
+  ],
+  "attack_chain_summary": {
+    "client_baseline": {
+      "password_policy": "Complexity rule: uppercase, lowercase, number, symbol",
+      "storage": "Salted SHA-256",
+      "mfa": "Optional, not required for all users",
+      "breached_password_check": "Not present"
+    },
+    "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
+    "risk_reduction_story": [
+      "Blocklists and passphrase-friendly rules improve password choice before storage.",
+      "bcrypt or Argon2id increases attacker cost during offline cracking.",
+      "MFA reduces account takeover after a password is cracked.",
+      "Account recovery must be protected because it can bypass the password and MFA path."
+    ],
+    "headline_metrics": {
+      "sha256_guesses_per_second": 660216.06,
+      "argon2id_guesses_per_second": 5.29,
+      "layered_policy_weak_rejection_rate": 1.0,
+      "mfa_blocked_takeovers_under_sha256": 5
+    }
+  }
+}

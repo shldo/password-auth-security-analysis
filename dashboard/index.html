@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Password Authentication Security Analysis</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">COMP6841 security engineering project</p>
+          <h1>Password Authentication Risk Dashboard</h1>
+        </div>
+        <div class="status-pill" id="dataset-status">Loading experiment results</div>
+      </header>
+
+      <section class="metric-grid" aria-label="Experiment summary">
+        <article class="metric-card">
+          <span>Attack budget</span>
+          <strong id="metric-budget">--</strong>
+          <small>per storage method</small>
+        </article>
+        <article class="metric-card">
+          <span>Synthetic users</span>
+          <strong id="metric-users">--</strong>
+          <small>fake accounts only</small>
+        </article>
+        <article class="metric-card">
+          <span>Wordlist size</span>
+          <strong id="metric-wordlist">--</strong>
+          <small>controlled local test</small>
+        </article>
+        <article class="metric-card">
+          <span>MFA blocks</span>
+          <strong id="metric-mfa">--</strong>
+          <small>under SHA-256 leak path</small>
+        </article>
+      </section>
+
+      <nav class="chain-nav" aria-label="Attack chain">
+        <button class="chain-step is-active" type="button" data-view="baseline">
+          <span>1</span>
+          Client baseline
+        </button>
+        <button class="chain-step" type="button" data-view="choices">
+          <span>2</span>
+          Password choices
+        </button>
+        <button class="chain-step" type="button" data-view="leak">
+          <span>3</span>
+          Database leak
+        </button>
+        <button class="chain-step" type="button" data-view="cracking">
+          <span>4</span>
+          Offline cracking
+        </button>
+        <button class="chain-step" type="button" data-view="login">
+          <span>5</span>
+          Login risk
+        </button>
+        <button class="chain-step" type="button" data-view="recommendation">
+          <span>6</span>
+          Recommendation
+        </button>
+      </nav>
+
+      <section class="view-card" id="view-panel" aria-live="polite"></section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
