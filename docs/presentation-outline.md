@@ -30,7 +30,7 @@ Use dashboard screenshots:
 
 Password security should be layered:
 
-- long passphrases
+- long no-space password phrases
 - block common or breached passwords
 - Argon2id or bcrypt
 - MFA

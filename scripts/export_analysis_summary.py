@@ -80,7 +80,7 @@ Generated from `results/analysis_results.json`.
 2. Salted SHA-256 still allowed all {sha256["total_accounts"]} synthetic accounts to be cracked within the fixed attack budget because each guess is cheap.
 3. Argon2id reduced the cracked accounts to {argon2id["cracked_accounts"]}/{argon2id["total_accounts"]} under the same demonstration budget by increasing verification cost.
 4. MFA changed the login outcome after passwords were known: under the SHA-256 path, {sha256["mfa_blocked_takeovers"]} account takeovers were blocked or challenged.
-5. The layered password policy rejected {round(layered["weak_password_rejection_rate"] * 100)}% of weak or predictable passwords while accepting {round(layered["strong_password_acceptance_rate"] * 100)}% of strong passphrases in the synthetic dataset.
+5. The layered password policy rejected {round(layered["weak_password_rejection_rate"] * 100)}% of weak or predictable passwords while accepting {round(layered["strong_password_acceptance_rate"] * 100)}% of strong long-password examples in the synthetic dataset.
 
 ## Interpretation
 

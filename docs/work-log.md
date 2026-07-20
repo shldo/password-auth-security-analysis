@@ -14,6 +14,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 1.0h | Added report-ready result summary generation. | `scripts/export_analysis_summary.py`, `results/analysis_summary.md` |
 | 2026-07-20 | 1.0h | Fixed dashboard layout issue and added a start button for the attack-chain demo. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
 | 2026-07-20 | 0.5h | Reworked the password choice screen into password type comparison for clearer presentation logic. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
+| 2026-07-20 | 0.5h | Replaced spaced passphrase examples with no-space long password phrases for more realistic site compatibility. | `data/sample_passwords.csv`, `data/attack_wordlist.txt`, `dashboard/app.js` |
 
 ## Planned Time Budget
 

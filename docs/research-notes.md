@@ -8,6 +8,8 @@ Source: https://pages.nist.gov/800-63-4/sp800-63b/authenticators/
 
 NIST's current password authenticator guidance supports the project's central argument: password policy should not be reduced to character-composition rules. It requires minimum password lengths, recommends allowing long passwords and spaces, disallows extra composition requirements, and requires checking prospective passwords against a blocklist of commonly used, expected, or compromised values.
 
+For the dashboard demonstration, the strong examples avoid spaces because many real legacy systems still reject them. The project therefore demonstrates the passphrase idea using long joined-word passwords such as `RiverLanternMuseumOrbit`.
+
 Relevance to this project:
 
 - The dashboard compares a traditional complexity rule with a layered policy.

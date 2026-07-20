@@ -15,9 +15,9 @@ Generated from `results/analysis_results.json`.
 | Storage method | Cracked within budget | Guesses/sec | Average verify time | Takeover without MFA | Takeover with MFA state |
 |---|---:|---:|---:|---:|---:|
 | Plain text | 10/10 | Direct exposure | 0 ms | 10 | 5 |
-| Salted SHA-256 | 10/10 | 617,678.27 | 0.00 ms | 10 | 5 |
-| bcrypt | 4/10 | 18.91 | 52.89 ms | 4 | 2 |
-| Argon2id | 1/10 | 5.21 | 192.00 ms | 1 | 0 |
+| Salted SHA-256 | 10/10 | 522,287.11 | 0.00 ms | 10 | 5 |
+| bcrypt | 4/10 | 18.86 | 53.02 ms | 4 | 2 |
+| Argon2id | 1/10 | 5.31 | 188.33 ms | 1 | 0 |
 
 ## Password Policy Results
 
@@ -34,7 +34,7 @@ Generated from `results/analysis_results.json`.
 2. Salted SHA-256 still allowed all 10 synthetic accounts to be cracked within the fixed attack budget because each guess is cheap.
 3. Argon2id reduced the cracked accounts to 1/10 under the same demonstration budget by increasing verification cost.
 4. MFA changed the login outcome after passwords were known: under the SHA-256 path, 5 account takeovers were blocked or challenged.
-5. The layered password policy rejected 100% of weak or predictable passwords while accepting 100% of strong passphrases in the synthetic dataset.
+5. The layered password policy rejected 100% of weak or predictable passwords while accepting 100% of strong long-password examples in the synthetic dataset.
 
 ## Interpretation
 

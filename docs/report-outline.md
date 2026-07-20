@@ -52,7 +52,7 @@
 
 ## 8. Recommendation
 
-- Support long passphrases.
+- Support long no-space password phrases where spaces are not accepted.
 - Block common, breached, and context-specific passwords.
 - Store passwords with Argon2id or bcrypt, not plaintext or fast general-purpose hashes.
 - Use MFA for high-risk accounts and sensitive actions.

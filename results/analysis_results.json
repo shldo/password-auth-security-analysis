@@ -1,6 +1,6 @@
 {
   "project": "Password Authentication Security Analysis",
-  "generated_at": "2026-07-20 19:32:17",
+  "generated_at": "2026-07-20 21:53:11",
   "experiment_context": {
     "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
@@ -38,8 +38,8 @@
     },
     {
       "username": "diya",
-      "password": "correct horse battery staple",
-      "profile": "Long passphrase",
+      "password": "RiverLanternMuseumOrbit",
+      "profile": "Long no-space passphrase",
       "mfa_enabled": true,
       "risk_label": "strong_passphrase"
     },
@@ -59,8 +59,8 @@
     },
     {
       "username": "gio",
-      "password": "violet-maple-coffee-27",
-      "profile": "Random-style passphrase",
+      "password": "VioletMapleCoffee27",
+      "profile": "Random-style no-space passphrase",
       "mfa_enabled": true,
       "risk_label": "strong_passphrase"
     },
@@ -80,8 +80,8 @@
     },
     {
       "username": "jin",
-      "password": "river lantern museum orbit",
-      "profile": "Long passphrase",
+      "password": "HarborSignalPaperMoon",
+      "profile": "Long no-space passphrase",
       "mfa_enabled": true,
       "risk_label": "strong_passphrase"
     }
@@ -108,9 +108,9 @@
       },
       {
         "username": "diya",
-        "leaked_value": "correct horse battery staple",
+        "leaked_value": "RiverLanternMuseumOrbit",
         "mfa_enabled": true,
-        "profile": "Long passphrase"
+        "profile": "Long no-space passphrase"
       },
       {
         "username": "eli",
@@ -140,9 +140,9 @@
       },
       {
         "username": "diya",
-        "leaked_value": "3062d5801930065c36cde5bd0b33627105...",
+        "leaked_value": "5817fe388febd20656f96e771c492ddcaa...",
         "mfa_enabled": true,
-        "profile": "Long passphrase"
+        "profile": "Long no-space passphrase"
       },
       {
         "username": "eli",
@@ -154,31 +154,31 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$3IwXh0W.1dDapfHY03H5B.bPvpq...",
+        "leaked_value": "$2b$10$86vluia3ghkye8pxc7Jki.jnb5l...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$nRA/Ix5mxa/EyuG9rDMpXeLkU2R...",
+        "leaked_value": "$2b$10$OskkY1csSYyfcdja7VDR6uPlSEP...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$hb2L9oPQYtOXv.nEIjSdKepXNtW...",
+        "leaked_value": "$2b$10$hjZKb5UygzEbC9aNycHdiOv.Ox6...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$EGO0vtRj5yzgUTF.KTEt5OLtUQF...",
+        "leaked_value": "$2b$10$wkkpPPOcxwueZ4xOPlCu1O/MyA8...",
         "mfa_enabled": true,
-        "profile": "Long passphrase"
+        "profile": "Long no-space passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$xk5ft9licd3c7BETPij2pue3D2J...",
+        "leaked_value": "$2b$10$ZD5nXcNaUcnJIHsetMAbg.y9NvU...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -186,31 +186,31 @@
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Dmk...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$VXr...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Y7U...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$6RQ...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$bYz...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$yOk...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$AZl...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$eMM...",
         "mfa_enabled": true,
-        "profile": "Long passphrase"
+        "profile": "Long no-space passphrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$V4w...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$nxe...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -266,8 +266,8 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
-          "profile": "Long passphrase",
+          "password": "RiverLanternMuseumOrbit",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 0,
@@ -293,8 +293,8 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
-          "profile": "Random-style passphrase",
+          "password": "VioletMapleCoffee27",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 0,
@@ -320,8 +320,8 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
-          "profile": "Long passphrase",
+          "password": "HarborSignalPaperMoon",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 0,
@@ -339,9 +339,9 @@
       "budget_exhausted": false,
       "total_seconds": 0.0002,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0011,
-      "median_verify_ms": 0.0008,
-      "guesses_per_second": 617678.27,
+      "average_verify_ms": 0.0013,
+      "median_verify_ms": 0.001,
+      "guesses_per_second": 522287.11,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
@@ -378,8 +378,8 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
-          "profile": "Long passphrase",
+          "password": "RiverLanternMuseumOrbit",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 16,
@@ -405,8 +405,8 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
-          "profile": "Random-style passphrase",
+          "password": "VioletMapleCoffee27",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 17,
@@ -432,8 +432,8 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
-          "profile": "Long passphrase",
+          "password": "HarborSignalPaperMoon",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 18,
@@ -449,11 +449,11 @@
       "attempts": 38,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0098,
-      "time_to_first_crack_seconds": 0.1043,
-      "average_verify_ms": 52.8854,
-      "median_verify_ms": 52.6133,
-      "guesses_per_second": 18.91,
+      "total_seconds": 2.0148,
+      "time_to_first_crack_seconds": 0.11,
+      "average_verify_ms": 53.0165,
+      "median_verify_ms": 52.7979,
+      "guesses_per_second": 18.86,
       "cracked_accounts": 4,
       "total_accounts": 10,
       "cracked_rate": 0.4,
@@ -468,7 +468,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.1043
+          "seconds_for_user": 0.11
         },
         {
           "username": "ben",
@@ -477,7 +477,7 @@
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
           "attempts_for_user": 10,
-          "seconds_for_user": 0.5384
+          "seconds_for_user": 0.5296
         },
         {
           "username": "chen",
@@ -486,16 +486,16 @@
           "risk_label": "weak_common",
           "mfa_enabled": false,
           "attempts_for_user": 5,
-          "seconds_for_user": 0.2669
+          "seconds_for_user": 0.2686
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
-          "profile": "Long passphrase",
+          "password": "RiverLanternMuseumOrbit",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 16,
-          "seconds_for_user": 0.8232
+          "seconds_for_user": 0.8464
         }
       ]
     },
@@ -507,11 +507,11 @@
       "attempts": 11,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.1121,
-      "time_to_first_crack_seconds": 0.429,
-      "average_verify_ms": 192.0014,
-      "median_verify_ms": 187.799,
-      "guesses_per_second": 5.21,
+      "total_seconds": 2.0717,
+      "time_to_first_crack_seconds": 0.3714,
+      "average_verify_ms": 188.3281,
+      "median_verify_ms": 188.8872,
+      "guesses_per_second": 5.31,
       "cracked_accounts": 1,
       "total_accounts": 10,
       "cracked_rate": 0.1,
@@ -526,7 +526,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.429
+          "seconds_for_user": 0.3714
         }
       ]
     }
@@ -567,10 +567,10 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
+          "password": "RiverLanternMuseumOrbit",
           "accepted": false,
           "reason": "requires length, uppercase, lowercase, digit, and symbol",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -591,10 +591,10 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
+          "password": "VioletMapleCoffee27",
           "accepted": false,
           "reason": "requires length, uppercase, lowercase, digit, and symbol",
-          "profile": "Random-style passphrase",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -615,10 +615,10 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
+          "password": "HarborSignalPaperMoon",
           "accepted": false,
           "reason": "requires length, uppercase, lowercase, digit, and symbol",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         }
       ]
@@ -626,7 +626,7 @@
     {
       "policy": "length",
       "label": "Length-first rule",
-      "description": "At least 14 characters. Allows passphrases.",
+      "description": "At least 14 characters. Allows long no-space phrases.",
       "weak_password_rejection_rate": 0.857,
       "strong_password_acceptance_rate": 1.0,
       "false_accepts": 1,
@@ -658,10 +658,10 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
+          "password": "RiverLanternMuseumOrbit",
           "accepted": true,
           "reason": "requires at least 14 characters",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -682,10 +682,10 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
+          "password": "VioletMapleCoffee27",
           "accepted": true,
           "reason": "requires at least 14 characters",
-          "profile": "Random-style passphrase",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -706,10 +706,10 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
+          "password": "HarborSignalPaperMoon",
           "accepted": true,
           "reason": "requires at least 14 characters",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         }
       ]
@@ -749,10 +749,10 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
+          "password": "RiverLanternMuseumOrbit",
           "accepted": true,
           "reason": "passes minimum length and blocklist",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -773,10 +773,10 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
+          "password": "VioletMapleCoffee27",
           "accepted": true,
           "reason": "passes minimum length and blocklist",
-          "profile": "Random-style passphrase",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -797,10 +797,10 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
+          "password": "HarborSignalPaperMoon",
           "accepted": true,
           "reason": "passes minimum length and blocklist",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         }
       ]
@@ -808,7 +808,7 @@
     {
       "policy": "layered",
       "label": "Layered policy",
-      "description": "At least 12 characters, blocklisted passwords rejected, passphrases allowed.",
+      "description": "At least 12 characters, blocklisted passwords rejected, long no-space phrases allowed.",
       "weak_password_rejection_rate": 1.0,
       "strong_password_acceptance_rate": 1.0,
       "false_accepts": 0,
@@ -840,10 +840,10 @@
         },
         {
           "username": "diya",
-          "password": "correct horse battery staple",
+          "password": "RiverLanternMuseumOrbit",
           "accepted": true,
           "reason": "long enough and not blocklisted",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -864,10 +864,10 @@
         },
         {
           "username": "gio",
-          "password": "violet-maple-coffee-27",
+          "password": "VioletMapleCoffee27",
           "accepted": true,
           "reason": "long enough and not blocklisted",
-          "profile": "Random-style passphrase",
+          "profile": "Random-style no-space passphrase",
           "risk_label": "strong_passphrase"
         },
         {
@@ -888,10 +888,10 @@
         },
         {
           "username": "jin",
-          "password": "river lantern museum orbit",
+          "password": "HarborSignalPaperMoon",
           "accepted": true,
           "reason": "long enough and not blocklisted",
-          "profile": "Long passphrase",
+          "profile": "Long no-space passphrase",
           "risk_label": "strong_passphrase"
         }
       ]
@@ -906,14 +906,14 @@
     },
     "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
     "risk_reduction_story": [
-      "Blocklists and passphrase-friendly rules improve password choice before storage.",
+      "Blocklists and long-password-friendly rules improve password choice before storage.",
       "bcrypt or Argon2id increases attacker cost during offline cracking.",
       "MFA reduces account takeover after a password is cracked.",
       "Account recovery must be protected because it can bypass the password and MFA path."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 617678.27,
-      "argon2id_guesses_per_second": 5.21,
+      "sha256_guesses_per_second": 522287.11,
+      "argon2id_guesses_per_second": 5.31,
       "layered_policy_weak_rejection_rate": 1.0,
       "mfa_blocked_takeovers_under_sha256": 5
     }

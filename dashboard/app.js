@@ -55,22 +55,22 @@ const passwordTypeExamples = [
     note: "Substituting letters with numbers is common enough to appear in cracking rules.",
   },
   {
-    title: "Long passphrase",
-    example: "correct horse battery staple",
-    shape: "Multiple words with length and spacing",
+    title: "Long no-space phrase",
+    example: "RiverLanternMuseumOrbit",
+    shape: "Multiple words joined without spaces",
     riskLabel: "strong_passphrase",
     complexity: "Rejected",
     layered: "Accepted",
-    note: "Longer and more memorable, but old complexity rules may reject it for lacking symbols or digits.",
+    note: "Longer and more memorable, but old complexity rules may reject it for lacking digits or symbols.",
   },
   {
-    title: "Random-style passphrase",
-    example: "violet-maple-coffee-27",
-    shape: "Several unrelated words + separator + number",
+    title: "No-space phrase with number",
+    example: "VioletMapleCoffee27",
+    shape: "Several words joined together + number",
     riskLabel: "strong_passphrase",
     complexity: "Rejected",
     layered: "Accepted",
-    note: "Combines length with lower predictability while remaining easier to remember.",
+    note: "Combines length with lower predictability without relying on spaces.",
   },
 ];
 
@@ -80,8 +80,8 @@ const recommendationItems = [
     body: "Use Argon2id or bcrypt instead of plaintext or fast general-purpose hashes. This raises attacker cost after a database leak.",
   },
   {
-    title: "Use blocklists and passphrases",
-    body: "Reject common, breached, and context-specific passwords while allowing long passphrases that users can remember.",
+    title: "Use blocklists and long passwords",
+    body: "Reject common, breached, and context-specific passwords while allowing long no-space phrases that users can remember.",
   },
   {
     title: "Require MFA for risky accounts",
@@ -279,7 +279,7 @@ function methodButtons() {
 
 function riskBadge(label) {
   if (label === "strong_passphrase") {
-    return '<span class="risk-badge low">strong passphrase</span>';
+    return '<span class="risk-badge low">long phrase</span>';
   }
   if (label === "predictable_pattern") {
     return '<span class="risk-badge medium">predictable</span>';

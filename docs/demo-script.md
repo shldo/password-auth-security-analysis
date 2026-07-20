@@ -27,7 +27,7 @@ Show password forms rather than individual users.
 
 Client message:
 
-"Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long passphrases."
+"Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long no-space phrases."
 
 ## Step 3: Database Leak
 
@@ -59,7 +59,7 @@ Show final recommendation.
 
 Client message:
 
-"The recommendation is a layered authentication design: passphrase-friendly policy, blocklists, Argon2id or bcrypt, MFA, and secure recovery. Password complexity alone is not enough."
+"The recommendation is a layered authentication design: long-password-friendly policy, blocklists, Argon2id or bcrypt, MFA, and secure recovery. Password complexity alone is not enough."
 
 ## Ethical Boundary
 

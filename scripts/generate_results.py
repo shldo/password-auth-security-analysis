@@ -330,7 +330,7 @@ POLICY_DEFINITIONS: dict[str, dict] = {
     },
     "length": {
         "label": "Length-first rule",
-        "description": "At least 14 characters. Allows passphrases.",
+        "description": "At least 14 characters. Allows long no-space phrases.",
     },
     "blocklist": {
         "label": "Blocklist rule",
@@ -338,7 +338,7 @@ POLICY_DEFINITIONS: dict[str, dict] = {
     },
     "layered": {
         "label": "Layered policy",
-        "description": "At least 12 characters, blocklisted passwords rejected, passphrases allowed.",
+        "description": "At least 12 characters, blocklisted passwords rejected, long no-space phrases allowed.",
     },
 }
 
@@ -444,7 +444,7 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
         },
         "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
         "risk_reduction_story": [
-            "Blocklists and passphrase-friendly rules improve password choice before storage.",
+            "Blocklists and long-password-friendly rules improve password choice before storage.",
             "bcrypt or Argon2id increases attacker cost during offline cracking.",
             "MFA reduces account takeover after a password is cracked.",
             "Account recovery must be protected because it can bypass the password and MFA path.",
