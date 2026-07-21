@@ -34,7 +34,7 @@
 - Create fake users and fake passwords.
 - Store the same passwords using plaintext, salted SHA-256, bcrypt, and Argon2id.
 - Run the same wordlist against each method.
-- Measure cracking success rate, time to first crack, average verification time, and account takeover rate.
+- Measure cracking success rate, time to first crack, average verification time, password-only takeover count, and second-factor challenge count.
 - Compare password policy rules using the same password set.
 
 ## 6. Implementation
@@ -47,7 +47,7 @@
 
 - Which storage methods exposed passwords fastest?
 - Which users were cracked under each method?
-- How did MFA change account takeover risk?
+- How did the MFA scenario model change password-only takeover risk?
 - How was the MFA risk model defined, and what does it not simulate?
 - Why is MFA evaluated after cracking rather than during password-type analysis?
 - Which password policies rejected weak or predictable passwords?
@@ -71,7 +71,7 @@
 ## 10. Conclusion
 
 - Password complexity alone is a weak security objective.
-- A layered authentication design changes attacker cost and reduces account takeover risk.
+- A layered authentication design changes attacker cost and reduces password-only account takeover risk.
 
 ## References
 

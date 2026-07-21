@@ -1,12 +1,18 @@
-# MFA Risk Model
+# MFA Scenario Model
 
-This project does not implement a real MFA system such as TOTP, SMS OTP, push approval, or WebAuthn. Instead, it uses a simple deterministic risk model to show how MFA changes account takeover after a password has already been cracked.
+This project does not implement a real MFA system such as TOTP, SMS OTP, push approval, or WebAuthn. Instead, it uses a scenario model to show where MFA sits in the authentication attack chain after a password has already been cracked.
 
-## Why a Model Is Enough
+## What Is Measured
 
-The project question is about authentication risk after a database leak. The technical experiment already measures whether passwords are exposed or cracked. MFA belongs to the next stage: whether a known password is enough to complete login.
+- Whether passwords are directly exposed or cracked from leaked records.
+- How storage method changes offline guessing cost.
+- Which synthetic accounts have MFA enabled in the scenario.
 
-For this project, a model is appropriate because the aim is to compare risk outcomes, not to build a production login service.
+## What Is Modeled
+
+The dashboard does not know whether a real MFA challenge would be bypassed. It only models whether the password alone is enough to complete login.
+
+For this project, a model is appropriate because the aim is to compare risk outcomes in a controlled case study, not to build or attack a production login service.
 
 ## Inputs
 
@@ -19,23 +25,24 @@ For this project, a model is appropriate because the aim is to compare risk outc
 ## Rule
 
 ```text
-cracked password + MFA off = account takeover
-cracked password + MFA on = blocked or challenged
+cracked password + MFA off = direct password-only account takeover
+cracked password + MFA on = second factor required
 ```
 
 ## Outputs
 
 - Cracked passwords
-- Account takeovers
-- MFA blocked/challenged logins
+- Direct password-only account takeovers
+- Logins that reach a second-factor challenge
+- MFA bypass risk left as an explicit limitation
 
 ## Scenarios
 
 | Scenario | Meaning | Expected effect |
 |---|---|---|
-| MFA off | No account has MFA protection | Every cracked password becomes account takeover |
-| Current mixed state | Some sample accounts have MFA and some do not | Only accounts without MFA are directly taken over |
-| MFA required | Every account has MFA protection | Cracked passwords do not directly become account takeover |
+| MFA off | No account has MFA protection | Every cracked password is enough for password-only takeover |
+| Current mixed state | Some sample accounts have MFA and some do not | Only accounts without MFA are directly taken over in the model |
+| MFA required | Every account has MFA protection | Every cracked-password login reaches a second-factor challenge |
 
 ## Limitations
 

@@ -23,14 +23,15 @@ def main() -> None:
     storage_rows = []
     for result in data["storage_results"]:
         storage_rows.append(
-            "| {label} | {cracked}/{total} | {gps} | {verify} | {takeover_no_mfa} | {takeover_with_mfa} |".format(
+            "| {label} | {cracked}/{total} | {gps} | {verify} | {direct_no_mfa} | {direct_current_mfa} | {second_factor} |".format(
                 label=result["label"],
                 cracked=result["cracked_accounts"],
                 total=result["total_accounts"],
                 gps=fmt_number(result["guesses_per_second"]),
                 verify=fmt_number(result["average_verify_ms"], " ms"),
-                takeover_no_mfa=result["account_takeover_without_mfa"],
-                takeover_with_mfa=result["account_takeover_with_mfa"],
+                direct_no_mfa=result["direct_takeover_without_mfa"],
+                direct_current_mfa=result["direct_takeover_current_mfa_state"],
+                second_factor=result["second_factor_challenges_current_state"],
             )
         )
 
@@ -64,8 +65,8 @@ Generated from `results/analysis_results.json`.
 
 ## Storage Method Results
 
-| Storage method | Cracked within budget | Guesses/sec | Average verify time | Takeover without MFA | Takeover with MFA state |
-|---|---:|---:|---:|---:|---:|
+| Storage method | Cracked within budget | Guesses/sec | Average verify time | Password-only takeover if MFA off | Password-only takeover in current MFA scenario | Second-factor challenges in current MFA scenario |
+|---|---:|---:|---:|---:|---:|---:|
 {chr(10).join(storage_rows)}
 
 ## Password Policy Results
@@ -79,7 +80,7 @@ Generated from `results/analysis_results.json`.
 1. Plaintext storage is a direct exposure failure rather than a cracking problem.
 2. Salted SHA-256 still allowed all {sha256["total_accounts"]} synthetic accounts to be cracked within the fixed attack budget because each guess is cheap.
 3. Argon2id reduced the cracked accounts to {argon2id["cracked_accounts"]}/{argon2id["total_accounts"]} under the same demonstration budget by increasing verification cost.
-4. MFA changed the login outcome after passwords were known: under the SHA-256 path, {sha256["mfa_blocked_takeovers"]} account takeovers were blocked or challenged.
+4. MFA is modeled after cracking, not measured as a real implementation: under the SHA-256 path, {sha256["second_factor_challenges_current_state"]} cracked-password logins would require a second factor in the current scenario, while bypass risk remains outside the experiment.
 5. The layered password policy rejected {round(layered["weak_password_rejection_rate"] * 100)}% of weak or predictable passwords while accepting {round(layered["strong_password_acceptance_rate"] * 100)}% of strong long-password examples in the synthetic dataset.
 
 ## Interpretation

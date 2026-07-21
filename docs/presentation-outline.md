@@ -15,7 +15,7 @@ System assessment -> password types -> database leak -> offline cracking -> MFA 
 - Same synthetic password samples.
 - Same wordlist.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
-- Metrics: cracked rate, verification time, time to first crack, account takeover rate.
+- Metrics: cracked rate, verification time, time to first crack, direct password-only takeover count, and second-factor challenge count.
 
 ## Slide 4: Results
 
@@ -24,7 +24,7 @@ Use dashboard screenshots:
 - Plaintext fails immediately.
 - Fast hash is much easier to test offline.
 - bcrypt and Argon2id increase attacker cost.
-- MFA risk-model controls show how account takeover changes when MFA is off, mixed, or required.
+- MFA scenario controls show how password-only takeover changes when MFA is off, mixed, or required.
 
 ## Slide 5: Final Assessment
 

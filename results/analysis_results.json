@@ -1,6 +1,6 @@
 {
   "project": "Password Authentication Security Analysis",
-  "generated_at": "2026-07-21 13:02:51",
+  "generated_at": "2026-07-21 13:12:42",
   "experiment_context": {
     "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
@@ -154,31 +154,31 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$Mz6i4obrRCKIjRBgnhDuueiyqJa...",
+        "leaked_value": "$2b$10$ydkyiRwCB3BRMFDu32cPpuEu6sO...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$GVjgRN2TwGVbsg1Jb7UREOLuaby...",
+        "leaked_value": "$2b$10$1Ctw6f8CTQej9j7DUtwTvuDMLlu...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$MFWfKE74sHoOA/sZPyPucu4gzMz...",
+        "leaked_value": "$2b$10$5MQybXt9k3xHbSrUYOz.QunAQza...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$WOQY/bvQJqMlbFkYN.P/be0AC2h...",
+        "leaked_value": "$2b$10$46Jm.L8u.VnXfx9bWHVP3eEtzRG...",
         "mfa_enabled": true,
         "profile": "Long password phrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$gJnqd1D5xdlREvQv/EI.PuJ9M6/...",
+        "leaked_value": "$2b$10$ekJB5PdpD.2i48G6wR/Ok.Vpju3...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -186,31 +186,31 @@
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$pI3...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$amF...",
         "mfa_enabled": true,
         "profile": "Complex but common"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$C1l...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$daG...",
         "mfa_enabled": false,
         "profile": "Season and year pattern"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$KhC...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$X/I...",
         "mfa_enabled": false,
         "profile": "Common base with year"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$ab+...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Z1H...",
         "mfa_enabled": true,
         "profile": "Long password phrase"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$uu+...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$9wy...",
         "mfa_enabled": false,
         "profile": "Context-specific pattern"
       }
@@ -233,9 +233,9 @@
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
-      "account_takeover_without_mfa": 10,
-      "account_takeover_with_mfa": 5,
-      "mfa_blocked_takeovers": 5,
+      "direct_takeover_without_mfa": 10,
+      "direct_takeover_current_mfa_state": 5,
+      "second_factor_challenges_current_state": 5,
       "cracked": [
         {
           "username": "alice",
@@ -337,17 +337,17 @@
       "attempts": 116,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": false,
-      "total_seconds": 0.0002,
+      "total_seconds": 0.0003,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0012,
-      "median_verify_ms": 0.0009,
-      "guesses_per_second": 582329.31,
+      "average_verify_ms": 0.0015,
+      "median_verify_ms": 0.0011,
+      "guesses_per_second": 454011.8,
       "cracked_accounts": 10,
       "total_accounts": 10,
       "cracked_rate": 1.0,
-      "account_takeover_without_mfa": 10,
-      "account_takeover_with_mfa": 5,
-      "mfa_blocked_takeovers": 5,
+      "direct_takeover_without_mfa": 10,
+      "direct_takeover_current_mfa_state": 5,
+      "second_factor_challenges_current_state": 5,
       "cracked": [
         {
           "username": "alice",
@@ -449,17 +449,17 @@
       "attempts": 39,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0007,
-      "time_to_first_crack_seconds": 0.1008,
-      "average_verify_ms": 51.2952,
-      "median_verify_ms": 50.9667,
-      "guesses_per_second": 19.49,
+      "total_seconds": 2.0052,
+      "time_to_first_crack_seconds": 0.1051,
+      "average_verify_ms": 51.4111,
+      "median_verify_ms": 50.8787,
+      "guesses_per_second": 19.45,
       "cracked_accounts": 4,
       "total_accounts": 10,
       "cracked_rate": 0.4,
-      "account_takeover_without_mfa": 4,
-      "account_takeover_with_mfa": 2,
-      "mfa_blocked_takeovers": 2,
+      "direct_takeover_without_mfa": 4,
+      "direct_takeover_current_mfa_state": 2,
+      "second_factor_challenges_current_state": 2,
       "cracked": [
         {
           "username": "alice",
@@ -468,7 +468,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.1008
+          "seconds_for_user": 0.1051
         },
         {
           "username": "ben",
@@ -477,7 +477,7 @@
           "risk_label": "predictable_pattern",
           "mfa_enabled": false,
           "attempts_for_user": 10,
-          "seconds_for_user": 0.5132
+          "seconds_for_user": 0.5135
         },
         {
           "username": "chen",
@@ -486,7 +486,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": false,
           "attempts_for_user": 5,
-          "seconds_for_user": 0.2553
+          "seconds_for_user": 0.2598
         },
         {
           "username": "diya",
@@ -495,7 +495,7 @@
           "risk_label": "strong_passphrase",
           "mfa_enabled": true,
           "attempts_for_user": 16,
-          "seconds_for_user": 0.8249
+          "seconds_for_user": 0.8201
         }
       ]
     },
@@ -504,20 +504,20 @@
       "label": "Argon2id",
       "summary": "Modern memory-hard password hashing.",
       "security_role": "Raises CPU and memory cost for offline guessing.",
-      "attempts": 12,
+      "attempts": 11,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.1765,
-      "time_to_first_crack_seconds": 0.3933,
-      "average_verify_ms": 181.3655,
-      "median_verify_ms": 178.9058,
-      "guesses_per_second": 5.51,
-      "cracked_accounts": 2,
+      "total_seconds": 2.0833,
+      "time_to_first_crack_seconds": 0.4037,
+      "average_verify_ms": 189.3805,
+      "median_verify_ms": 186.2818,
+      "guesses_per_second": 5.28,
+      "cracked_accounts": 1,
       "total_accounts": 10,
-      "cracked_rate": 0.2,
-      "account_takeover_without_mfa": 2,
-      "account_takeover_with_mfa": 1,
-      "mfa_blocked_takeovers": 1,
+      "cracked_rate": 0.1,
+      "direct_takeover_without_mfa": 1,
+      "direct_takeover_current_mfa_state": 0,
+      "second_factor_challenges_current_state": 1,
       "cracked": [
         {
           "username": "alice",
@@ -526,16 +526,7 @@
           "risk_label": "weak_common",
           "mfa_enabled": true,
           "attempts_for_user": 2,
-          "seconds_for_user": 0.3933
-        },
-        {
-          "username": "ben",
-          "password": "Summer2026!",
-          "profile": "Season and year pattern",
-          "risk_label": "predictable_pattern",
-          "mfa_enabled": false,
-          "attempts_for_user": 10,
-          "seconds_for_user": 1.7832
+          "seconds_for_user": 0.4037
         }
       ]
     }
@@ -917,14 +908,14 @@
     "risk_reduction_story": [
       "Blocklists and long-password-friendly rules improve password choice before storage.",
       "bcrypt or Argon2id increases attacker cost during offline cracking.",
-      "MFA reduces account takeover after a password is cracked.",
+      "MFA adds a second-factor gate after a password is cracked, but bypass risk is outside this model.",
       "Account recovery must be protected because it can bypass the password and MFA path."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 582329.31,
-      "argon2id_guesses_per_second": 5.51,
+      "sha256_guesses_per_second": 454011.8,
+      "argon2id_guesses_per_second": 5.28,
       "layered_policy_weak_rejection_rate": 1.0,
-      "mfa_blocked_takeovers_under_sha256": 5
+      "second_factor_challenges_under_sha256": 5
     }
   }
 }

@@ -12,17 +12,17 @@ const mfaScenarios = [
   {
     id: "off",
     label: "MFA off",
-    description: "Every cracked password can be used directly.",
+    description: "Assumption: no second factor exists, so a known password is enough for direct login.",
   },
   {
     id: "current",
     label: "Current mixed state",
-    description: "Some sample accounts have MFA enabled and some do not.",
+    description: "Assumption: use the MFA flags in the synthetic sample accounts.",
   },
   {
     id: "required",
     label: "MFA required",
-    description: "Every cracked password is challenged by MFA.",
+    description: "Assumption: every cracked-password login reaches a second-factor challenge. Bypass is not tested.",
   },
 ];
 const chainViews = ["assessment", "choices", "leak", "cracking", "login", "final"];
@@ -103,7 +103,7 @@ const recommendationItems = [
   },
   {
     title: "Require MFA for risky accounts",
-    body: "MFA does not stop offline cracking, but it reduces account takeover when a password is already known.",
+    body: "MFA does not stop offline cracking, but it can stop password-only login after a password is known. Real bypass risks still need separate controls.",
   },
   {
     title: "Protect account recovery",
@@ -172,7 +172,7 @@ function updateSummaryMetrics() {
   qs("#metric-budget").textContent = `${context.attack_budget_seconds_per_method}s`;
   qs("#metric-users").textContent = context.user_count;
   qs("#metric-wordlist").textContent = context.wordlist_size;
-  qs("#metric-mfa").textContent = summary.mfa_blocked_takeovers_under_sha256;
+  qs("#metric-mfa").textContent = summary.second_factor_challenges_under_sha256;
 }
 
 function setActiveView(view, options = { updateHash: true }) {
@@ -325,11 +325,11 @@ function getMfaEnabledForScenario(account) {
 }
 
 function getMfaScenarioStats(crackedAccounts) {
-  const blocked = crackedAccounts.filter((account) => getMfaEnabledForScenario(account)).length;
+  const secondFactorRequired = crackedAccounts.filter((account) => getMfaEnabledForScenario(account)).length;
   return {
     cracked: crackedAccounts.length,
-    takeover: crackedAccounts.length - blocked,
-    blocked,
+    directTakeover: crackedAccounts.length - secondFactorRequired,
+    secondFactorRequired,
   };
 }
 
@@ -368,7 +368,7 @@ function renderSystemAssessment() {
           <div class="flow-item"><span>A</span><div><strong>Password form is selected</strong><br><span class="small-muted">Policy shapes which password forms are accepted.</span></div></div>
           <div class="flow-item"><span>B</span><div><strong>Database is leaked</strong><br><span class="small-muted">The attacker gets stored password records.</span></div></div>
           <div class="flow-item"><span>C</span><div><strong>Offline cracking begins</strong><br><span class="small-muted">Storage method controls guessing cost.</span></div></div>
-          <div class="flow-item"><span>D</span><div><strong>Login is attempted</strong><br><span class="small-muted">MFA changes whether cracked passwords become account takeover.</span></div></div>
+          <div class="flow-item"><span>D</span><div><strong>Login is attempted</strong><br><span class="small-muted">MFA is modeled as a second-factor gate after the password is known.</span></div></div>
         </div>
       </div>
     </div>
@@ -539,14 +539,14 @@ function renderLoginRisk() {
     <div>
       <p class="eyebrow">Step 5</p>
       <h2>Login risk after cracking</h2>
-      <p>Hashing affects whether the attacker obtains passwords. The MFA risk model estimates whether cracked passwords become account takeover.</p>
+      <p>Only the cracking result is measured. MFA is shown as a scenario model: it asks whether a cracked password would be enough for password-only login.</p>
       <div class="simulation-rule">
-        <strong>MFA model rule:</strong> cracked password + MFA off = account takeover; cracked password + MFA on = blocked or challenged.
+        <strong>MFA model boundary:</strong> cracked password + MFA off = direct password-only takeover. Cracked password + MFA on = second factor required. Phishing, recovery bypass, SIM swap, and MFA fatigue are not measured here.
       </div>
       ${methodButtons()}
       <div class="scenario-panel">
         <div>
-          <h3>MFA risk model</h3>
+          <h3>MFA scenario assumptions</h3>
           <p class="small-muted">${scenario.description}</p>
         </div>
         ${mfaScenarioButtons()}
@@ -558,15 +558,18 @@ function renderLoginRisk() {
           <small class="small-muted">known passwords from offline attack</small>
         </div>
         <div class="pipeline-step">
-          <span class="table-label">Account takeovers</span>
-          <strong>${stats.takeover}</strong>
-          <small class="small-muted">password was enough to log in</small>
+          <span class="table-label">Direct password-only takeover</span>
+          <strong>${stats.directTakeover}</strong>
+          <small class="small-muted">modeled accounts with no MFA gate</small>
         </div>
         <div class="pipeline-step">
-          <span class="table-label">MFA blocked/challenged</span>
-          <strong>${stats.blocked}</strong>
-          <small class="small-muted">extra factor prevented direct takeover</small>
+          <span class="table-label">Second factor required</span>
+          <strong>${stats.secondFactorRequired}</strong>
+          <small class="small-muted">not proof that MFA cannot be bypassed</small>
         </div>
+      </div>
+      <div class="simulation-rule">
+        <strong>Interpretation:</strong> this page does not claim to know real MFA outcomes. It separates measured password cracking from assumed login-stage protection, then leaves bypass risk as a limitation for the report.
       </div>
       <div class="sub-card" style="margin-top: 14px;">
         <h3>Login attempts under ${selected.label}</h3>
@@ -575,8 +578,8 @@ function renderLoginRisk() {
             <tr>
               <th>User</th>
               <th>Password found</th>
-              <th>MFA in scenario</th>
-              <th>Outcome</th>
+              <th>MFA assumption</th>
+              <th>Modeled outcome</th>
             </tr>
           </thead>
           <tbody>
@@ -588,7 +591,7 @@ function renderLoginRisk() {
                     <td>${escapeHtml(account.username)}</td>
                     <td><code>${escapeHtml(account.password)}</code></td>
                     <td>${mfaEnabled ? "On" : "Off"}</td>
-                    <td>${mfaEnabled ? "Blocked or challenged" : "Account takeover"}</td>
+                    <td>${mfaEnabled ? "Second factor required; bypass not measured" : "Password-only account takeover"}</td>
                   </tr>
                 `;
               })

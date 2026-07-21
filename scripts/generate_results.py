@@ -189,8 +189,9 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
             }
             for record in method_records
         ]
-        takeover_without_mfa = len(cracked)
-        takeover_with_mfa = sum(1 for account in cracked if not account["mfa_enabled"])
+        direct_takeover_without_mfa = len(cracked)
+        direct_takeover_current_mfa_state = sum(1 for account in cracked if not account["mfa_enabled"])
+        second_factor_challenges_current_state = direct_takeover_without_mfa - direct_takeover_current_mfa_state
         return {
             "method": method,
             **METHOD_DESCRIPTIONS[method],
@@ -205,9 +206,9 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
             "cracked_accounts": len(cracked),
             "total_accounts": len(method_records),
             "cracked_rate": 1.0,
-            "account_takeover_without_mfa": takeover_without_mfa,
-            "account_takeover_with_mfa": takeover_with_mfa,
-            "mfa_blocked_takeovers": takeover_without_mfa - takeover_with_mfa,
+            "direct_takeover_without_mfa": direct_takeover_without_mfa,
+            "direct_takeover_current_mfa_state": direct_takeover_current_mfa_state,
+            "second_factor_challenges_current_state": second_factor_challenges_current_state,
             "cracked": cracked,
         }
 
@@ -254,8 +255,9 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
 
     total_seconds = time.perf_counter() - attack_start
     cracked_count = len(cracked)
-    takeover_without_mfa = cracked_count
-    takeover_with_mfa = sum(1 for account in cracked if not account["mfa_enabled"])
+    direct_takeover_without_mfa = cracked_count
+    direct_takeover_current_mfa_state = sum(1 for account in cracked if not account["mfa_enabled"])
+    second_factor_challenges_current_state = direct_takeover_without_mfa - direct_takeover_current_mfa_state
 
     average_verify_ms = statistics.mean(verification_times) * 1000 if verification_times else 0
     median_verify_ms = statistics.median(verification_times) * 1000 if verification_times else 0
@@ -275,9 +277,9 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
         "cracked_accounts": cracked_count,
         "total_accounts": len(method_records),
         "cracked_rate": round(cracked_count / len(method_records), 3),
-        "account_takeover_without_mfa": takeover_without_mfa,
-        "account_takeover_with_mfa": takeover_with_mfa,
-        "mfa_blocked_takeovers": takeover_without_mfa - takeover_with_mfa,
+        "direct_takeover_without_mfa": direct_takeover_without_mfa,
+        "direct_takeover_current_mfa_state": direct_takeover_current_mfa_state,
+        "second_factor_challenges_current_state": second_factor_challenges_current_state,
         "cracked": cracked,
     }
 
@@ -446,14 +448,14 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
         "risk_reduction_story": [
             "Blocklists and long-password-friendly rules improve password choice before storage.",
             "bcrypt or Argon2id increases attacker cost during offline cracking.",
-            "MFA reduces account takeover after a password is cracked.",
+            "MFA adds a second-factor gate after a password is cracked, but bypass risk is outside this model.",
             "Account recovery must be protected because it can bypass the password and MFA path.",
         ],
         "headline_metrics": {
             "sha256_guesses_per_second": sha256["guesses_per_second"],
             "argon2id_guesses_per_second": argon2id["guesses_per_second"],
             "layered_policy_weak_rejection_rate": layered_policy["weak_password_rejection_rate"],
-            "mfa_blocked_takeovers_under_sha256": sha256["mfa_blocked_takeovers"],
+            "second_factor_challenges_under_sha256": sha256["second_factor_challenges_current_state"],
         },
     }
 

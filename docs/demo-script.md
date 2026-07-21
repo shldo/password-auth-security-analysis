@@ -51,7 +51,7 @@ Switch methods and show cracked passwords with three MFA risk-model scenarios: M
 
 Presentation message:
 
-"The MFA part is a simple risk model, not a real MFA implementation. If the password is known and MFA is off, the model counts account takeover. If MFA is on, the model counts the login as blocked or challenged. Hashing affects whether the password is cracked; MFA affects whether the cracked password becomes account takeover."
+"The MFA part is a scenario model, not a real MFA implementation. The measured part is whether the password was cracked. After that, I model whether password-only login would be possible. If MFA is off, the known password is enough in this model. If MFA is on, the login reaches a second-factor challenge. This does not prove MFA cannot be bypassed; phishing, recovery bypass, SIM swap, and MFA fatigue are limitations."
 
 ## Step 6: Final Assessment
 
