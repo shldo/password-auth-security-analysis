@@ -21,51 +21,51 @@ const legacyViews = {
 const stages = [
   {
     id: "overview",
-    kicker: "Controlled lab",
-    title: "What happens after a password database leaks?",
-    takeaway: "Same passwords, same wordlist, different controls.",
+    kicker: "Cost model",
+    title: "How much can an offline attacker recover within a fixed budget?",
+    takeaway: "The main variable is attack cost, not password complexity alone.",
   },
   {
     id: "passwords",
-    kicker: "Password types",
-    title: "Complex-looking does not always mean hard to guess",
-    takeaway: "Password form and policy decision are separated.",
+    kicker: "Password set",
+    title: "Password types shape wordlist coverage and guess order",
+    takeaway: "Predictable patterns are cheaper to include; unique long phrases are harder to cover.",
   },
   {
     id: "setup",
-    kicker: "Attack setup",
-    title: "Choose the storage method and attack window",
-    takeaway: "This view controls what the simulated attacker can spend.",
+    kicker: "Attack budget",
+    title: "Choose the storage method and attacker time budget",
+    takeaway: "The budget turns storage design into a measurable cost comparison.",
   },
   {
     id: "results",
     kicker: "Attack results",
-    title: "Slow password hashing changes the attack outcome",
+    title: "Higher verification cost reduces recovered passwords",
     takeaway: "The same wordlist recovers fewer accounts when each guess is expensive.",
   },
   {
     id: "findings",
     kicker: "Final assessment",
-    title: "Password security is a chain, not a single rule",
-    takeaway: "Policy reduces weak choices; storage cost reduces offline cracking.",
+    title: "The security goal is to raise offline attack cost",
+    takeaway: "Good policy reduces cheap candidates; slow storage spends the attacker's budget.",
   },
 ];
 
 const recommendationItems = [
   {
-    evidence: "Complexity accepts predictable forms",
+    evidence: "Predictable passwords appear early in the wordlist",
     action: "Use blocklists and long-password-friendly rules",
   },
   {
-    evidence: "Plaintext exposes every password",
+    evidence: "Plaintext has zero cracking cost",
     action: "Never store recoverable passwords",
   },
   {
-    evidence: "SHA-256 is extremely fast offline",
+    evidence: "SHA-256 makes each guess extremely cheap",
     action: "Do not use fast general-purpose hashes for passwords",
   },
   {
-    evidence: "bcrypt and Argon2id lower recovered accounts",
+    evidence: "bcrypt and Argon2id spend the attack budget",
     action: "Tune adaptive password hashing cost deliberately",
   },
 ];
@@ -337,7 +337,7 @@ function estimateAttack(method, attackWindow) {
 
 function windowButtons() {
   return `
-    <div class="segmented-control" aria-label="Attack window">
+    <div class="segmented-control" aria-label="Attack budget">
       ${attackWindows
         .map((seconds) => {
           const active = seconds === state.attackWindow ? " is-active" : "";
@@ -373,15 +373,15 @@ function renderOverview() {
     <div class="showcase-grid">
       <section class="visual-card lead-card">
         <div class="attack-map" aria-label="Password leak attack chain">
-          <div><span>1</span><strong>Password type</strong></div>
-          <div><span>2</span><strong>Database leak</strong></div>
-          <div><span>3</span><strong>Offline guesses</strong></div>
-          <div><span>4</span><strong>Recovered passwords</strong></div>
+          <div><span>1</span><strong>Password guessability</strong></div>
+          <div><span>2</span><strong>Leaked records</strong></div>
+          <div><span>3</span><strong>Cost per guess</strong></div>
+          <div><span>4</span><strong>Budget result</strong></div>
         </div>
       </section>
 
       <section class="result-card">
-        <span>Main contrast</span>
+        <span>Same attack budget</span>
         <strong>${sha.crackedCount}/${context.user_count} vs ${argon.crackedCount}/${context.user_count}</strong>
         <small>SHA-256 cracked vs Argon2id cracked at ${state.attackWindow}s</small>
       </section>
@@ -394,11 +394,21 @@ function renderOverview() {
     </div>
 
     <section class="chart-card compact">
+      <h3>Attack-cost model</h3>
+      <div class="scope-grid">
+        <span><b>coverage</b>is the password in the candidate list?</span>
+        <span><b>rank</b>how early is it guessed?</span>
+        <span><b>cost</b>how slow is one verification?</span>
+        <span><b>budget</b>how long can guessing run?</span>
+      </div>
+    </section>
+
+    <section class="chart-card compact">
       <h3>Experiment scope</h3>
       <div class="scope-grid">
         <span><b>${context.user_count}</b> synthetic passwords</span>
         <span><b>${context.wordlist_size}</b> local candidates</span>
-        <span><b>${context.attack_budget_seconds_per_method}s</b> measured budget</span>
+        <span><b>${context.attack_budget_seconds_per_method}s</b> attack budget</span>
         <span><b>0</b> real credentials</span>
       </div>
     </section>
@@ -415,7 +425,7 @@ function renderPasswords() {
       <div class="chart-card">
         <div class="section-head">
           <h3>Balanced password set</h3>
-          <span>4 examples per decision class</span>
+          <span>coverage and policy categories</span>
         </div>
         ${renderDecisionBalance()}
         <div class="password-gallery">
@@ -445,7 +455,7 @@ function renderPasswords() {
     <section class="chart-card policy-effect-card">
       <div class="section-head">
         <h3>Policy effect</h3>
-        <span>weak rejection and strong acceptance</span>
+        <span>which passwords become cheap candidates?</span>
       </div>
       ${renderPolicyComparison(composition, layered)}
     </section>
@@ -570,7 +580,7 @@ function renderSetup() {
   return `
     <section class="control-surface">
       <div>
-        <span class="control-label">Attack window</span>
+        <span class="control-label">Attack budget</span>
         ${windowButtons()}
       </div>
       <div>
@@ -583,7 +593,7 @@ function renderSetup() {
       <article class="result-card tall ${methodClass(state.activeMethod)}">
         <span>${projectionLabel}</span>
         <strong>${estimate.crackedCount}/${state.data.experiment_context.user_count}</strong>
-        <small>${selected.label} recovered or exposed at ${state.attackWindow}s</small>
+        <small>${selected.label} recovered or exposed within ${state.attackWindow}s</small>
       </article>
 
       <article class="chart-card leak-preview">
@@ -607,9 +617,9 @@ function renderSetup() {
         <h3>Attack path</h3>
         <div class="vertical-flow">
           <span>leak</span>
-          <span>wordlist</span>
-          <span>verify</span>
-          <span>recover</span>
+          <span>candidate rank</span>
+          <span>verify cost</span>
+          <span>budget outcome</span>
         </div>
       </article>
     </section>
@@ -624,7 +634,7 @@ function renderResults() {
   const total = state.data.experiment_context.user_count;
   const note =
     state.attackWindow === state.data.experiment_context.attack_budget_seconds_per_method
-      ? "measured 2-second run"
+      ? "measured 2-second budget"
       : "projection from measured verification speed";
 
   return `
@@ -791,7 +801,7 @@ function renderFindings() {
 
     <section class="final-strip">
       <strong>Core point</strong>
-      <span>Complexity changes acceptance. Storage cost changes offline attack success.</span>
+      <span>Password security improves when cheap guesses are blocked and each remaining guess costs more.</span>
     </section>
   `;
 }

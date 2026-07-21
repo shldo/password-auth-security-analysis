@@ -2,28 +2,28 @@
 
 ## Slide 1: Project Question
 
-"Is password security mainly about complexity, or about the whole authentication chain after a database leak?"
+"After a password database leak, how much can an offline attacker recover within a fixed attack budget?"
 
 ## Slide 2: Dashboard Flow
 
 Show the five dashboard views:
 
-Overview -> Password Types -> Attack Setup -> Results -> Findings.
+Cost Model -> Password Set -> Attack Budget -> Results -> Findings.
 
 ## Slide 3: Controlled Experiment
 
 - Synthetic password samples.
 - Local wordlist.
-- Selectable attack window.
+- Selectable attack budget.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
 - Metrics: recovered accounts, guesses per second, verification time, and account-level outcome.
 
-## Slide 4: Password Types
+## Slide 4: Password Set
 
 Use the password gallery and policy matrix:
 
-- Complex-looking passwords can still be predictable.
-- Long joined phrases can be more usable and harder to guess.
+- Common or patterned passwords are cheap wordlist candidates.
+- Long joined phrases are harder to cover early in the wordlist.
 - A layered policy performs better than a simple complexity rule.
 
 ## Slide 5: Attack Results
@@ -32,11 +32,11 @@ Use the Results view:
 
 - Plaintext is immediate exposure.
 - SHA-256 is fast to guess offline.
-- bcrypt and Argon2id reduce recovered accounts under the same attack window.
+- bcrypt and Argon2id reduce recovered accounts under the same attack budget.
 
 ## Slide 6: Final Findings
 
-Password authentication should be layered:
+The engineering goal is to raise offline attack cost:
 
 - block common and context-specific passwords
 - allow practical long password phrases

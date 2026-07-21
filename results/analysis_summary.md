@@ -15,9 +15,9 @@ Generated from `results/analysis_results.json`.
 | Storage method | Cracked within budget | Guesses/sec | Average verify time | Time to first crack |
 |---|---:|---:|---:|---:|
 | Plain text | 16/16 | Direct exposure | 0 ms | 0 s |
-| Salted SHA-256 | 16/16 | 696,734.99 | 0.00 ms | 0.00 s |
-| bcrypt | 4/16 | 19.91 | 50.22 ms | 0.45 s |
-| Argon2id | 2/16 | 5.30 | 188.63 ms | 1.71 s |
+| Salted SHA-256 | 16/16 | 629,753.69 | 0.00 ms | 0.00 s |
+| bcrypt | 4/16 | 19.72 | 50.70 ms | 0.46 s |
+| Argon2id | 2/16 | 5.47 | 182.80 ms | 1.65 s |
 
 ## Password Policy Results
 
@@ -38,4 +38,4 @@ Generated from `results/analysis_results.json`.
 
 ## Interpretation
 
-The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, and offline cracking cost each affect a different part of the database-leak attack chain. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.
+The experiment supports the main security engineering argument: after a database leak, the objective is to raise offline attack cost. Password choice affects whether a password appears in the candidate list and how early it is guessed. Password storage affects the cost of verifying each candidate. The attack budget makes these controls measurable by comparing how many accounts are recovered under the same constraint. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Password Leak Lab</title>
+    <title>Password Cracking Cost Lab</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
@@ -11,8 +11,8 @@
       <header class="app-header">
         <div>
           <p class="eyebrow">COMP6841 Project B</p>
-          <h1>Password Leak Lab</h1>
-          <p class="subtitle">A controlled visual analysis of password types, storage choices, and offline attack cost.</p>
+          <h1>Password Cracking Cost Lab</h1>
+          <p class="subtitle">A controlled visual analysis of how password choice and storage cost change offline cracking under a fixed attack budget.</p>
         </div>
 
         <div class="header-actions">
@@ -28,11 +28,11 @@
         </button>
         <button class="stage-tab" type="button" data-view="passwords">
           <span>02</span>
-          Password Types
+          Password Set
         </button>
         <button class="stage-tab" type="button" data-view="setup">
           <span>03</span>
-          Attack Setup
+          Attack Budget
         </button>
         <button class="stage-tab" type="button" data-view="results">
           <span>04</span>
@@ -48,14 +48,14 @@
         <section class="stage-intro">
           <div>
             <p class="eyebrow" id="stage-kicker">Ready</p>
-            <h2 id="stage-title">Overview</h2>
+            <h2 id="stage-title">Cost Model</h2>
           </div>
           <p id="stage-takeaway">Load the experiment and follow the password-leak path.</p>
         </section>
 
         <section class="metric-strip" aria-label="Current experiment metrics">
           <article>
-            <span>Attack window</span>
+          <span>Attack budget</span>
             <strong id="metric-window">--</strong>
           </article>
           <article>

@@ -58,11 +58,12 @@ Relevance to this project:
 
 ## Security engineering framing
 
-The project is not trying to prove a universal ranking for all systems. It uses a controlled case-study scenario to show how different controls affect different stages of a realistic authentication attack chain.
+The project is not trying to prove a universal ranking for all systems. It uses a controlled case-study scenario to show how different controls change the cost and outcome of offline cracking after a realistic database-leak assumption.
 
 Key distinction:
 
-- Password policy affects which passwords users create.
-- Password storage affects the cost of offline cracking after database leakage.
+- Password policy affects whether cheap candidate passwords are accepted before storage.
+- Wordlist coverage and guess order affect which passwords are likely to be tested early.
+- Password storage affects the cost of verifying each offline guess after database leakage.
 - MFA would affect whether a cracked or reused password is enough for account access, but this project does not test that stage.
 - Recovery and operational controls affect whether attackers can bypass the intended authentication path.

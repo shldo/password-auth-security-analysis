@@ -6,7 +6,7 @@
 
 项目选择：B. Analyse something using a security engineering approach。
 
-项目主题：Password Authentication Security Analysis。
+项目主题：Raising the Cost of Offline Password Cracking。
 
 初步题案：
 
@@ -83,7 +83,7 @@
 
 前端必须支持这些证据：
 
-- 清楚说明项目问题：complexity alone is not enough。
+- 清楚说明项目问题：after a leak, the goal is to raise offline attack cost。
 - 展示方法：same passwords, same wordlist, same attack budget, different storage methods。
 - 展示技术实现结果：cracked rate、guesses per second、verification time、account-level outcome。
 - 展示分析，不只是数字：为什么 plaintext 直接暴露，为什么 fast hash 便宜，为什么 bcrypt/Argon2id 提高攻击成本。
@@ -127,7 +127,7 @@
 
 ### 4.1 总体目标
 
-把 `dashboard/` 重构成一个美观、专业、演示友好的 Password Leak Lab。
+把 `dashboard/` 重构成一个美观、专业、演示友好的 Password Cracking Cost Lab。
 
 核心观感：
 
@@ -182,8 +182,8 @@
 - 前端需要支持选择攻击时长/预算，并根据实验速率展示对应攻击结果。
 - 可视化必须成为表达核心观点的主方式，包括条形图、矩阵、流程图或结果卡片。
 - 页面切换时内容不能重复：每个界面只承担一个独立任务。
-- `Password Types` 页面负责展示密码形式和 policy effect。
-- `Attack Setup` 页面负责选择攻击窗口和存储方式。
+- `Password Set` 页面负责展示密码形式、wordlist priority 和 policy effect。
+- `Attack Budget` 页面负责选择攻击预算和存储方式。
 - `Results` 页面负责集中展示攻击结果和可视化图表。
 - `Findings` 页面负责把证据映射到安全工程建议。
 

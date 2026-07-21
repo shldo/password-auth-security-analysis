@@ -83,7 +83,7 @@ Generated from `results/analysis_results.json`.
 
 ## Interpretation
 
-The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, and offline cracking cost each affect a different part of the database-leak attack chain. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.
+The experiment supports the main security engineering argument: after a database leak, the objective is to raise offline attack cost. Password choice affects whether a password appears in the candidate list and how early it is guessed. Password storage affects the cost of verifying each candidate. The attack budget makes these controls measurable by comparing how many accounts are recovered under the same constraint. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.
 """
 
     SUMMARY_PATH.write_text(summary, encoding="utf-8")

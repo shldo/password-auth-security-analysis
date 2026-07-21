@@ -1,18 +1,18 @@
-# Password Authentication Security Analysis
+# Raising the Cost of Offline Password Cracking
 
 COMP6841 project deliverable for analysing modern password authentication from a security engineering perspective.
 
 ## Project Question
 
-Is password security mainly about password complexity, or does the whole authentication design matter more?
+After a password database leak, how do password choice and storage design change what an offline attacker can recover within a fixed attack budget?
 
-This project analyses a controlled database-leak attack chain:
+This project analyses a controlled offline cracking cost model:
 
 1. A case-study authentication system allows password creation.
 2. Those passwords are stored using different storage methods.
 3. The password database is leaked.
-4. An attacker runs an offline wordlist attack against the leaked records.
-5. The final recommendation is evaluated as a layered authentication design.
+4. An attacker runs an ordered local wordlist against the leaked records.
+5. The result is measured as recovered passwords under the same time budget.
 
 MFA is discussed qualitatively in the report, but it is not part of the dashboard demonstration or measured experiment.
 

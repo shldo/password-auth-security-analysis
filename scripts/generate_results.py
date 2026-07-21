@@ -429,7 +429,7 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
             "storage": "Salted SHA-256",
             "breached_password_check": "Not present",
         },
-        "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
+        "main_finding": "The stronger control is raising offline cracking cost after a database leak.",
         "risk_reduction_story": [
             "Blocklists and long-password-friendly rules improve password choice before storage.",
             "bcrypt or Argon2id increases attacker cost during offline cracking.",
@@ -478,10 +478,10 @@ def main() -> None:
     policy_results = evaluate_policies(users)
 
     result = {
-        "project": "Password Authentication Security Analysis",
+        "project": "Raising the Cost of Offline Password Cracking",
         "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
         "experiment_context": {
-            "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
+            "purpose": "Controlled demonstration of offline cracking cost using synthetic users and passwords.",
             "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
             "wordlist_size": len(wordlist),
             "user_count": len(users),

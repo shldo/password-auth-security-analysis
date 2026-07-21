@@ -1,8 +1,8 @@
 {
-  "project": "Password Authentication Security Analysis",
-  "generated_at": "2026-07-21 15:09:41",
+  "project": "Raising the Cost of Offline Password Cracking",
+  "generated_at": "2026-07-21 15:55:41",
   "experiment_context": {
-    "purpose": "Controlled demonstration of database-leak risk using synthetic users and passwords.",
+    "purpose": "Controlled demonstration of offline cracking cost using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
     "wordlist_size": 32,
     "user_count": 16,
@@ -170,54 +170,54 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$KC7wNJaTUOmk6w7VuTL1F.jp4ST...",
+        "leaked_value": "$2b$10$uEtH6wpvl7ovz77R8jd06eY8EKb...",
         "profile": "Strong complex password"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$1QdWw3Di23djvudoxv5CheSSxiI...",
+        "leaked_value": "$2b$10$Cv/zlQ236ceu6g9.rlduvuYHKzu...",
         "profile": "Complex but common"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$XOj3ve1OJH1be6Z5HgoBI.bN6Df...",
+        "leaked_value": "$2b$10$yNQgnR8uqUdcad7G6PhxZOPbfsI...",
         "profile": "Long joined phrase"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$rchfKlnYaI7tVVXYHnLQZO5Jgo9...",
+        "leaked_value": "$2b$10$lJ6i6kVhIYZ2ZRekyp4L/euN1AH...",
         "profile": "Common base with year"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$ssX3qljz1x5po5k6La2YpOJd3Ya...",
+        "leaked_value": "$2b$10$UmvMH3LWoWcMcr./0anBbOt5398...",
         "profile": "Strong complex password"
       }
     ],
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$1I4...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$UN0...",
         "profile": "Strong complex password"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$mfD...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$XhB...",
         "profile": "Complex but common"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$kAh...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$T4o...",
         "profile": "Long joined phrase"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Q0y...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$tfV...",
         "profile": "Common base with year"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$2fI...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$4zK...",
         "profile": "Strong complex password"
       }
     ]
@@ -380,9 +380,9 @@
       "budget_exhausted": false,
       "total_seconds": 0.0003,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.001,
+      "average_verify_ms": 0.0012,
       "median_verify_ms": 0.0009,
-      "guesses_per_second": 696734.99,
+      "guesses_per_second": 629753.69,
       "cracked_accounts": 16,
       "total_accounts": 16,
       "cracked_rate": 1.0,
@@ -525,11 +525,11 @@
       "attempts": 40,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0091,
-      "time_to_first_crack_seconds": 0.4494,
-      "average_verify_ms": 50.2237,
-      "median_verify_ms": 50.0918,
-      "guesses_per_second": 19.91,
+      "total_seconds": 2.0282,
+      "time_to_first_crack_seconds": 0.4551,
+      "average_verify_ms": 50.6996,
+      "median_verify_ms": 50.3143,
+      "guesses_per_second": 19.72,
       "cracked_accounts": 4,
       "total_accounts": 16,
       "cracked_rate": 0.25,
@@ -540,7 +540,7 @@
           "profile": "Strong complex password",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 9,
-          "seconds_for_user": 0.4494
+          "seconds_for_user": 0.4551
         },
         {
           "username": "ben",
@@ -548,7 +548,7 @@
           "profile": "Complex but common",
           "risk_label": "weak_common",
           "attempts_for_user": 2,
-          "seconds_for_user": 0.0993
+          "seconds_for_user": 0.1014
         },
         {
           "username": "chen",
@@ -556,7 +556,7 @@
           "profile": "Long joined phrase",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 16,
-          "seconds_for_user": 0.8045
+          "seconds_for_user": 0.8143
         },
         {
           "username": "diya",
@@ -564,7 +564,7 @@
           "profile": "Common base with year",
           "risk_label": "weak_common",
           "attempts_for_user": 4,
-          "seconds_for_user": 0.2016
+          "seconds_for_user": 0.2003
         }
       ]
     },
@@ -576,11 +576,11 @@
       "attempts": 11,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0751,
-      "time_to_first_crack_seconds": 1.7115,
-      "average_verify_ms": 188.6343,
-      "median_verify_ms": 185.3732,
-      "guesses_per_second": 5.3,
+      "total_seconds": 2.0109,
+      "time_to_first_crack_seconds": 1.6489,
+      "average_verify_ms": 182.8007,
+      "median_verify_ms": 182.3321,
+      "guesses_per_second": 5.47,
       "cracked_accounts": 2,
       "total_accounts": 16,
       "cracked_rate": 0.125,
@@ -591,7 +591,7 @@
           "profile": "Strong complex password",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 9,
-          "seconds_for_user": 1.7115
+          "seconds_for_user": 1.6489
         },
         {
           "username": "ben",
@@ -599,7 +599,7 @@
           "profile": "Complex but common",
           "risk_label": "weak_common",
           "attempts_for_user": 2,
-          "seconds_for_user": 0.3635
+          "seconds_for_user": 0.362
         }
       ]
     }
@@ -1168,7 +1168,7 @@
       "storage": "Salted SHA-256",
       "breached_password_check": "Not present"
     },
-    "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
+    "main_finding": "The stronger control is raising offline cracking cost after a database leak.",
     "risk_reduction_story": [
       "Blocklists and long-password-friendly rules improve password choice before storage.",
       "bcrypt or Argon2id increases attacker cost during offline cracking.",
@@ -1176,8 +1176,8 @@
       "The report records later login-stage controls as out-of-scope analysis rather than dashboard evidence."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 696734.99,
-      "argon2id_guesses_per_second": 5.3,
+      "sha256_guesses_per_second": 629753.69,
+      "argon2id_guesses_per_second": 5.47,
       "argon2id_cracked_accounts": 2,
       "total_accounts": 16,
       "layered_policy_weak_rejection_rate": 1.0

@@ -17,15 +17,15 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 ## Analysis and Critical Thinking
 
 - The project does not treat password complexity as the only control.
-- It evaluates the authentication chain after a database leak.
-- It separates password policy, password storage, and cracking cost into measured stages.
+- It evaluates the offline cracking cost after a database leak.
+- It separates password guessability, wordlist priority, password storage, and attack budget into measured stages.
 - It connects each measured stage to a specific threat-model step.
 
 ## Technical Depth
 
 - Implements password storage comparisons.
 - Uses salted SHA-256, bcrypt, and Argon2id.
-- Runs a controlled offline wordlist attack simulation.
+- Runs a controlled offline wordlist attack simulation under a fixed time budget.
 - Keeps MFA out of the dashboard because it is not implemented or experimentally tested.
 - Distinguishes direct plaintext exposure from cracking hashed passwords.
 
