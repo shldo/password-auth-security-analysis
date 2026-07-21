@@ -20,7 +20,7 @@ MFA is discussed qualitatively in the report, but it is not part of the dashboar
 
 - A reproducible local experiment in `scripts/`
 - Generated evidence data in `results/`
-- A front-end dashboard in `dashboard/`
+- A tutor-facing front-end presentation console in `dashboard/`
 - Report and presentation planning material in `docs/`
 
 ## Run

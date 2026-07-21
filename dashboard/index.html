@@ -7,76 +7,88 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <main class="app-shell">
-      <header class="topbar">
-        <div>
-          <p class="eyebrow">COMP6841 security engineering project</p>
-          <h1>Password Authentication Risk Dashboard</h1>
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Dashboard navigation">
+        <div class="brand-block">
+          <p class="eyebrow">COMP6841 project B</p>
+          <h1>Password Leak Lab</h1>
+          <p>Controlled security engineering analysis of password policy, storage, and offline cracking cost.</p>
         </div>
-        <div class="status-pill" id="dataset-status">Loading experiment results</div>
-      </header>
 
-      <section class="metric-grid" aria-label="Experiment summary">
-        <article class="metric-card">
-          <span>Attack budget</span>
-          <strong id="metric-budget">--</strong>
-          <small>per storage method</small>
-        </article>
-        <article class="metric-card">
-          <span>Password samples</span>
-          <strong id="metric-users">--</strong>
-          <small>synthetic set and local wordlist</small>
-        </article>
-        <article class="metric-card">
-          <span>SHA-256 cracked</span>
-          <strong id="metric-fast">--</strong>
-          <small>fast hash baseline</small>
-        </article>
-        <article class="metric-card">
-          <span>Argon2id cracked</span>
-          <strong id="metric-secure">--</strong>
-          <small>under same attack budget</small>
-        </article>
-      </section>
-
-      <section class="simulation-control" aria-label="Simulation controls">
-        <div>
-          <p class="eyebrow">Controlled demo</p>
-          <h2>Run the database-leak attack chain</h2>
-          <p class="chain-thesis">Policy shapes password creation; storage shapes leak exposure; hashing cost shapes offline cracking; the final assessment maps measured controls to recommendations.</p>
-          <p id="execution-status">Ready to evaluate the case-study password authentication design.</p>
-        </div>
-        <div class="simulation-actions">
-          <button class="primary-action" id="run-chain" type="button">Start simulation</button>
+        <div class="demo-controls">
+          <button class="primary-action" id="run-chain" type="button">Run demo</button>
           <button class="secondary-action" id="reset-chain" type="button">Reset</button>
         </div>
-      </section>
 
-      <nav class="chain-nav" aria-label="Attack chain">
-        <button class="chain-step is-active" type="button" data-view="assessment">
-          <span>1</span>
-          Case setup
-        </button>
-        <button class="chain-step" type="button" data-view="choices">
-          <span>2</span>
-          Policy effect
-        </button>
-        <button class="chain-step" type="button" data-view="leak">
-          <span>3</span>
-          Storage exposure
-        </button>
-        <button class="chain-step" type="button" data-view="cracking">
-          <span>4</span>
-          Cracking cost
-        </button>
-        <button class="chain-step" type="button" data-view="final">
-          <span>5</span>
-          Layered outcome
-        </button>
-      </nav>
+        <nav class="stage-nav" aria-label="Attack chain stages">
+          <button class="stage-link is-active" type="button" data-view="assessment">
+            <span>01</span>
+            <strong>Case Setup</strong>
+            <small>Scope and assumptions</small>
+          </button>
+          <button class="stage-link" type="button" data-view="choices">
+            <span>02</span>
+            <strong>Policy Effect</strong>
+            <small>Password forms</small>
+          </button>
+          <button class="stage-link" type="button" data-view="leak">
+            <span>03</span>
+            <strong>Storage Exposure</strong>
+            <small>What leaks</small>
+          </button>
+          <button class="stage-link" type="button" data-view="cracking">
+            <span>04</span>
+            <strong>Cracking Cost</strong>
+            <small>Main experiment</small>
+          </button>
+          <button class="stage-link" type="button" data-view="final">
+            <span>05</span>
+            <strong>Layered Outcome</strong>
+            <small>Recommendation</small>
+          </button>
+        </nav>
 
-      <section class="view-card" id="view-panel" aria-live="polite"></section>
-    </main>
+        <div class="scope-box">
+          <strong>Ethical boundary</strong>
+          <span>Synthetic passwords, local wordlist, no real systems or credentials.</span>
+        </div>
+      </aside>
+
+      <main class="main-area">
+        <header class="top-strip">
+          <div>
+            <p class="eyebrow" id="execution-status">Ready to evaluate</p>
+            <h2 id="stage-title">Case Setup</h2>
+          </div>
+          <div class="status-pill" id="dataset-status">Loading experiment results</div>
+        </header>
+
+        <section class="summary-grid" aria-label="Experiment summary">
+          <article class="summary-item">
+            <span>Attack budget</span>
+            <strong id="metric-budget">--</strong>
+            <small>per storage method</small>
+          </article>
+          <article class="summary-item">
+            <span>Samples</span>
+            <strong id="metric-users">--</strong>
+            <small>synthetic passwords</small>
+          </article>
+          <article class="summary-item danger">
+            <span>SHA-256 cracked</span>
+            <strong id="metric-fast">--</strong>
+            <small>fast hash baseline</small>
+          </article>
+          <article class="summary-item safe">
+            <span>Argon2id cracked</span>
+            <strong id="metric-secure">--</strong>
+            <small>same budget</small>
+          </article>
+        </section>
+
+        <section class="stage-panel" id="view-panel" aria-live="polite"></section>
+      </main>
+    </div>
 
     <script src="app.js"></script>
   </body>

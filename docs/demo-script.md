@@ -6,7 +6,7 @@ Use this as the presentation story for the tutor. The audience should understand
 
 "You currently require complex passwords, so the system looks secure. I tested what happens if the user database is leaked. The key question is not just whether passwords look complex, but whether the whole authentication chain reduces attacker success."
 
-Before moving through the stages, click **Start simulation**. The dashboard will step through the database-leak attack chain automatically.
+Before moving through the stages, click **Run demo**. The dashboard will step through the database-leak attack chain automatically.
 
 ## Step 1: Case Setup
 
