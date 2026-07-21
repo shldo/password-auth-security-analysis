@@ -9,7 +9,7 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 - Results: `results/analysis_results.json`
 - Demonstration: `dashboard/index.html`
 - Threat model: `docs/threat-model.md`
-- MFA risk model: `docs/mfa-risk-model.md`
+- Report-only MFA analysis: `docs/mfa-risk-model.md`
 - Research notes: `docs/research-notes.md`
 - Report plan: `docs/report-outline.md`
 - Presentation plan: `docs/presentation-outline.md`
@@ -18,7 +18,7 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 
 - The project does not treat password complexity as the only control.
 - It evaluates the authentication chain after a database leak.
-- It separates password policy, password storage, cracking cost, and MFA into measured and modeled stages.
+- It separates password policy, password storage, and cracking cost into measured stages.
 - It connects each measured stage to a specific threat-model step.
 
 ## Technical Depth
@@ -26,8 +26,7 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 - Implements password storage comparisons.
 - Uses salted SHA-256, bcrypt, and Argon2id.
 - Runs a controlled offline wordlist attack simulation.
-- Calculates password-only takeover and second-factor challenge counts under MFA scenarios.
-- Defines MFA as a scenario model rather than a real authentication implementation.
+- Keeps MFA out of the dashboard because it is not implemented or experimentally tested.
 - Distinguishes direct plaintext exposure from cracking hashed passwords.
 
 ## Professional and Ethical Boundaries

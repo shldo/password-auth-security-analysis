@@ -4,7 +4,8 @@
 
 - Project problem: password security is often reduced to complexity rules.
 - Security engineering angle: evaluate the whole authentication chain.
-- Research question: how do password policy, storage method, offline cracking cost, and MFA affect account compromise risk after a database leak?
+- Research question: how do password policy, storage method, and offline cracking cost affect password exposure risk after a database leak?
+- Report-only extension: where would MFA fit after the measured password-cracking stage, and why was it not tested in this project?
 
 ## 2. Scope and Case Study Scenario
 
@@ -17,24 +18,24 @@
 - NIST password verifier guidance.
 - OWASP Password Storage Cheat Sheet.
 - OWASP Authentication and Credential Stuffing guidance.
-- Key concepts: hashing, salting, adaptive password hashing, MFA, password blocklists.
+- Key concepts: hashing, salting, adaptive password hashing, password blocklists, and MFA as a non-experimental follow-up control.
 - Detailed notes: `docs/research-notes.md`
 
 ## 4. Threat Model
 
 - Asset: user accounts and stored password records.
 - Attacker: has a leaked password database and can run offline guesses.
-- Attack path: leak database, crack password hashes, attempt login, bypass or encounter MFA.
+- Attack path for the experiment: leak database, crack password hashes, compare exposure and cracking cost.
 - Out of scope: attacking real services, phishing real users, collecting real credentials.
 - Detailed model: `docs/threat-model.md`
-- MFA model: `docs/mfa-risk-model.md`
+- MFA analysis note: `docs/mfa-risk-model.md`
 
 ## 5. Methodology
 
 - Create fake users and fake passwords.
 - Store the same passwords using plaintext, salted SHA-256, bcrypt, and Argon2id.
 - Run the same wordlist against each method.
-- Measure cracking success rate, time to first crack, average verification time, password-only takeover count, and second-factor challenge count.
+- Measure cracking success rate, time to first crack, average verification time, and guesses per second.
 - Compare password policy rules using the same password set.
 
 ## 6. Implementation
@@ -47,18 +48,16 @@
 
 - Which storage methods exposed passwords fastest?
 - Which users were cracked under each method?
-- How did the MFA scenario model change password-only takeover risk?
-- How was the MFA risk model defined, and what does it not simulate?
-- Why is MFA evaluated after cracking rather than during password-type analysis?
 - Which password policies rejected weak or predictable passwords?
 - What trade-offs appeared between security and usability?
+- Where would MFA fit after the measured cracking stage, and why is it discussed qualitatively rather than tested?
 
 ## 8. Final Assessment
 
 - Support long password phrases that are practical for the target system.
 - Block common, breached, and context-specific passwords.
 - Store passwords with Argon2id or bcrypt, not plaintext or fast general-purpose hashes.
-- Use MFA for high-risk accounts and sensitive actions.
+- Discuss MFA for high-risk accounts and sensitive actions as a follow-up control, not as an experimental result.
 - Treat account recovery as part of the authentication system.
 
 ## 9. Reflection
@@ -71,7 +70,7 @@
 ## 10. Conclusion
 
 - Password complexity alone is a weak security objective.
-- A layered authentication design changes attacker cost and reduces password-only account takeover risk.
+- A layered password-authentication design changes attacker cost and reduces password exposure risk after a database leak.
 
 ## References
 

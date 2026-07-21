@@ -2,36 +2,17 @@ const state = {
   data: null,
   activeView: "assessment",
   activeMethod: "sha256",
-  activeMfaScenario: "current",
   isRunning: false,
   runTimer: null,
 };
 
 const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
-const mfaScenarios = [
-  {
-    id: "off",
-    label: "MFA off",
-    description: "Assumption: no second factor exists, so a known password is enough for direct login.",
-  },
-  {
-    id: "current",
-    label: "Current mixed state",
-    description: "Assumption: use the MFA flags in the synthetic sample accounts.",
-  },
-  {
-    id: "required",
-    label: "MFA required",
-    description: "Assumption: every cracked-password login reaches a second-factor challenge. Bypass is not tested.",
-  },
-];
-const chainViews = ["assessment", "choices", "leak", "cracking", "login", "final"];
+const chainViews = ["assessment", "choices", "leak", "cracking", "final"];
 const chainLabels = {
   assessment: "Case setup",
   choices: "Policy effect",
   leak: "Storage exposure",
   cracking: "Cracking cost",
-  login: "MFA scenario",
   final: "Layered outcome",
 };
 
@@ -69,18 +50,10 @@ const impactMap = [
     evidenceType: "Measured",
   },
   {
-    view: "login",
-    control: "MFA scenario",
-    stage: "After password is known",
-    indicator: "Password-only takeover and second-factor count",
-    meaning: "Models whether a cracked password is enough by itself.",
-    evidenceType: "Modeled",
-  },
-  {
     view: "final",
     control: "Layered design",
-    stage: "Whole attack chain",
-    indicator: "Control-to-risk mapping and limitations",
+    stage: "Whole measured chain",
+    indicator: "Policy, exposure, and cracking metrics",
     meaning: "Turns the case study into a security recommendation.",
     evidenceType: "Analysis",
   },
@@ -153,12 +126,12 @@ const recommendationItems = [
     body: "Reject common, breached, and context-specific passwords while allowing long password phrases that users can remember.",
   },
   {
-    title: "Require MFA for risky accounts",
-    body: "MFA does not stop offline cracking, but it can stop password-only login after a password is known. Real bypass risks still need separate controls.",
+    title: "Tune password hashing cost",
+    body: "Select bcrypt or Argon2id parameters that are expensive for attackers while still acceptable for normal login performance.",
   },
   {
-    title: "Protect account recovery",
-    body: "Recovery flows can bypass strong password storage and MFA, so they must be treated as part of authentication.",
+    title: "State experiment limits clearly",
+    body: "Synthetic data demonstrates mechanism and control impact; it should not be presented as real-world password prevalence.",
   },
 ];
 
@@ -223,7 +196,7 @@ function updateSummaryMetrics() {
   qs("#metric-budget").textContent = `${context.attack_budget_seconds_per_method}s`;
   qs("#metric-users").textContent = context.user_count;
   qs("#metric-wordlist").textContent = context.wordlist_size;
-  qs("#metric-mfa").textContent = summary.second_factor_challenges_under_sha256;
+  qs("#metric-secure").textContent = `${summary.argon2id_cracked_accounts}/${summary.total_accounts}`;
 }
 
 function setActiveView(view, options = { updateHash: true }) {
@@ -315,7 +288,6 @@ function renderActiveView() {
     choices: renderChoices,
     leak: renderLeak,
     cracking: renderCracking,
-    login: renderLoginRisk,
     final: renderFinalAssessment,
   };
 
@@ -385,12 +357,6 @@ function bindViewEvents() {
       renderActiveView();
     });
   });
-  document.querySelectorAll("[data-mfa-scenario]").forEach((button) => {
-    button.addEventListener("click", () => {
-      state.activeMfaScenario = button.dataset.mfaScenario;
-      renderActiveView();
-    });
-  });
 }
 
 function methodButtons() {
@@ -405,42 +371,6 @@ function methodButtons() {
         .join("")}
     </div>
   `;
-}
-
-function mfaScenarioButtons() {
-  return `
-    <div class="control-row" aria-label="MFA scenario selector">
-      ${mfaScenarios
-        .map((scenario) => {
-          const active = scenario.id === state.activeMfaScenario ? " is-active" : "";
-          return `<button class="method-button${active}" type="button" data-mfa-scenario="${scenario.id}">${scenario.label}</button>`;
-        })
-        .join("")}
-    </div>
-  `;
-}
-
-function getMfaEnabledForScenario(account) {
-  if (state.activeMfaScenario === "off") {
-    return false;
-  }
-  if (state.activeMfaScenario === "required") {
-    return true;
-  }
-  return account.mfa_enabled;
-}
-
-function getMfaScenarioStats(crackedAccounts) {
-  const secondFactorRequired = crackedAccounts.filter((account) => getMfaEnabledForScenario(account)).length;
-  return {
-    cracked: crackedAccounts.length,
-    directTakeover: crackedAccounts.length - secondFactorRequired,
-    secondFactorRequired,
-  };
-}
-
-function getActiveMfaScenario() {
-  return mfaScenarios.find((scenario) => scenario.id === state.activeMfaScenario);
 }
 
 function riskBadge(label) {
@@ -481,8 +411,7 @@ function renderSystemAssessment() {
         <div class="flow-line">
           <div class="flow-item"><span>1</span><div><strong>Password policy</strong><br><span class="small-muted">${assessment.password_policy}</span></div></div>
           <div class="flow-item"><span>2</span><div><strong>Password storage</strong><br><span class="small-muted">${assessment.storage}</span></div></div>
-          <div class="flow-item"><span>3</span><div><strong>MFA</strong><br><span class="small-muted">${assessment.mfa}</span></div></div>
-          <div class="flow-item"><span>4</span><div><strong>Breached-password check</strong><br><span class="small-muted">${assessment.breached_password_check}</span></div></div>
+          <div class="flow-item"><span>3</span><div><strong>Breached-password check</strong><br><span class="small-muted">${assessment.breached_password_check}</span></div></div>
         </div>
       </div>
       <div class="sub-card">
@@ -491,7 +420,7 @@ function renderSystemAssessment() {
           <div class="flow-item"><span>A</span><div><strong>Password form is selected</strong><br><span class="small-muted">Policy shapes which password forms are accepted.</span></div></div>
           <div class="flow-item"><span>B</span><div><strong>Database is leaked</strong><br><span class="small-muted">The attacker gets stored password records.</span></div></div>
           <div class="flow-item"><span>C</span><div><strong>Offline cracking begins</strong><br><span class="small-muted">Storage method controls guessing cost.</span></div></div>
-          <div class="flow-item"><span>D</span><div><strong>Login is attempted</strong><br><span class="small-muted">MFA is modeled as a second-factor gate after the password is known.</span></div></div>
+          <div class="flow-item"><span>D</span><div><strong>Measured outcome is compared</strong><br><span class="small-muted">Cracked accounts and cost indicators support the recommendation.</span></div></div>
         </div>
       </div>
     </div>
@@ -575,7 +504,6 @@ function renderLeak() {
         <tr>
           <td>${escapeHtml(record.username)}</td>
           <td><code>${escapeHtml(record.leaked_value)}</code></td>
-          <td>${record.mfa_enabled ? "On" : "Off"}</td>
         </tr>
       `,
     )
@@ -618,7 +546,6 @@ function renderLeak() {
             <tr>
               <th>User</th>
               <th>Leaked value</th>
-              <th>MFA</th>
             </tr>
           </thead>
           <tbody>${rows}</tbody>
@@ -705,106 +632,17 @@ function renderCracking() {
   `;
 }
 
-function renderLoginRisk() {
-  const selected = getStorageResult();
-  const scenario = getActiveMfaScenario();
-  const stats = getMfaScenarioStats(selected.cracked);
-  return `
-    <div>
-      ${renderStageEvidence([
-        {
-          label: "Control being modeled",
-          value: "MFA scenario",
-          note: "This is not a real MFA implementation or bypass test.",
-        },
-        {
-          label: "Attack-chain stage",
-          value: "After password cracking",
-          note: "Evaluates whether the known password is enough by itself.",
-        },
-        {
-          label: "Indicator",
-          value: "Password-only takeover count",
-          note: "Second-factor bypass remains a limitation.",
-        },
-      ])}
-      <p class="eyebrow">Step 5</p>
-      <h2>MFA scenario after cracking</h2>
-      <p>Only the cracking result is measured. MFA is shown as a scenario model: it asks whether a cracked password would be enough for password-only login.</p>
-      <div class="simulation-rule">
-        <strong>MFA model boundary:</strong> cracked password + MFA off = direct password-only takeover. Cracked password + MFA on = second factor required. Phishing, recovery bypass, SIM swap, and MFA fatigue are not measured here.
-      </div>
-      ${methodButtons()}
-      <div class="scenario-panel">
-        <div>
-          <h3>MFA scenario assumptions</h3>
-          <p class="small-muted">${scenario.description}</p>
-        </div>
-        ${mfaScenarioButtons()}
-      </div>
-      <div class="pipeline">
-        <div class="pipeline-step">
-          <span class="table-label">Cracked passwords</span>
-          <strong>${stats.cracked}</strong>
-          <small class="small-muted">known passwords from offline attack</small>
-        </div>
-        <div class="pipeline-step">
-          <span class="table-label">Direct password-only takeover</span>
-          <strong>${stats.directTakeover}</strong>
-          <small class="small-muted">modeled accounts with no MFA gate</small>
-        </div>
-        <div class="pipeline-step">
-          <span class="table-label">Second factor required</span>
-          <strong>${stats.secondFactorRequired}</strong>
-          <small class="small-muted">not proof that MFA cannot be bypassed</small>
-        </div>
-      </div>
-      <div class="simulation-rule">
-        <strong>Interpretation:</strong> this page does not claim to know real MFA outcomes. It separates measured password cracking from assumed login-stage protection, then leaves bypass risk as a limitation for the report.
-      </div>
-      <div class="sub-card" style="margin-top: 14px;">
-        <h3>Login attempts under ${selected.label}</h3>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>User</th>
-              <th>Password found</th>
-              <th>MFA assumption</th>
-              <th>Modeled outcome</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${selected.cracked
-              .map((account) => {
-                const mfaEnabled = getMfaEnabledForScenario(account);
-                return `
-                  <tr>
-                    <td>${escapeHtml(account.username)}</td>
-                    <td><code>${escapeHtml(account.password)}</code></td>
-                    <td>${mfaEnabled ? "On" : "Off"}</td>
-                    <td>${mfaEnabled ? "Second factor required; bypass not measured" : "Password-only account takeover"}</td>
-                  </tr>
-                `;
-              })
-              .join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  `;
-}
-
 function renderFinalAssessment() {
   return `
     ${renderStageEvidence([
       {
         label: "Control being assessed",
         value: "Layered authentication",
-        note: "Policy, storage, cracking cost, MFA scenario, and recovery.",
+        note: "Policy, storage, cracking cost, and report-only limitations.",
       },
       {
         label: "Attack-chain stage",
-        value: "Whole chain",
+        value: "Whole measured chain",
         note: "Each layer reduces a different failure mode.",
       },
       {
@@ -815,7 +653,7 @@ function renderFinalAssessment() {
     ])}
     <div class="view-grid">
       <div>
-        <p class="eyebrow">Step 6</p>
+        <p class="eyebrow">Step 5</p>
         <h2>Layered outcome</h2>
         <p>${state.data.attack_chain_summary.main_finding}</p>
         <div class="flow-line">

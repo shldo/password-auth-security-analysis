@@ -39,9 +39,10 @@ OWASP frames MFA as a major defense against password-related attacks such as cre
 
 Relevance to this project:
 
-- The experiment treats MFA as a later-stage control in the attack chain.
+- The report treats MFA as a later-stage control in the attack chain.
 - Password hashing reduces the chance that a leaked password hash becomes a known password.
-- The MFA scenario model shows whether a known password is enough for password-only takeover; real MFA bypass is not measured.
+- MFA is not implemented or measured in the dashboard demonstration.
+- MFA is included only to explain what could be added after the measured password-cracking stage.
 - Account recovery remains part of the security boundary because weak recovery can bypass password and MFA controls.
 
 ## OWASP Top 10 authentication failure context
@@ -63,5 +64,5 @@ Key distinction:
 
 - Password policy affects which passwords users create.
 - Password storage affects the cost of offline cracking after database leakage.
-- MFA affects whether a cracked or reused password is enough for password-only takeover in the scenario model.
+- MFA would affect whether a cracked or reused password is enough for account access, but this project does not test that stage.
 - Recovery and operational controls affect whether attackers can bypass the intended authentication path.

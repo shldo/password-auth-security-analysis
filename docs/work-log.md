@@ -18,6 +18,8 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 0.5h | Renamed first and final dashboard stages to assessment-focused wording and simplified visible password-form wording. | `dashboard/index.html`, `dashboard/app.js`, `docs/demo-script.md` |
 | 2026-07-20 | 1.0h | Added MFA scenario controls to make login-risk simulation clearer during presentation. | `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md` |
 | 2026-07-21 | 0.75h | Reframed the dashboard as a tutor-facing case-study assessment and clarified MFA as a risk model. | `dashboard/app.js`, `docs/demo-script.md`, `docs/threat-model.md` |
+| 2026-07-21 | 1.0h | Rebuilt the dashboard flow so each page maps one control to one attack-chain stage and one indicator. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
+| 2026-07-21 | 0.75h | Removed MFA from the dashboard demonstration and kept it as report-only qualitative analysis. | `dashboard/index.html`, `dashboard/app.js`, `docs/mfa-risk-model.md`, `docs/report-outline.md` |
 
 ## Planned Time Budget
 
@@ -27,7 +29,7 @@ This work log is intended to show a credible development process for the COMP684
 | Threat model and experiment design | 3h |
 | Dataset and wordlist design | 2h |
 | Hashing and cracking simulation code | 7h |
-| Password policy and MFA risk analysis | 4h |
+| Password policy and report-only MFA analysis | 4h |
 | Front-end dashboard | 5h |
 | Report writing | 3h |
 | Slides and presentation practice | 2h |

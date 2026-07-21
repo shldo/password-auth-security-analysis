@@ -14,7 +14,6 @@ Show the controlled case-study setup:
 
 - complexity rule
 - salted SHA-256 storage
-- optional MFA
 - no breached-password check
 - synthetic users and passwords
 - fixed local wordlist and attack budget
@@ -47,21 +46,13 @@ Presentation message:
 
 "This is the main measured technical experiment. Using the same password samples, same wordlist, and same attack budget, fast storage methods allow many more guesses. The security value of bcrypt and Argon2id is that they change the attacker's cost."
 
-## Step 5: MFA Scenario
-
-Switch methods and show cracked passwords with three MFA risk-model scenarios: MFA off, current mixed state, and MFA required.
-
-Presentation message:
-
-"The MFA part is a scenario model, not a real MFA implementation. The measured part is whether the password was cracked. After that, I model whether password-only login would be possible. If MFA is off, the known password is enough in this model. If MFA is on, the login reaches a second-factor challenge. This does not prove MFA cannot be bypassed; phishing, recovery bypass, SIM swap, and MFA fatigue are limitations."
-
-## Step 6: Layered Outcome
+## Step 5: Layered Outcome
 
 Show the final assessment and recommended layered design.
 
 Presentation message:
 
-"The recommendation is a layered authentication design: long-password-friendly policy, blocklists, Argon2id or bcrypt, MFA, and secure recovery. Password complexity alone is not enough."
+"The recommendation is a layered authentication design for the measured password path: long-password-friendly policy, blocklists, and Argon2id or bcrypt. MFA is discussed in the report as a separate login-stage control, but I do not present it as a tested result."
 
 ## Ethical Boundary
 

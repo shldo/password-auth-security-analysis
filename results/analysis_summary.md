@@ -12,12 +12,12 @@ Generated from `results/analysis_results.json`.
 
 ## Storage Method Results
 
-| Storage method | Cracked within budget | Guesses/sec | Average verify time | Password-only takeover if MFA off | Password-only takeover in current MFA scenario | Second-factor challenges in current MFA scenario |
-|---|---:|---:|---:|---:|---:|---:|
-| Plain text | 10/10 | Direct exposure | 0 ms | 10 | 5 | 5 |
-| Salted SHA-256 | 10/10 | 454,011.80 | 0.00 ms | 10 | 5 | 5 |
-| bcrypt | 4/10 | 19.45 | 51.41 ms | 4 | 2 | 2 |
-| Argon2id | 1/10 | 5.28 | 189.38 ms | 1 | 0 | 1 |
+| Storage method | Cracked within budget | Guesses/sec | Average verify time | Time to first crack |
+|---|---:|---:|---:|---:|
+| Plain text | 10/10 | Direct exposure | 0 ms | 0 s |
+| Salted SHA-256 | 10/10 | 372,511.19 | 0.00 ms | 0.00 s |
+| bcrypt | 4/10 | 19.71 | 50.74 ms | 0.11 s |
+| Argon2id | 2/10 | 5.55 | 180.06 ms | 0.37 s |
 
 ## Password Policy Results
 
@@ -32,10 +32,10 @@ Generated from `results/analysis_results.json`.
 
 1. Plaintext storage is a direct exposure failure rather than a cracking problem.
 2. Salted SHA-256 still allowed all 10 synthetic accounts to be cracked within the fixed attack budget because each guess is cheap.
-3. Argon2id reduced the cracked accounts to 1/10 under the same demonstration budget by increasing verification cost.
-4. MFA is modeled after cracking, not measured as a real implementation: under the SHA-256 path, 5 cracked-password logins would require a second factor in the current scenario, while bypass risk remains outside the experiment.
+3. Argon2id reduced the cracked accounts to 2/10 under the same demonstration budget by increasing verification cost.
+4. The demonstration stops at measured password exposure and cracking results. MFA is discussed qualitatively in the report, not treated as an experimental result.
 5. The layered password policy rejected 100% of weak or predictable passwords while accepting 100% of strong long-password examples in the synthetic dataset.
 
 ## Interpretation
 
-The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, offline cracking cost, MFA, and account recovery each affect a different part of the attack chain.
+The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, and offline cracking cost each affect a different part of the database-leak attack chain. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.

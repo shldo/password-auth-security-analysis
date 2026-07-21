@@ -35,7 +35,6 @@ class UserPassword:
     username: str
     password: str
     profile: str
-    mfa_enabled: bool
     risk_label: str
 
 
@@ -47,7 +46,6 @@ def read_users() -> list[UserPassword]:
                 username=row["username"],
                 password=row["password"],
                 profile=row["profile"],
-                mfa_enabled=row["mfa_enabled"].lower() == "true",
                 risk_label=row["risk_label"],
             )
             for row in rows
@@ -84,7 +82,6 @@ def create_records(users: list[UserPassword]) -> dict[str, list[dict]]:
             {
                 "username": user.username,
                 "stored": user.password,
-                "mfa_enabled": user.mfa_enabled,
                 "profile": user.profile,
                 "risk_label": user.risk_label,
             }
@@ -94,7 +91,6 @@ def create_records(users: list[UserPassword]) -> dict[str, list[dict]]:
                 "username": user.username,
                 "salt": salt,
                 "stored": sha256_digest(user.password, salt),
-                "mfa_enabled": user.mfa_enabled,
                 "profile": user.profile,
                 "risk_label": user.risk_label,
             }
@@ -106,7 +102,6 @@ def create_records(users: list[UserPassword]) -> dict[str, list[dict]]:
                     user.password.encode("utf-8"),
                     bcrypt.gensalt(rounds=BCRYPT_ROUNDS),
                 ).decode("utf-8"),
-                "mfa_enabled": user.mfa_enabled,
                 "profile": user.profile,
                 "risk_label": user.risk_label,
             }
@@ -115,7 +110,6 @@ def create_records(users: list[UserPassword]) -> dict[str, list[dict]]:
             {
                 "username": user.username,
                 "stored": ARGON2_HASHER.hash(user.password),
-                "mfa_enabled": user.mfa_enabled,
                 "profile": user.profile,
                 "risk_label": user.risk_label,
             }
@@ -183,15 +177,11 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
                 "password": record["stored"],
                 "profile": record["profile"],
                 "risk_label": record["risk_label"],
-                "mfa_enabled": record["mfa_enabled"],
                 "attempts_for_user": 0,
                 "seconds_for_user": 0,
             }
             for record in method_records
         ]
-        direct_takeover_without_mfa = len(cracked)
-        direct_takeover_current_mfa_state = sum(1 for account in cracked if not account["mfa_enabled"])
-        second_factor_challenges_current_state = direct_takeover_without_mfa - direct_takeover_current_mfa_state
         return {
             "method": method,
             **METHOD_DESCRIPTIONS[method],
@@ -206,9 +196,6 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
             "cracked_accounts": len(cracked),
             "total_accounts": len(method_records),
             "cracked_rate": 1.0,
-            "direct_takeover_without_mfa": direct_takeover_without_mfa,
-            "direct_takeover_current_mfa_state": direct_takeover_current_mfa_state,
-            "second_factor_challenges_current_state": second_factor_challenges_current_state,
             "cracked": cracked,
         }
 
@@ -246,7 +233,6 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
                         "password": candidate,
                         "profile": record["profile"],
                         "risk_label": record["risk_label"],
-                        "mfa_enabled": record["mfa_enabled"],
                         "attempts_for_user": candidate_index,
                         "seconds_for_user": round(time.perf_counter() - user_attempt_start, 4),
                     }
@@ -255,9 +241,6 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
 
     total_seconds = time.perf_counter() - attack_start
     cracked_count = len(cracked)
-    direct_takeover_without_mfa = cracked_count
-    direct_takeover_current_mfa_state = sum(1 for account in cracked if not account["mfa_enabled"])
-    second_factor_challenges_current_state = direct_takeover_without_mfa - direct_takeover_current_mfa_state
 
     average_verify_ms = statistics.mean(verification_times) * 1000 if verification_times else 0
     median_verify_ms = statistics.median(verification_times) * 1000 if verification_times else 0
@@ -277,9 +260,6 @@ def simulate_attack(method: str, method_records: list[dict], wordlist: list[str]
         "cracked_accounts": cracked_count,
         "total_accounts": len(method_records),
         "cracked_rate": round(cracked_count / len(method_records), 3),
-        "direct_takeover_without_mfa": direct_takeover_without_mfa,
-        "direct_takeover_current_mfa_state": direct_takeover_current_mfa_state,
-        "second_factor_challenges_current_state": second_factor_challenges_current_state,
         "cracked": cracked,
     }
 
@@ -441,21 +421,21 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
         "system_assessment": {
             "password_policy": "Complexity rule: uppercase, lowercase, number, symbol",
             "storage": "Salted SHA-256",
-            "mfa": "Optional, not required for all users",
             "breached_password_check": "Not present",
         },
         "main_finding": "Password complexity does not protect the whole authentication chain after a database leak.",
         "risk_reduction_story": [
             "Blocklists and long-password-friendly rules improve password choice before storage.",
             "bcrypt or Argon2id increases attacker cost during offline cracking.",
-            "MFA adds a second-factor gate after a password is cracked, but bypass risk is outside this model.",
-            "Account recovery must be protected because it can bypass the password and MFA path.",
+            "Slow password hashing reduces the number of cracked accounts under the same budget.",
+            "The report records later login-stage controls as out-of-scope analysis rather than dashboard evidence.",
         ],
         "headline_metrics": {
             "sha256_guesses_per_second": sha256["guesses_per_second"],
             "argon2id_guesses_per_second": argon2id["guesses_per_second"],
+            "argon2id_cracked_accounts": argon2id["cracked_accounts"],
+            "total_accounts": argon2id["total_accounts"],
             "layered_policy_weak_rejection_rate": layered_policy["weak_password_rejection_rate"],
-            "second_factor_challenges_under_sha256": sha256["second_factor_challenges_current_state"],
         },
     }
 
@@ -473,7 +453,6 @@ def preview_leaked_records(records: dict[str, list[dict]]) -> dict[str, list[dic
                 {
                     "username": record["username"],
                     "leaked_value": stored_value,
-                    "mfa_enabled": record["mfa_enabled"],
                     "profile": record["profile"],
                 }
             )
@@ -513,7 +492,6 @@ def main() -> None:
                 "username": user.username,
                 "password": user.password,
                 "profile": user.profile,
-                "mfa_enabled": user.mfa_enabled,
                 "risk_label": user.risk_label,
             }
             for user in users

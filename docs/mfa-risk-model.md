@@ -1,52 +1,28 @@
-# MFA Scenario Model
+# MFA Report-Only Analysis
 
-This project does not implement a real MFA system such as TOTP, SMS OTP, push approval, or WebAuthn. Instead, it uses a scenario model to show where MFA sits in the authentication attack chain after a password has already been cracked.
+This project does not implement a real MFA system such as TOTP, SMS OTP, push approval, or WebAuthn. MFA is not part of the dashboard demonstration or measured experiment. It is included in the report as a qualitative security engineering discussion.
 
-## What Is Measured
+## What the Project Measures
 
 - Whether passwords are directly exposed or cracked from leaked records.
 - How storage method changes offline guessing cost.
-- Which synthetic accounts have MFA enabled in the scenario.
 
-## What Is Modeled
+## Why MFA Is Still Discussed
 
-The dashboard does not know whether a real MFA challenge would be bypassed. It only models whether the password alone is enough to complete login.
+MFA belongs after the measured cracking stage. If an attacker learns a password, the next security question is whether the service accepts password-only login or requires another factor. This project does not test that stage, but it is still relevant to the final security recommendation.
 
-For this project, a model is appropriate because the aim is to compare risk outcomes in a controlled case study, not to build or attack a production login service.
+Keeping MFA out of the demonstration makes the evidence boundary clearer: password cracking is measured; MFA is analysed from external guidance and listed as future work or a follow-up control.
 
-## Inputs
+## Report Position
 
-- Cracked accounts from the offline cracking simulation.
-- MFA scenario selected in the dashboard:
-  - MFA off
-  - Current mixed state
-  - MFA required
-
-## Rule
-
-```text
-cracked password + MFA off = direct password-only account takeover
-cracked password + MFA on = second factor required
-```
-
-## Outputs
-
-- Cracked passwords
-- Direct password-only account takeovers
-- Logins that reach a second-factor challenge
-- MFA bypass risk left as an explicit limitation
-
-## Scenarios
-
-| Scenario | Meaning | Expected effect |
-|---|---|---|
-| MFA off | No account has MFA protection | Every cracked password is enough for password-only takeover |
-| Current mixed state | Some sample accounts have MFA and some do not | Only accounts without MFA are directly taken over in the model |
-| MFA required | Every account has MFA protection | Every cracked-password login reaches a second-factor challenge |
+- Dashboard scope: password policy, password storage, offline cracking cost.
+- Report-only analysis: MFA as a later login-stage control.
+- Claim boundary: the project does not prove MFA effectiveness or bypass resistance.
 
 ## Limitations
 
-- It treats MFA as binary: on or off.
+- It does not implement a login system.
+- It does not run MFA enrollment or verification.
 - It does not distinguish between SMS, TOTP, push, passkeys, or hardware keys.
 - It does not simulate phishing-resistant MFA.
 - It does not model account recovery bypass.

@@ -23,15 +23,13 @@ def main() -> None:
     storage_rows = []
     for result in data["storage_results"]:
         storage_rows.append(
-            "| {label} | {cracked}/{total} | {gps} | {verify} | {direct_no_mfa} | {direct_current_mfa} | {second_factor} |".format(
+            "| {label} | {cracked}/{total} | {gps} | {verify} | {first_crack} |".format(
                 label=result["label"],
                 cracked=result["cracked_accounts"],
                 total=result["total_accounts"],
                 gps=fmt_number(result["guesses_per_second"]),
                 verify=fmt_number(result["average_verify_ms"], " ms"),
-                direct_no_mfa=result["direct_takeover_without_mfa"],
-                direct_current_mfa=result["direct_takeover_current_mfa_state"],
-                second_factor=result["second_factor_challenges_current_state"],
+                first_crack=fmt_number(result["time_to_first_crack_seconds"], " s"),
             )
         )
 
@@ -65,8 +63,8 @@ Generated from `results/analysis_results.json`.
 
 ## Storage Method Results
 
-| Storage method | Cracked within budget | Guesses/sec | Average verify time | Password-only takeover if MFA off | Password-only takeover in current MFA scenario | Second-factor challenges in current MFA scenario |
-|---|---:|---:|---:|---:|---:|---:|
+| Storage method | Cracked within budget | Guesses/sec | Average verify time | Time to first crack |
+|---|---:|---:|---:|---:|
 {chr(10).join(storage_rows)}
 
 ## Password Policy Results
@@ -80,12 +78,12 @@ Generated from `results/analysis_results.json`.
 1. Plaintext storage is a direct exposure failure rather than a cracking problem.
 2. Salted SHA-256 still allowed all {sha256["total_accounts"]} synthetic accounts to be cracked within the fixed attack budget because each guess is cheap.
 3. Argon2id reduced the cracked accounts to {argon2id["cracked_accounts"]}/{argon2id["total_accounts"]} under the same demonstration budget by increasing verification cost.
-4. MFA is modeled after cracking, not measured as a real implementation: under the SHA-256 path, {sha256["second_factor_challenges_current_state"]} cracked-password logins would require a second factor in the current scenario, while bypass risk remains outside the experiment.
+4. The demonstration stops at measured password exposure and cracking results. MFA is discussed qualitatively in the report, not treated as an experimental result.
 5. The layered password policy rejected {round(layered["weak_password_rejection_rate"] * 100)}% of weak or predictable passwords while accepting {round(layered["strong_password_acceptance_rate"] * 100)}% of strong long-password examples in the synthetic dataset.
 
 ## Interpretation
 
-The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, offline cracking cost, MFA, and account recovery each affect a different part of the attack chain.
+The experiment supports the main security engineering argument: password complexity is not the main security objective. Password choice, password storage, and offline cracking cost each affect a different part of the database-leak attack chain. MFA and account recovery are report-only analysis topics because they were not implemented or tested in the demonstration.
 """
 
     SUMMARY_PATH.write_text(summary, encoding="utf-8")

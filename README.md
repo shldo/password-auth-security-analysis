@@ -12,8 +12,9 @@ This project analyses a controlled database-leak attack chain:
 2. Those passwords are stored using different storage methods.
 3. The password database is leaked.
 4. An attacker runs an offline wordlist attack against the leaked records.
-5. Cracked passwords are evaluated under MFA scenario assumptions.
-6. The final recommendation is evaluated as a layered authentication design.
+5. The final recommendation is evaluated as a layered authentication design.
+
+MFA is discussed qualitatively in the report, but it is not part of the dashboard demonstration or measured experiment.
 
 ## Deliverables
 

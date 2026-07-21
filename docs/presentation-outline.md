@@ -8,14 +8,14 @@
 
 Show the dashboard flow:
 
-Case setup -> policy effect -> storage exposure -> cracking cost -> MFA scenario -> layered outcome.
+Case setup -> policy effect -> storage exposure -> cracking cost -> layered outcome.
 
 ## Slide 3: Technical Experiment
 
 - Same synthetic password samples.
 - Same wordlist.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
-- Metrics: cracked rate, verification time, time to first crack, direct password-only takeover count, and second-factor challenge count.
+- Metrics: cracked rate, verification time, guesses per second, and time to first crack.
 
 ## Slide 4: Results
 
@@ -24,7 +24,6 @@ Use dashboard screenshots:
 - Plaintext fails immediately.
 - Fast hash is much easier to test offline.
 - bcrypt and Argon2id increase attacker cost.
-- MFA scenario controls show how password-only takeover changes when MFA is off, mixed, or required.
 
 ## Slide 5: Layered Outcome
 
@@ -33,8 +32,7 @@ Password security should be layered:
 - long password phrases
 - block common or breached passwords
 - Argon2id or bcrypt
-- MFA
-- secure account recovery
+- limitations and future work, including MFA as report-only analysis
 
 ## Slide 6: Reflection
 
