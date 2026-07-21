@@ -22,6 +22,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-21 | 0.75h | Removed MFA from the dashboard demonstration and kept it as report-only qualitative analysis. | `dashboard/index.html`, `dashboard/app.js`, `docs/mfa-risk-model.md`, `docs/report-outline.md` |
 | 2026-07-21 | 0.75h | Improved dashboard visual evidence with policy decision and cracking outcome matrices. | `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md` |
 | 2026-07-21 | 1.5h | Rebuilt the dashboard as a tutor-facing presentation console with clearer stage navigation, run controls, and result visualisations. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js`, `docs/demo-script.md` |
+| 2026-07-21 | 0.5h | Wrote formal front-end redesign requirements to align the next dashboard iteration with the marking criteria, project topic, and presentation needs. | `docs/frontend-redesign-requirements.md` |
 
 ## Planned Time Budget
 
