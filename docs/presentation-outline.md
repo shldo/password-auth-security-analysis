@@ -8,7 +8,7 @@
 
 Show the dashboard flow:
 
-System assessment -> password types -> database leak -> offline cracking -> MFA risk model -> final assessment.
+Case setup -> policy effect -> storage exposure -> cracking cost -> MFA scenario -> layered outcome.
 
 ## Slide 3: Technical Experiment
 
@@ -26,7 +26,7 @@ Use dashboard screenshots:
 - bcrypt and Argon2id increase attacker cost.
 - MFA scenario controls show how password-only takeover changes when MFA is off, mixed, or required.
 
-## Slide 5: Final Assessment
+## Slide 5: Layered Outcome
 
 Password security should be layered:
 

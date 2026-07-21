@@ -27,13 +27,64 @@ const mfaScenarios = [
 ];
 const chainViews = ["assessment", "choices", "leak", "cracking", "login", "final"];
 const chainLabels = {
-  assessment: "Assessment",
-  choices: "Password types",
-  leak: "Database leak",
-  cracking: "Offline cracking",
-  login: "Login risk",
-  final: "Final assessment",
+  assessment: "Case setup",
+  choices: "Policy effect",
+  leak: "Storage exposure",
+  cracking: "Cracking cost",
+  login: "MFA scenario",
+  final: "Layered outcome",
 };
+
+const impactMap = [
+  {
+    view: "assessment",
+    control: "Controlled case",
+    stage: "Define assumptions",
+    indicator: "Synthetic users, fixed wordlist, fixed budget",
+    meaning: "Keeps the comparison ethical and repeatable.",
+    evidenceType: "Scope",
+  },
+  {
+    view: "choices",
+    control: "Password policy",
+    stage: "Password creation",
+    indicator: "Weak rejection and strong acceptance rates",
+    meaning: "Shows why complexity and guess resistance differ.",
+    evidenceType: "Measured",
+  },
+  {
+    view: "leak",
+    control: "Storage method",
+    stage: "Database leak",
+    indicator: "Leaked value format and verification cost",
+    meaning: "Shows what the attacker receives after a leak.",
+    evidenceType: "Measured",
+  },
+  {
+    view: "cracking",
+    control: "Hashing cost",
+    stage: "Offline guessing",
+    indicator: "Cracked accounts, guesses/sec, first crack",
+    meaning: "Shows how storage cost changes attacker speed.",
+    evidenceType: "Measured",
+  },
+  {
+    view: "login",
+    control: "MFA scenario",
+    stage: "After password is known",
+    indicator: "Password-only takeover and second-factor count",
+    meaning: "Models whether a cracked password is enough by itself.",
+    evidenceType: "Modeled",
+  },
+  {
+    view: "final",
+    control: "Layered design",
+    stage: "Whole attack chain",
+    indicator: "Control-to-risk mapping and limitations",
+    meaning: "Turns the case study into a security recommendation.",
+    evidenceType: "Analysis",
+  },
+];
 
 const passwordTypeExamples = [
   {
@@ -268,11 +319,66 @@ function renderActiveView() {
     final: renderFinalAssessment,
   };
 
-  qs("#view-panel").innerHTML = renderers[state.activeView]();
+  qs("#view-panel").innerHTML = `${renderImpactMap()}${renderers[state.activeView]()}`;
   bindViewEvents();
 }
 
+function renderImpactMap() {
+  const activeIndex = chainViews.indexOf(state.activeView);
+  const cards = impactMap
+    .map((item) => {
+      const stepIndex = chainViews.indexOf(item.view);
+      const stateClass = stepIndex === activeIndex ? " is-active" : stepIndex < activeIndex ? " is-complete" : "";
+      return `
+        <button class="impact-step${stateClass}" type="button" data-view="${item.view}">
+          <span class="impact-number">${stepIndex + 1}</span>
+          <span class="impact-copy">
+            <strong>${escapeHtml(item.control)}</strong>
+            <span>${escapeHtml(item.stage)}</span>
+            <small>${escapeHtml(item.indicator)}</small>
+          </span>
+          <span class="impact-type">${escapeHtml(item.evidenceType)}</span>
+        </button>
+      `;
+    })
+    .join("");
+
+  return `
+    <section class="logic-map" aria-label="Controlled case-study logic">
+      <div class="logic-map-header">
+        <div>
+          <p class="eyebrow">Project logic</p>
+          <h2>Each control affects one stage of the attack chain</h2>
+        </div>
+        <p class="small-muted">The data is synthetic by design. The point is not real-world password prevalence; it is a controlled comparison of how controls change the attack path.</p>
+      </div>
+      <div class="impact-grid">${cards}</div>
+    </section>
+  `;
+}
+
+function renderStageEvidence(items) {
+  return `
+    <div class="stage-evidence-grid">
+      ${items
+        .map(
+          (item) => `
+            <div class="stage-evidence-item">
+              <span>${escapeHtml(item.label)}</span>
+              <strong>${escapeHtml(item.value)}</strong>
+              <small>${escapeHtml(item.note)}</small>
+            </div>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
 function bindViewEvents() {
+  document.querySelectorAll(".impact-step").forEach((button) => {
+    button.addEventListener("click", () => setActiveView(button.dataset.view));
+  });
   document.querySelectorAll("[data-method]").forEach((button) => {
     button.addEventListener("click", () => {
       state.activeMethod = button.dataset.method;
@@ -350,11 +456,28 @@ function riskBadge(label) {
 function renderSystemAssessment() {
   const assessment = state.data.attack_chain_summary.system_assessment;
   return `
+    ${renderStageEvidence([
+      {
+        label: "Control being framed",
+        value: "Case-study assumptions",
+        note: "Synthetic users and passwords avoid real-credential risk.",
+      },
+      {
+        label: "Attack stage",
+        value: "Before the leak",
+        note: "Defines what will be held constant during the experiment.",
+      },
+      {
+        label: "What this proves",
+        value: "Comparison setup",
+        note: "It does not claim to describe real password prevalence.",
+      },
+    ])}
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 1</p>
-        <h2>System assessment</h2>
-        <p>The case-study system appears safe because it requires complex-looking passwords. This assessment tests that assumption after a database leak.</p>
+        <h2>Case setup</h2>
+        <p>The case-study system appears safe because it requires complex-looking passwords. The controlled experiment tests what happens after the password database is leaked.</p>
         <div class="flow-line">
           <div class="flow-item"><span>1</span><div><strong>Password policy</strong><br><span class="small-muted">${assessment.password_policy}</span></div></div>
           <div class="flow-item"><span>2</span><div><strong>Password storage</strong><br><span class="small-muted">${assessment.storage}</span></div></div>
@@ -363,7 +486,7 @@ function renderSystemAssessment() {
         </div>
       </div>
       <div class="sub-card">
-        <h3>Attack chain used in the project</h3>
+        <h3>Attack chain used in the case study</h3>
         <div class="flow-line">
           <div class="flow-item"><span>A</span><div><strong>Password form is selected</strong><br><span class="small-muted">Policy shapes which password forms are accepted.</span></div></div>
           <div class="flow-item"><span>B</span><div><strong>Database is leaked</strong><br><span class="small-muted">The attacker gets stored password records.</span></div></div>
@@ -399,11 +522,28 @@ function renderChoices() {
     .join("");
 
   return `
+    ${renderStageEvidence([
+      {
+        label: "Control being tested",
+        value: "Password policy",
+        note: "Complexity rule compared with layered policy.",
+      },
+      {
+        label: "Attack-chain stage",
+        value: "Password creation",
+        note: "Affects which weak or predictable passwords enter the system.",
+      },
+      {
+        label: "Indicator",
+        value: "Rejection and acceptance rates",
+        note: "Measured on the synthetic password set.",
+      },
+    ])}
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 2</p>
-        <h2>Password types</h2>
-        <p>This stage compares password forms so the audience can see why "looks complex" and "hard to guess" are different ideas.</p>
+        <h2>Policy effect on password forms</h2>
+        <p>This stage shows the first control point: policy changes which password forms are accepted before storage ever happens.</p>
         <div class="stack">
           <div class="sub-card">
             <h3>Complexity rule</h3>
@@ -442,11 +582,28 @@ function renderLeak() {
     .join("");
 
   return `
+    ${renderStageEvidence([
+      {
+        label: "Control being tested",
+        value: "Storage method",
+        note: "Plaintext, salted SHA-256, bcrypt, and Argon2id.",
+      },
+      {
+        label: "Attack-chain stage",
+        value: "Database leak",
+        note: "Affects what the attacker receives after compromise.",
+      },
+      {
+        label: "Indicator",
+        value: "Leaked value and verify cost",
+        note: "Plaintext exposes directly; hashes require guessing.",
+      },
+    ])}
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 3</p>
-        <h2>Database leak</h2>
-        <p>The same fake passwords are stored four different ways. The leaked value changes what the attacker can do next.</p>
+        <h2>Storage exposure after a leak</h2>
+        <p>The same synthetic passwords are stored four different ways. This isolates storage method as the variable being compared.</p>
         ${methodButtons()}
         <div class="sub-card">
           <h3>${selected.label}</h3>
@@ -503,10 +660,27 @@ function renderCracking() {
     .join("");
 
   return `
+    ${renderStageEvidence([
+      {
+        label: "Control being tested",
+        value: "Hashing cost",
+        note: "Same wordlist and same time budget for each method.",
+      },
+      {
+        label: "Attack-chain stage",
+        value: "Offline guessing",
+        note: "Attacker can test guesses without touching the real service.",
+      },
+      {
+        label: "Indicator",
+        value: "Cracked accounts and guesses/sec",
+        note: "This is the main measured technical experiment.",
+      },
+    ])}
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 4</p>
-        <h2>Offline cracking</h2>
+        <h2>Offline cracking cost</h2>
         <p>Each method gets the same users, same wordlist, and the same ${state.data.experiment_context.attack_budget_seconds_per_method}-second attack budget.</p>
         <div class="sub-card">
           <h3>Accounts cracked within budget</h3>
@@ -537,8 +711,25 @@ function renderLoginRisk() {
   const stats = getMfaScenarioStats(selected.cracked);
   return `
     <div>
+      ${renderStageEvidence([
+        {
+          label: "Control being modeled",
+          value: "MFA scenario",
+          note: "This is not a real MFA implementation or bypass test.",
+        },
+        {
+          label: "Attack-chain stage",
+          value: "After password cracking",
+          note: "Evaluates whether the known password is enough by itself.",
+        },
+        {
+          label: "Indicator",
+          value: "Password-only takeover count",
+          note: "Second-factor bypass remains a limitation.",
+        },
+      ])}
       <p class="eyebrow">Step 5</p>
-      <h2>Login risk after cracking</h2>
+      <h2>MFA scenario after cracking</h2>
       <p>Only the cracking result is measured. MFA is shown as a scenario model: it asks whether a cracked password would be enough for password-only login.</p>
       <div class="simulation-rule">
         <strong>MFA model boundary:</strong> cracked password + MFA off = direct password-only takeover. Cracked password + MFA on = second factor required. Phishing, recovery bypass, SIM swap, and MFA fatigue are not measured here.
@@ -605,10 +796,27 @@ function renderLoginRisk() {
 
 function renderFinalAssessment() {
   return `
+    ${renderStageEvidence([
+      {
+        label: "Control being assessed",
+        value: "Layered authentication",
+        note: "Policy, storage, cracking cost, MFA scenario, and recovery.",
+      },
+      {
+        label: "Attack-chain stage",
+        value: "Whole chain",
+        note: "Each layer reduces a different failure mode.",
+      },
+      {
+        label: "Output",
+        value: "Final recommendation",
+        note: "Includes limitations instead of overstating the model.",
+      },
+    ])}
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 6</p>
-        <h2>Final assessment</h2>
+        <h2>Layered outcome</h2>
         <p>${state.data.attack_chain_summary.main_finding}</p>
         <div class="flow-line">
           ${state.data.attack_chain_summary.risk_reduction_story
