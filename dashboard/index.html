@@ -3,86 +3,72 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Password Authentication Security Analysis</title>
+    <title>Password Leak Lab</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <div class="workspace">
-      <aside class="sidebar" aria-label="Dashboard navigation">
-        <div class="brand-block">
-          <p class="eyebrow">COMP6841 project B</p>
+    <div class="app-shell">
+      <header class="app-header">
+        <div>
+          <p class="eyebrow">COMP6841 Project B</p>
           <h1>Password Leak Lab</h1>
-          <p>Controlled security engineering analysis of password policy, storage, and offline cracking cost.</p>
+          <p class="subtitle">A controlled visual analysis of password types, storage choices, and offline attack cost.</p>
         </div>
 
-        <div class="demo-controls">
+        <div class="header-actions">
           <button class="primary-action" id="run-chain" type="button">Run demo</button>
           <button class="secondary-action" id="reset-chain" type="button">Reset</button>
         </div>
+      </header>
 
-        <nav class="stage-nav" aria-label="Attack chain stages">
-          <button class="stage-link is-active" type="button" data-view="assessment">
-            <span>01</span>
-            <strong>Case Setup</strong>
-            <small>Scope and assumptions</small>
-          </button>
-          <button class="stage-link" type="button" data-view="choices">
-            <span>02</span>
-            <strong>Policy Effect</strong>
-            <small>Password forms</small>
-          </button>
-          <button class="stage-link" type="button" data-view="leak">
-            <span>03</span>
-            <strong>Storage Exposure</strong>
-            <small>What leaks</small>
-          </button>
-          <button class="stage-link" type="button" data-view="cracking">
-            <span>04</span>
-            <strong>Cracking Cost</strong>
-            <small>Main experiment</small>
-          </button>
-          <button class="stage-link" type="button" data-view="final">
-            <span>05</span>
-            <strong>Layered Outcome</strong>
-            <small>Recommendation</small>
-          </button>
-        </nav>
+      <nav class="stage-tabs" aria-label="Dashboard stages">
+        <button class="stage-tab is-active" type="button" data-view="overview">
+          <span>01</span>
+          Overview
+        </button>
+        <button class="stage-tab" type="button" data-view="passwords">
+          <span>02</span>
+          Password Types
+        </button>
+        <button class="stage-tab" type="button" data-view="setup">
+          <span>03</span>
+          Attack Setup
+        </button>
+        <button class="stage-tab" type="button" data-view="results">
+          <span>04</span>
+          Results
+        </button>
+        <button class="stage-tab" type="button" data-view="findings">
+          <span>05</span>
+          Findings
+        </button>
+      </nav>
 
-        <div class="scope-box">
-          <strong>Ethical boundary</strong>
-          <span>Synthetic passwords, local wordlist, no real systems or credentials.</span>
-        </div>
-      </aside>
-
-      <main class="main-area">
-        <header class="top-strip">
+      <main>
+        <section class="stage-intro">
           <div>
-            <p class="eyebrow" id="execution-status">Ready to evaluate</p>
-            <h2 id="stage-title">Case Setup</h2>
+            <p class="eyebrow" id="stage-kicker">Ready</p>
+            <h2 id="stage-title">Overview</h2>
           </div>
-          <div class="status-pill" id="dataset-status">Loading experiment results</div>
-        </header>
+          <p id="stage-takeaway">Load the experiment and follow the password-leak path.</p>
+        </section>
 
-        <section class="summary-grid" aria-label="Experiment summary">
-          <article class="summary-item">
-            <span>Attack budget</span>
-            <strong id="metric-budget">--</strong>
-            <small>per storage method</small>
+        <section class="metric-strip" aria-label="Current experiment metrics">
+          <article>
+            <span>Attack window</span>
+            <strong id="metric-window">--</strong>
           </article>
-          <article class="summary-item">
+          <article>
             <span>Samples</span>
-            <strong id="metric-users">--</strong>
-            <small>synthetic passwords</small>
+            <strong id="metric-samples">--</strong>
           </article>
-          <article class="summary-item danger">
-            <span>SHA-256 cracked</span>
-            <strong id="metric-fast">--</strong>
-            <small>fast hash baseline</small>
+          <article>
+            <span>SHA-256 result</span>
+            <strong id="metric-sha">--</strong>
           </article>
-          <article class="summary-item safe">
-            <span>Argon2id cracked</span>
-            <strong id="metric-secure">--</strong>
-            <small>same budget</small>
+          <article>
+            <span>Argon2id result</span>
+            <strong id="metric-argon">--</strong>
           </article>
         </section>
 

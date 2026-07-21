@@ -1,40 +1,45 @@
 # Five-Minute Presentation Outline
 
-## Slide 1: Case Study Problem
+## Slide 1: Project Question
 
-"The case-study system appears safe because it requires uppercase, lowercase, numbers, and symbols. I test whether that is enough after a database leak."
+"Is password security mainly about complexity, or about the whole authentication chain after a database leak?"
 
-## Slide 2: Attack Chain
+## Slide 2: Dashboard Flow
 
-Show the dashboard flow:
+Show the five dashboard views:
 
-Case setup -> policy effect -> storage exposure -> cracking cost -> layered outcome.
+Overview -> Password Types -> Attack Setup -> Results -> Findings.
 
-## Slide 3: Technical Experiment
+## Slide 3: Controlled Experiment
 
-- Same synthetic password samples.
-- Same wordlist.
+- Synthetic password samples.
+- Local wordlist.
+- Selectable attack window.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
-- Metrics: cracked rate, verification time, guesses per second, and time to first crack.
-- Visual evidence: policy decision matrix, cracked-account chart, guessing-speed chart, and account-level outcome matrix.
+- Metrics: recovered accounts, guesses per second, verification time, and account-level outcome.
 
-## Slide 4: Results
+## Slide 4: Password Types
 
-Use dashboard screenshots:
+Use the password gallery and policy matrix:
 
-- Plaintext fails immediately.
-- Fast hash is much easier to test offline.
-- bcrypt and Argon2id increase attacker cost.
+- Complex-looking passwords can still be predictable.
+- Long joined phrases can be more usable and harder to guess.
+- A layered policy performs better than a simple complexity rule.
 
-## Slide 5: Layered Outcome
+## Slide 5: Attack Results
 
-Password security should be layered:
+Use the Results view:
 
-- long password phrases
-- block common or breached passwords
-- Argon2id or bcrypt
-- limitations and future work, including MFA as report-only analysis
+- Plaintext is immediate exposure.
+- SHA-256 is fast to guess offline.
+- bcrypt and Argon2id reduce recovered accounts under the same attack window.
 
-## Slide 6: Reflection
+## Slide 6: Final Findings
 
-- The project changed the question from "how complex should a password be?" to "what controls reduce attacker success through the whole system?"
+Password authentication should be layered:
+
+- block common and context-specific passwords
+- allow practical long password phrases
+- never store plaintext
+- prefer Argon2id or bcrypt over fast general-purpose hashes
+- keep limitations clear, including controls not tested in the dashboard

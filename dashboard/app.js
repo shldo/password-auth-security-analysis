@@ -1,96 +1,72 @@
 const state = {
   data: null,
-  activeView: "assessment",
+  activeView: "overview",
   activeMethod: "sha256",
+  attackWindow: 2,
   isRunning: false,
   runTimer: null,
 };
 
 const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
+const attackWindows = [0.25, 1, 2, 5, 10];
+
+const legacyViews = {
+  assessment: "overview",
+  choices: "passwords",
+  leak: "setup",
+  cracking: "results",
+  final: "findings",
+};
 
 const stages = [
   {
-    id: "assessment",
-    title: "Case Setup",
-    status: "Scope and assumptions",
+    id: "overview",
+    kicker: "Controlled lab",
+    title: "What happens after a password database leaks?",
+    takeaway: "Same passwords, same wordlist, different controls.",
   },
   {
-    id: "choices",
-    title: "Policy Effect",
-    status: "Password forms",
+    id: "passwords",
+    kicker: "Password types",
+    title: "Complex-looking does not always mean hard to guess",
+    takeaway: "Password form and policy decision are separated.",
   },
   {
-    id: "leak",
-    title: "Storage Exposure",
-    status: "Database leak",
+    id: "setup",
+    kicker: "Attack setup",
+    title: "Choose the storage method and attack window",
+    takeaway: "This view controls what the simulated attacker can spend.",
   },
   {
-    id: "cracking",
-    title: "Cracking Cost",
-    status: "Main measured experiment",
+    id: "results",
+    kicker: "Attack results",
+    title: "Slow password hashing changes the attack outcome",
+    takeaway: "The same wordlist recovers fewer accounts when each guess is expensive.",
   },
   {
-    id: "final",
-    title: "Layered Outcome",
-    status: "Recommendation",
-  },
-];
-
-const passwordTypeExamples = [
-  {
-    title: "Complex but common",
-    example: "Password123!",
-    shape: "Dictionary word + number sequence + symbol",
-    riskLabel: "weak_common",
-  },
-  {
-    title: "Season and year pattern",
-    example: "Summer2026!",
-    shape: "Season + current year + symbol",
-    riskLabel: "predictable_pattern",
-  },
-  {
-    title: "Context-specific pattern",
-    example: "UNSW2026!",
-    shape: "Organisation keyword + year + symbol",
-    riskLabel: "predictable_pattern",
-  },
-  {
-    title: "Transformed dictionary word",
-    example: "Tr0ub4dor&3",
-    shape: "Word with common substitutions",
-    riskLabel: "predictable_pattern",
-  },
-  {
-    title: "Long phrase",
-    example: "RiverLanternMuseumOrbit",
-    shape: "Multiple words joined together",
-    riskLabel: "strong_passphrase",
-  },
-  {
-    title: "Phrase with number",
-    example: "VioletMapleCoffee27",
-    shape: "Several words joined together + number",
-    riskLabel: "strong_passphrase",
+    id: "findings",
+    kicker: "Final assessment",
+    title: "Password security is a chain, not a single rule",
+    takeaway: "Policy reduces weak choices; storage cost reduces offline cracking.",
   },
 ];
 
 const recommendationItems = [
   {
-    title: "Replace fast password hashing",
-    body: "Use Argon2id or bcrypt instead of plaintext or fast general-purpose hashes.",
+    evidence: "Complexity accepts predictable forms",
+    action: "Use blocklists and long-password-friendly rules",
   },
   {
-    title: "Use blocklists and long passwords",
-    body: "Reject common and context-specific passwords while allowing practical long password phrases.",
+    evidence: "Plaintext exposes every password",
+    action: "Never store recoverable passwords",
   },
   {
-    title: "Tune hashing cost deliberately",
-    body: "Choose parameters that raise attacker cost while keeping normal login acceptable.",
+    evidence: "SHA-256 is extremely fast offline",
+    action: "Do not use fast general-purpose hashes for passwords",
   },
   {
-    title: "Keep claims inside the evidence",
-    body: "Report the dashboard results as a measured password-leak path, with separate limitations for controls outside this experiment.",
+    evidence: "bcrypt and Argon2id lower recovered accounts",
+    action: "Tune adaptive password hashing cost deliberately",
   },
 ];
 
@@ -98,24 +74,8 @@ function qs(selector) {
   return document.querySelector(selector);
 }
 
-function formatNumber(value, options = {}) {
-  return Number(value).toLocaleString(undefined, {
-    maximumFractionDigits: options.decimals ?? 2,
-  });
-}
-
-function formatOptionalNumber(value, suffix = "") {
-  if (value === null || value === undefined) {
-    return "Direct exposure";
-  }
-  return `${formatNumber(value)}${suffix}`;
-}
-
-function percent(numerator, denominator) {
-  if (!denominator) {
-    return 0;
-  }
-  return Math.round((numerator / denominator) * 100);
+function formatNumber(value, decimals = 2) {
+  return Number(value).toLocaleString(undefined, { maximumFractionDigits: decimals });
 }
 
 function escapeHtml(value) {
@@ -125,36 +85,6 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
-}
-
-async function loadData() {
-  qs("#view-panel").innerHTML = '<div class="loading">Loading dashboard data</div>';
-
-  try {
-    const response = await fetch("../results/analysis_results.json", { cache: "no-store" });
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-    state.data = await response.json();
-    updateSummaryMetrics();
-    setActiveView(getHashView(), { updateHash: false });
-    qs("#dataset-status").textContent = `Results generated ${state.data.generated_at}`;
-  } catch (error) {
-    qs("#view-panel").innerHTML = `
-      <div class="error">
-        <div>
-          <h2>Dashboard data could not be loaded</h2>
-          <p>Run <code>python scripts/generate_results.py</code>, then serve the project root with <code>python -m http.server 8000</code>.</p>
-        </div>
-      </div>
-    `;
-    qs("#dataset-status").textContent = "Results unavailable";
-  }
-}
-
-function getHashView() {
-  const hashView = window.location.hash.replace("#", "");
-  return stages.some((stage) => stage.id === hashView) ? hashView : "assessment";
 }
 
 function getStage(view = state.activeView) {
@@ -169,15 +99,31 @@ function getPolicyResult(policy) {
   return state.data.policy_results.find((result) => result.policy === policy);
 }
 
-function updateSummaryMetrics() {
-  const context = state.data.experiment_context;
-  const sha256 = getStorageResult("sha256");
-  const argon2id = getStorageResult("argon2id");
+function getHashView() {
+  const hashView = window.location.hash.replace("#", "");
+  const mappedView = legacyViews[hashView] || hashView;
+  return stages.some((stage) => stage.id === mappedView) ? mappedView : "overview";
+}
 
-  qs("#metric-budget").textContent = `${context.attack_budget_seconds_per_method}s`;
-  qs("#metric-users").textContent = context.user_count;
-  qs("#metric-fast").textContent = `${sha256.cracked_accounts}/${sha256.total_accounts}`;
-  qs("#metric-secure").textContent = `${argon2id.cracked_accounts}/${argon2id.total_accounts}`;
+async function loadData() {
+  qs("#view-panel").innerHTML = '<div class="empty-state">Loading experiment data</div>';
+
+  try {
+    const response = await fetch("../results/analysis_results.json", { cache: "no-store" });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+    state.data = await response.json();
+    state.attackWindow = state.data.experiment_context.attack_budget_seconds_per_method;
+    setActiveView(getHashView(), { updateHash: false });
+  } catch (error) {
+    qs("#view-panel").innerHTML = `
+      <div class="empty-state error">
+        <h2>Dashboard data unavailable</h2>
+        <p>Run <code>python scripts/generate_results.py</code> and serve the project root.</p>
+      </div>
+    `;
+  }
 }
 
 function setActiveView(view, options = { updateHash: true }) {
@@ -187,74 +133,46 @@ function setActiveView(view, options = { updateHash: true }) {
   }
 
   const activeIndex = stages.findIndex((stage) => stage.id === view);
-  document.querySelectorAll(".stage-link").forEach((button) => {
+  document.querySelectorAll(".stage-tab").forEach((button) => {
     const index = stages.findIndex((stage) => stage.id === button.dataset.view);
     button.classList.toggle("is-active", button.dataset.view === view);
     button.classList.toggle("is-complete", index < activeIndex);
   });
 
-  qs("#stage-title").textContent = getStage(view).title;
-  updateExecutionStatus(view);
+  updateHeader();
   renderActiveView();
 }
 
-function updateExecutionStatus(view = state.activeView) {
-  const stage = getStage(view);
-  qs("#execution-status").textContent = state.isRunning
-    ? `Running demo: ${stage.title}`
-    : `Current stage: ${stage.title} - ${stage.status}`;
-}
+function updateHeader() {
+  const stage = getStage();
+  qs("#stage-kicker").textContent = state.isRunning ? `Running demo: ${stage.kicker}` : stage.kicker;
+  qs("#stage-title").textContent = stage.title;
+  qs("#stage-takeaway").textContent = stage.takeaway;
 
-function resetSimulation() {
-  if (state.runTimer) {
-    window.clearTimeout(state.runTimer);
-  }
-  state.runTimer = null;
-  state.isRunning = false;
-  const runButton = qs("#run-chain");
-  runButton.disabled = false;
-  runButton.textContent = "Run demo";
-  setActiveView("assessment");
-}
-
-function startSimulation() {
-  if (!state.data || state.isRunning) {
+  if (!state.data) {
     return;
   }
 
-  state.isRunning = true;
-  const runButton = qs("#run-chain");
-  runButton.disabled = true;
-  runButton.textContent = "Running";
-
-  let index = 0;
-  const advance = () => {
-    setActiveView(stages[index].id);
-    index += 1;
-
-    if (index < stages.length) {
-      state.runTimer = window.setTimeout(advance, 1300);
-      return;
-    }
-
-    state.runTimer = window.setTimeout(() => {
-      state.isRunning = false;
-      runButton.disabled = false;
-      runButton.textContent = "Run again";
-      qs("#execution-status").textContent = "Demo complete - review the layered outcome";
-    }, 1300);
-  };
-
-  advance();
+  const sha = estimateAttack("sha256", state.attackWindow);
+  const argon = estimateAttack("argon2id", state.attackWindow);
+  const total = state.data.experiment_context.user_count;
+  qs("#metric-window").textContent = `${state.attackWindow}s`;
+  qs("#metric-samples").textContent = total;
+  qs("#metric-sha").textContent = `${sha.crackedCount}/${total}`;
+  qs("#metric-argon").textContent = `${argon.crackedCount}/${total}`;
 }
 
 function renderActiveView() {
+  if (!state.data) {
+    return;
+  }
+
   const renderers = {
-    assessment: renderAssessment,
-    choices: renderPolicy,
-    leak: renderLeak,
-    cracking: renderCracking,
-    final: renderFinal,
+    overview: renderOverview,
+    passwords: renderPasswords,
+    setup: renderSetup,
+    results: renderResults,
+    findings: renderFindings,
   };
 
   qs("#view-panel").innerHTML = renderers[state.activeView]();
@@ -265,12 +183,62 @@ function bindDynamicEvents() {
   document.querySelectorAll("[data-method]").forEach((button) => {
     button.addEventListener("click", () => {
       state.activeMethod = button.dataset.method;
+      updateHeader();
+      renderActiveView();
+    });
+  });
+
+  document.querySelectorAll("[data-window]").forEach((button) => {
+    button.addEventListener("click", () => {
+      state.attackWindow = Number(button.dataset.window);
+      updateHeader();
       renderActiveView();
     });
   });
 }
 
-function methodTone(method) {
+function resetSimulation() {
+  if (state.runTimer) {
+    window.clearTimeout(state.runTimer);
+  }
+  state.isRunning = false;
+  state.runTimer = null;
+  qs("#run-chain").disabled = false;
+  qs("#run-chain").textContent = "Run demo";
+  setActiveView("overview");
+}
+
+function startSimulation() {
+  if (!state.data || state.isRunning) {
+    return;
+  }
+
+  state.isRunning = true;
+  qs("#run-chain").disabled = true;
+  qs("#run-chain").textContent = "Running";
+
+  let index = 0;
+  const advance = () => {
+    setActiveView(stages[index].id);
+    index += 1;
+
+    if (index < stages.length) {
+      state.runTimer = window.setTimeout(advance, 1250);
+      return;
+    }
+
+    state.runTimer = window.setTimeout(() => {
+      state.isRunning = false;
+      qs("#run-chain").disabled = false;
+      qs("#run-chain").textContent = "Run again";
+      updateHeader();
+    }, 1250);
+  };
+
+  advance();
+}
+
+function methodClass(method) {
   if (method === "plaintext" || method === "sha256") {
     return "danger";
   }
@@ -280,50 +248,448 @@ function methodTone(method) {
   return "safe";
 }
 
-function resultFillClass(method) {
-  if (method === "argon2id") {
+function riskClass(label) {
+  if (label === "strong_passphrase") {
     return "safe";
   }
-  if (method === "bcrypt") {
+  if (label === "predictable_pattern") {
     return "medium";
   }
-  return "";
+  return "danger";
 }
 
-function riskBadge(label) {
+function riskLabel(label) {
   if (label === "strong_passphrase") {
-    return '<span class="badge strong">long phrase</span>';
+    return "Long phrase";
   }
   if (label === "predictable_pattern") {
-    return '<span class="badge pattern">predictable</span>';
+    return "Pattern";
   }
-  return '<span class="badge weak">weak/common</span>';
+  return "Common";
 }
 
-function methodButtons() {
+function getAttemptMap() {
+  const sha256 = getStorageResult("sha256");
+  return new Map(sha256.cracked.map((account) => [account.username, account.attempts_for_user]));
+}
+
+function estimateAttack(method, attackWindow) {
+  const result = getStorageResult(method);
+  const total = state.data.experiment_context.user_count;
+
+  if (method === "plaintext") {
+    return {
+      method,
+      label: result.label,
+      crackedCount: total,
+      exposedCount: total,
+      crackedRate: 1,
+      details: state.data.users.map((user) => ({
+        ...user,
+        outcome: "exposed",
+        seconds: 0,
+      })),
+    };
+  }
+
+  const attemptsByUser = getAttemptMap();
+  const secondsPerGuess = 1 / result.guesses_per_second;
+  let elapsed = 0;
+  let stopped = false;
+  const details = state.data.users.map((user) => {
+    if (stopped) {
+      return { ...user, outcome: "not found", seconds: null };
+    }
+
+    const attempts = attemptsByUser.get(user.username) || state.data.experiment_context.wordlist_size;
+    const startOfMatchingGuess = elapsed + Math.max(0, attempts - 1) * secondsPerGuess;
+    const finishTime = elapsed + attempts * secondsPerGuess;
+
+    if (startOfMatchingGuess <= attackWindow) {
+      elapsed = finishTime;
+      return { ...user, outcome: "cracked", seconds: finishTime };
+    }
+
+    stopped = true;
+    return { ...user, outcome: "not found", seconds: null };
+  });
+
+  const crackedCount = details.filter((user) => user.outcome === "cracked").length;
+  return {
+    method,
+    label: result.label,
+    crackedCount,
+    exposedCount: 0,
+    crackedRate: crackedCount / total,
+    details,
+  };
+}
+
+function windowButtons() {
   return `
-    <div class="control-row" aria-label="Storage method selector">
-      ${methodOrder
-        .map((method) => {
-          const result = getStorageResult(method);
-          const active = method === state.activeMethod ? " is-active" : "";
-          return `<button class="method-button${active}" type="button" data-method="${method}">${result.label}</button>`;
+    <div class="segmented-control" aria-label="Attack window">
+      ${attackWindows
+        .map((seconds) => {
+          const active = seconds === state.attackWindow ? " is-active" : "";
+          const measured = seconds === state.data.experiment_context.attack_budget_seconds_per_method ? " measured" : "";
+          return `<button class="${active}${measured}" type="button" data-window="${seconds}">${seconds}s</button>`;
         })
         .join("")}
     </div>
   `;
 }
 
-function renderEvidence(items) {
+function methodButtons() {
   return `
-    <div class="evidence-grid">
-      ${items
+    <div class="method-picker" aria-label="Storage method">
+      ${methodOrder
+        .map((method) => {
+          const result = getStorageResult(method);
+          const active = method === state.activeMethod ? " is-active" : "";
+          return `<button class="${methodClass(method)}${active}" type="button" data-method="${method}">${result.label}</button>`;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderOverview() {
+  const context = state.data.experiment_context;
+  const argon = estimateAttack("argon2id", state.attackWindow);
+  const sha = estimateAttack("sha256", state.attackWindow);
+  const ratio = Math.round(getStorageResult("sha256").guesses_per_second / getStorageResult("argon2id").guesses_per_second);
+
+  return `
+    <div class="showcase-grid">
+      <section class="visual-card lead-card">
+        <div class="attack-map" aria-label="Password leak attack chain">
+          <div><span>1</span><strong>Password type</strong></div>
+          <div><span>2</span><strong>Database leak</strong></div>
+          <div><span>3</span><strong>Offline guesses</strong></div>
+          <div><span>4</span><strong>Recovered passwords</strong></div>
+        </div>
+      </section>
+
+      <section class="result-card">
+        <span>Main contrast</span>
+        <strong>${sha.crackedCount}/${context.user_count} vs ${argon.crackedCount}/${context.user_count}</strong>
+        <small>SHA-256 cracked vs Argon2id cracked at ${state.attackWindow}s</small>
+      </section>
+
+      <section class="result-card">
+        <span>Speed gap</span>
+        <strong>${formatNumber(ratio, 0)}x</strong>
+        <small>more guesses per second for SHA-256 in this run</small>
+      </section>
+    </div>
+
+    <section class="chart-card compact">
+      <h3>Experiment scope</h3>
+      <div class="scope-grid">
+        <span><b>${context.user_count}</b> synthetic passwords</span>
+        <span><b>${context.wordlist_size}</b> local candidates</span>
+        <span><b>${context.attack_budget_seconds_per_method}s</b> measured budget</span>
+        <span><b>0</b> real credentials</span>
+      </div>
+    </section>
+  `;
+}
+
+function renderPasswords() {
+  const composition = getPolicyResult("composition");
+  const layered = getPolicyResult("layered");
+  const seenProfiles = new Set();
+  const samples = state.data.users.filter((user) => {
+    if (seenProfiles.has(user.profile)) {
+      return false;
+    }
+    seenProfiles.add(user.profile);
+    return true;
+  });
+
+  return `
+    <section class="chart-card">
+      <div class="section-head">
+        <h3>Password type gallery</h3>
+        <span>synthetic samples only</span>
+      </div>
+      <div class="password-gallery">
+        ${samples
+          .map(
+            (user) => `
+              <article class="password-tile ${riskClass(user.risk_label)}">
+                <span>${riskLabel(user.risk_label)}</span>
+                <code>${escapeHtml(user.password)}</code>
+                <strong>${escapeHtml(user.profile)}</strong>
+              </article>
+            `,
+          )
+          .join("")}
+      </div>
+    </section>
+
+    <section class="two-column">
+      <div class="chart-card">
+        <h3>Policy effect</h3>
+        ${renderPolicyComparison(composition, layered)}
+      </div>
+      <div class="chart-card">
+        <h3>Decision matrix</h3>
+        ${renderPolicyMatrix()}
+      </div>
+    </section>
+  `;
+}
+
+function renderPolicyComparison(composition, layered) {
+  const rows = [
+    ["Weak rejected", composition.weak_password_rejection_rate, layered.weak_password_rejection_rate],
+    ["Strong accepted", composition.strong_password_acceptance_rate, layered.strong_password_acceptance_rate],
+  ];
+
+  return rows
+    .map(
+      ([label, compositionValue, layeredValue]) => `
+        <div class="policy-chart-row">
+          <strong>${label}</strong>
+          <div>
+            <span>Complexity</span>
+            <div class="bar-track"><div class="bar-fill medium" style="width:${compositionValue * 100}%"></div></div>
+            <b>${Math.round(compositionValue * 100)}%</b>
+          </div>
+          <div>
+            <span>Layered</span>
+            <div class="bar-track"><div class="bar-fill safe" style="width:${layeredValue * 100}%"></div></div>
+            <b>${Math.round(layeredValue * 100)}%</b>
+          </div>
+        </div>
+      `,
+    )
+    .join("");
+}
+
+function renderPolicyMatrix() {
+  const policies = ["composition", "layered"];
+  const lookup = new Map(
+    policies.map((policy) => [
+      policy,
+      new Map(getPolicyResult(policy).decisions.map((decision) => [decision.username, decision])),
+    ]),
+  );
+
+  return `
+    <div class="mini-matrix">
+      <span class="matrix-head">Password</span>
+      <span class="matrix-head">Complexity</span>
+      <span class="matrix-head">Layered</span>
+      ${state.data.users
+        .slice(0, 6)
+        .map((user) => {
+          const cells = policies
+            .map((policy) => {
+              const accepted = lookup.get(policy).get(user.username).accepted;
+              return `<span class="verdict ${accepted ? "accept" : "reject"}">${accepted ? "accept" : "reject"}</span>`;
+            })
+            .join("");
+          return `<code>${escapeHtml(user.password)}</code>${cells}`;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderSetup() {
+  const selected = getStorageResult();
+  const estimate = estimateAttack(state.activeMethod, state.attackWindow);
+  const preview = state.data.leaked_record_previews[state.activeMethod];
+  const projectionLabel =
+    state.attackWindow === state.data.experiment_context.attack_budget_seconds_per_method ? "measured window" : "projected window";
+
+  return `
+    <section class="control-surface">
+      <div>
+        <span class="control-label">Attack window</span>
+        ${windowButtons()}
+      </div>
+      <div>
+        <span class="control-label">Storage method</span>
+        ${methodButtons()}
+      </div>
+    </section>
+
+    <section class="three-column">
+      <article class="result-card tall ${methodClass(state.activeMethod)}">
+        <span>${projectionLabel}</span>
+        <strong>${estimate.crackedCount}/${state.data.experiment_context.user_count}</strong>
+        <small>${selected.label} recovered or exposed at ${state.attackWindow}s</small>
+      </article>
+
+      <article class="chart-card leak-preview">
+        <div class="section-head">
+          <h3>Leaked view</h3>
+          <span>${selected.label}</span>
+        </div>
+        ${preview
+          .map(
+            (record) => `
+              <div class="leak-row">
+                <strong>${escapeHtml(record.username)}</strong>
+                <code>${escapeHtml(record.leaked_value)}</code>
+              </div>
+            `,
+          )
+          .join("")}
+      </article>
+
+      <article class="chart-card compact">
+        <h3>Attack path</h3>
+        <div class="vertical-flow">
+          <span>leak</span>
+          <span>wordlist</span>
+          <span>verify</span>
+          <span>recover</span>
+        </div>
+      </article>
+    </section>
+  `;
+}
+
+function renderResults() {
+  const selected = estimateAttack(state.activeMethod, state.attackWindow);
+  const sha = estimateAttack("sha256", state.attackWindow);
+  const argon = estimateAttack("argon2id", state.attackWindow);
+  const total = state.data.experiment_context.user_count;
+  const note =
+    state.attackWindow === state.data.experiment_context.attack_budget_seconds_per_method
+      ? "measured 2-second run"
+      : "projection from measured verification speed";
+
+  return `
+    <section class="results-hero">
+      <div>
+        <span>${note}</span>
+        <strong>${sha.crackedCount}/${total} SHA-256</strong>
+      </div>
+      <div>
+        <span>same window</span>
+        <strong>${argon.crackedCount}/${total} Argon2id</strong>
+      </div>
+      <div>
+        <span>selected method</span>
+        <strong>${selected.crackedCount}/${total} ${escapeHtml(selected.label)}</strong>
+      </div>
+    </section>
+
+    <section class="two-column">
+      <div class="chart-card">
+        <div class="section-head">
+          <h3>Recovered accounts</h3>
+          <span>${state.attackWindow}s window</span>
+        </div>
+        ${renderCrackBars()}
+      </div>
+      <div class="chart-card">
+        <div class="section-head">
+          <h3>Guessing speed</h3>
+          <span>log scale</span>
+        </div>
+        ${renderSpeedBars()}
+      </div>
+    </section>
+
+    <section class="two-column wide-left">
+      <div class="chart-card">
+        <div class="section-head">
+          <h3>Account outcome grid</h3>
+          <span>exposed / cracked / not found</span>
+        </div>
+        ${renderOutcomeGrid()}
+      </div>
+      <div class="chart-card">
+        <div class="section-head">
+          <h3>${escapeHtml(selected.label)} details</h3>
+          <span>${selected.crackedCount}/${total}</span>
+        </div>
+        ${renderRecoveredList(selected)}
+      </div>
+    </section>
+  `;
+}
+
+function renderCrackBars() {
+  const total = state.data.experiment_context.user_count;
+  return methodOrder
+    .map((method) => {
+      const estimate = estimateAttack(method, state.attackWindow);
+      const width = Math.max(3, (estimate.crackedCount / total) * 100);
+      const active = method === state.activeMethod ? " is-active" : "";
+      return `
+        <button class="bar-row${active}" type="button" data-method="${method}">
+          <span>${escapeHtml(estimate.label)}</span>
+          <div class="bar-track"><div class="bar-fill ${methodClass(method)}" style="width:${width}%"></div></div>
+          <b>${estimate.crackedCount}/${total}</b>
+        </button>
+      `;
+    })
+    .join("");
+}
+
+function renderSpeedBars() {
+  const speeds = state.data.storage_results.filter((result) => result.guesses_per_second !== null);
+  const maxLog = Math.max(...speeds.map((result) => Math.log10(result.guesses_per_second + 1)));
+
+  return state.data.storage_results
+    .map((result) => {
+      const direct = result.guesses_per_second === null;
+      const width = direct ? 100 : Math.max(4, (Math.log10(result.guesses_per_second + 1) / maxLog) * 100);
+      const value = direct ? "direct" : `${formatNumber(result.guesses_per_second)} / sec`;
+      return `
+        <div class="speed-row">
+          <span>${escapeHtml(result.label)}</span>
+          <div class="bar-track"><div class="bar-fill ${methodClass(result.method)}" style="width:${width}%"></div></div>
+          <b>${value}</b>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderOutcomeGrid() {
+  const estimates = new Map(methodOrder.map((method) => [method, estimateAttack(method, state.attackWindow)]));
+  return `
+    <div class="outcome-grid">
+      <span class="matrix-head">Account</span>
+      ${methodOrder.map((method) => `<span class="matrix-head">${escapeHtml(getStorageResult(method).label)}</span>`).join("")}
+      ${state.data.users
+        .map((user) => {
+          const cells = methodOrder
+            .map((method) => {
+              const detail = estimates.get(method).details.find((item) => item.username === user.username);
+              return `<span class="outcome ${detail.outcome}">${detail.outcome === "not found" ? "safe" : detail.outcome}</span>`;
+            })
+            .join("");
+          return `<strong>${escapeHtml(user.username)}</strong>${cells}`;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
+function renderRecoveredList(estimate) {
+  const visible = estimate.details.filter((detail) => detail.outcome !== "not found");
+  if (!visible.length) {
+    return '<div class="empty-state small">No passwords recovered in this window.</div>';
+  }
+
+  return `
+    <div class="recovered-list">
+      ${visible
         .map(
-          (item) => `
-            <div class="evidence-item">
-              <span>${escapeHtml(item.label)}</span>
-              <strong>${escapeHtml(item.value)}</strong>
-              <small class="muted">${escapeHtml(item.note)}</small>
+          (detail) => `
+            <div>
+              <strong>${escapeHtml(detail.username)}</strong>
+              <span>${escapeHtml(detail.profile)}</span>
+              <code>${detail.seconds === 0 ? "instant" : `${formatNumber(detail.seconds, 2)}s`}</code>
             </div>
           `,
         )
@@ -332,347 +698,36 @@ function renderEvidence(items) {
   `;
 }
 
-function renderMethodBars(kind) {
-  const total = state.data.experiment_context.user_count;
-  const hashResults = state.data.storage_results.filter((result) => result.guesses_per_second !== null);
-  const maxLogSpeed = Math.max(...hashResults.map((result) => Math.log10(result.guesses_per_second + 1)));
-
-  return state.data.storage_results
-    .map((result) => {
-      const countMode = kind === "count";
-      const width = countMode
-        ? Math.max(4, (result.cracked_accounts / total) * 100)
-        : result.guesses_per_second === null
-          ? 100
-          : Math.max(4, (Math.log10(result.guesses_per_second + 1) / maxLogSpeed) * 100);
-      const label = countMode
-        ? `${percent(result.cracked_accounts, total)}% cracked`
-        : result.guesses_per_second === null
-          ? "no guessing required"
-          : `${formatOptionalNumber(result.average_verify_ms, " ms")} per guess`;
-      const value = countMode
-        ? `${result.cracked_accounts}/${total}`
-        : result.guesses_per_second === null
-          ? "exposed"
-          : formatOptionalNumber(result.guesses_per_second);
-
-      return `
-        <div class="method-row">
-          <div>
-            <strong>${result.label}</strong>
-            <span>${label}</span>
-          </div>
-          <div class="bar-track" aria-label="${result.label} ${value}">
-            <div class="bar-fill ${resultFillClass(result.method)}" style="width:${width}%"></div>
-          </div>
-          <b>${value}</b>
-        </div>
-      `;
-    })
-    .join("");
-}
-
-function renderOutcomeBoard() {
-  const crackedByMethod = new Map(
-    state.data.storage_results.map((result) => [
-      result.method,
-      new Set(result.cracked.map((account) => account.username)),
-    ]),
-  );
-  const header = methodOrder.map((method) => `<span>${escapeHtml(getStorageResult(method).label)}</span>`).join("");
-  const rows = state.data.users
-    .map((user) => {
-      const cells = methodOrder
-        .map((method) => {
-          const exposed = method === "plaintext";
-          const cracked = crackedByMethod.get(method).has(user.username);
-          const label = exposed ? "exposed" : cracked ? "cracked" : "not found";
-          const className = exposed ? "exposed" : cracked ? "cracked" : "missed";
-          return `<span class="outcome ${className}">${label}</span>`;
-        })
-        .join("");
-      return `
-        <div class="outcome-row">
-          <div class="outcome-account">
-            <strong>${escapeHtml(user.username)}</strong>
-            <span>${escapeHtml(user.profile)}</span>
-          </div>
-          ${cells}
-        </div>
-      `;
-    })
-    .join("");
-
+function renderFindings() {
   return `
-    <div class="outcome-board">
-      <div class="outcome-row outcome-header">
-        <span>Account</span>
-        ${header}
+    <section class="chart-card">
+      <div class="section-head">
+        <h3>Evidence to recommendation</h3>
+        <span>measured path only</span>
       </div>
-      ${rows}
-    </div>
-  `;
-}
-
-function renderPolicyBoard() {
-  const comparedPolicies = ["composition", "layered"];
-  const policyLookup = new Map(
-    comparedPolicies.map((policy) => [
-      policy,
-      new Map(getPolicyResult(policy).decisions.map((decision) => [decision.password, decision])),
-    ]),
-  );
-
-  const rows = passwordTypeExamples
-    .map((example) => {
-      const cells = comparedPolicies
-        .map((policy) => {
-          const decision = policyLookup.get(policy).get(example.example);
-          const accepted = decision && decision.accepted;
-          return `<span class="decision ${accepted ? "accepted" : "rejected"}">${accepted ? "accept" : "reject"}</span>`;
-        })
-        .join("");
-      return `
-        <div class="policy-row">
-          <div>
-            <strong>${escapeHtml(example.title)}</strong>
-            <br>
-            <code>${escapeHtml(example.example)}</code>
-          </div>
-          ${cells}
-        </div>
-      `;
-    })
-    .join("");
-
-  return `
-    <div class="policy-board">
-      <div class="policy-row policy-header">
-        <span>Password form</span>
-        <span>Complexity</span>
-        <span>Layered</span>
-      </div>
-      ${rows}
-    </div>
-  `;
-}
-
-function renderAssessment() {
-  const context = state.data.experiment_context;
-  return `
-    <section class="hero-result">
-      <div>
-        <p class="eyebrow">Controlled case study</p>
-        <h2>The demo measures the password path after a database leak</h2>
-        <p>The dataset is synthetic by design. The value of the project is the controlled comparison: same passwords, same wordlist, same time budget, different controls.</p>
-      </div>
-      <div class="hero-number">
-        <span>Measured stages</span>
-        <strong>3</strong>
-        <small>policy, storage, cracking cost</small>
+      <div class="recommendation-map">
+        ${recommendationItems
+          .map(
+            (item) => `
+              <article>
+                <span>Evidence</span>
+                <strong>${escapeHtml(item.evidence)}</strong>
+                <b>${escapeHtml(item.action)}</b>
+              </article>
+            `,
+          )
+          .join("")}
       </div>
     </section>
 
-    ${renderEvidence([
-      {
-        label: "Dataset",
-        value: `${context.user_count} synthetic passwords`,
-        note: "Safe to demonstrate and repeat.",
-      },
-      {
-        label: "Wordlist",
-        value: `${context.wordlist_size} candidates`,
-        note: "Small local list for controlled comparison.",
-      },
-      {
-        label: "Budget",
-        value: `${context.attack_budget_seconds_per_method}s per method`,
-        note: "Same time limit across storage methods.",
-      },
-    ])}
-
-    <section class="chain-diagram" aria-label="Measured attack chain">
-      <div class="chain-node"><span>1</span><strong>Password creation</strong><small class="muted">policy accepts or rejects forms</small></div>
-      <div class="chain-node"><span>2</span><strong>Database leak</strong><small class="muted">stored values become attacker input</small></div>
-      <div class="chain-node"><span>3</span><strong>Offline guessing</strong><small class="muted">storage cost controls speed</small></div>
-      <div class="chain-node"><span>4</span><strong>Recommendation</strong><small class="muted">map evidence to controls</small></div>
+    <section class="final-strip">
+      <strong>Core point</strong>
+      <span>Complexity changes acceptance. Storage cost changes offline attack success.</span>
     </section>
   `;
 }
 
-function renderPolicy() {
-  const composition = getPolicyResult("composition");
-  const layered = getPolicyResult("layered");
-  const passwordCards = passwordTypeExamples
-    .map(
-      (example) => `
-        <article class="password-card">
-          ${riskBadge(example.riskLabel)}
-          <strong>${escapeHtml(example.title)}</strong>
-          <code>${escapeHtml(example.example)}</code>
-          <span>${escapeHtml(example.shape)}</span>
-        </article>
-      `,
-    )
-    .join("");
-
-  return `
-    <section class="hero-result">
-      <div>
-        <p class="eyebrow">Step 2</p>
-        <h2>Complex-looking passwords are not always hard to guess</h2>
-        <p>The policy view separates compliance from guess resistance. A complexity rule can accept predictable forms; a layered rule blocks more weak patterns.</p>
-      </div>
-      <div class="hero-number">
-        <span>Weak passwords rejected</span>
-        <strong>${Math.round(layered.weak_password_rejection_rate * 100)}%</strong>
-        <small>under layered policy</small>
-      </div>
-    </section>
-
-    <section class="visual-grid">
-      <div class="metric-tile">
-        <span class="muted">Complexity rule</span>
-        <strong>${Math.round(composition.weak_password_rejection_rate * 100)}%</strong>
-        <p class="muted">${escapeHtml(composition.description)}</p>
-      </div>
-      <div class="metric-tile">
-        <span class="muted">Layered policy</span>
-        <strong>${Math.round(layered.weak_password_rejection_rate * 100)}%</strong>
-        <p class="muted">${escapeHtml(layered.description)}</p>
-      </div>
-    </section>
-
-    <section class="subsection">
-      <h3>Policy decision board</h3>
-      ${renderPolicyBoard()}
-    </section>
-
-    <section class="password-grid">
-      ${passwordCards}
-    </section>
-  `;
-}
-
-function renderLeak() {
-  const selected = getStorageResult();
-  const rows = state.data.leaked_record_previews[state.activeMethod]
-    .map(
-      (record) => `
-        <div class="leak-row">
-          <strong>${escapeHtml(record.username)}</strong>
-          <code>${escapeHtml(record.leaked_value)}</code>
-        </div>
-      `,
-    )
-    .join("");
-
-  return `
-    <section class="hero-result">
-      <div>
-        <p class="eyebrow">Step 3</p>
-        <h2>Storage changes what the attacker receives</h2>
-        <p>Use the storage selector to compare the same synthetic passwords stored as plaintext, fast hashes, and adaptive password hashes.</p>
-      </div>
-      <div class="hero-number">
-        <span>Selected method</span>
-        <strong>${escapeHtml(selected.label)}</strong>
-        <small>${escapeHtml(selected.security_role)}</small>
-      </div>
-    </section>
-
-    ${methodButtons()}
-
-    <section class="split-grid">
-      <div class="subsection">
-        <h3>Attacker view after leak</h3>
-        <div class="leak-preview">${rows}</div>
-      </div>
-      <div class="subsection">
-        <h3>Security meaning</h3>
-        <p>${escapeHtml(selected.summary)}</p>
-        <p class="note-line">${escapeHtml(selected.security_role)}</p>
-      </div>
-    </section>
-  `;
-}
-
-function renderCracking() {
-  const sha256 = getStorageResult("sha256");
-  const argon2id = getStorageResult("argon2id");
-  const ratio = Math.round(sha256.guesses_per_second / argon2id.guesses_per_second);
-
-  return `
-    <section class="hero-result">
-      <div>
-        <p class="eyebrow">Step 4</p>
-        <h2>Fast hashes let the attacker test dramatically more guesses</h2>
-        <p>This is the main measured result. Every storage method gets the same password set, wordlist, and ${state.data.experiment_context.attack_budget_seconds_per_method}-second budget.</p>
-      </div>
-      <div class="hero-number">
-        <span>SHA-256 vs Argon2id</span>
-        <strong>${formatNumber(ratio)}x</strong>
-        <small>more guesses per second in this run</small>
-      </div>
-    </section>
-
-    <section class="visual-grid">
-      <div class="subsection">
-        <h3>Cracked accounts within budget</h3>
-        ${renderMethodBars("count")}
-      </div>
-      <div class="subsection">
-        <h3>Guessing speed comparison</h3>
-        <p class="muted">Log-scaled bars keep slow hashes visible.</p>
-        ${renderMethodBars("speed")}
-      </div>
-    </section>
-
-    <section class="subsection">
-      <h3>Account-level outcome</h3>
-      <p class="muted">Plaintext is direct exposure. For hashed methods, cracked means the wordlist recovered the password within the budget.</p>
-      ${renderOutcomeBoard()}
-    </section>
-  `;
-}
-
-function renderFinal() {
-  return `
-    <section class="hero-result">
-      <div>
-        <p class="eyebrow">Step 5</p>
-        <h2>Password complexity is only one part of authentication security</h2>
-        <p>${escapeHtml(state.data.attack_chain_summary.main_finding)}</p>
-      </div>
-      <div class="hero-number">
-        <span>Measured conclusion</span>
-        <strong>Layer</strong>
-        <small>policy plus storage plus cracking cost</small>
-      </div>
-    </section>
-
-    <section class="chain-diagram" aria-label="Recommendation chain">
-      ${state.data.attack_chain_summary.risk_reduction_story
-        .map((item, index) => `<div class="chain-node"><span>${index + 1}</span><strong>${escapeHtml(item)}</strong></div>`)
-        .join("")}
-    </section>
-
-    <section class="recommendation-grid">
-      ${recommendationItems
-        .map(
-          (item) => `
-            <article class="recommendation">
-              <h3>${escapeHtml(item.title)}</h3>
-              <p>${escapeHtml(item.body)}</p>
-            </article>
-          `,
-        )
-        .join("")}
-    </section>
-  `;
-}
-
-document.querySelectorAll(".stage-link").forEach((button) => {
+document.querySelectorAll(".stage-tab").forEach((button) => {
   button.addEventListener("click", () => setActiveView(button.dataset.view));
 });
 
