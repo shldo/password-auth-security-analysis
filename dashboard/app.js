@@ -239,13 +239,23 @@ function startSimulation() {
 }
 
 function methodClass(method) {
-  if (method === "plaintext" || method === "sha256") {
+  if (method === "plaintext") {
+    return "exposed";
+  }
+  if (method === "sha256") {
     return "danger";
   }
   if (method === "bcrypt") {
     return "medium";
   }
   return "safe";
+}
+
+function outcomeMode(method) {
+  if (method === "plaintext") {
+    return "direct exposure";
+  }
+  return "wordlist cracking";
 }
 
 function riskClass(label) {
@@ -608,6 +618,7 @@ function renderSetup() {
 
 function renderResults() {
   const selected = estimateAttack(state.activeMethod, state.attackWindow);
+  const plaintext = estimateAttack("plaintext", state.attackWindow);
   const sha = estimateAttack("sha256", state.attackWindow);
   const argon = estimateAttack("argon2id", state.attackWindow);
   const total = state.data.experiment_context.user_count;
@@ -619,24 +630,24 @@ function renderResults() {
   return `
     <section class="results-hero">
       <div>
+        <span>direct exposure</span>
+        <strong>${plaintext.crackedCount}/${total} Plain text</strong>
+      </div>
+      <div>
         <span>${note}</span>
         <strong>${sha.crackedCount}/${total} SHA-256</strong>
       </div>
       <div>
-        <span>same window</span>
+        <span>adaptive hash result</span>
         <strong>${argon.crackedCount}/${total} Argon2id</strong>
-      </div>
-      <div>
-        <span>selected method</span>
-        <strong>${selected.crackedCount}/${total} ${escapeHtml(selected.label)}</strong>
       </div>
     </section>
 
     <section class="two-column">
       <div class="chart-card">
         <div class="section-head">
-          <h3>Recovered accounts</h3>
-          <span>${state.attackWindow}s window</span>
+          <h3>Exposure vs cracking</h3>
+          <span>selected: ${escapeHtml(selected.label)}</span>
         </div>
         ${renderCrackBars()}
       </div>
@@ -677,7 +688,10 @@ function renderCrackBars() {
       const active = method === state.activeMethod ? " is-active" : "";
       return `
         <button class="bar-row${active}" type="button" data-method="${method}">
-          <span>${escapeHtml(estimate.label)}</span>
+          <span class="method-label">
+            <strong>${escapeHtml(estimate.label)}</strong>
+            <small>${outcomeMode(method)}</small>
+          </span>
           <div class="bar-track"><div class="bar-fill ${methodClass(method)}" style="width:${width}%"></div></div>
           <b>${estimate.crackedCount}/${total}</b>
         </button>
@@ -693,11 +707,14 @@ function renderSpeedBars() {
   return state.data.storage_results
     .map((result) => {
       const direct = result.guesses_per_second === null;
-      const width = direct ? 100 : Math.max(4, (Math.log10(result.guesses_per_second + 1) / maxLog) * 100);
-      const value = direct ? "direct" : `${formatNumber(result.guesses_per_second)} / sec`;
+      const width = direct ? 0 : Math.max(4, (Math.log10(result.guesses_per_second + 1) / maxLog) * 100);
+      const value = direct ? "no guessing" : `${formatNumber(result.guesses_per_second)} / sec`;
       return `
-        <div class="speed-row">
-          <span>${escapeHtml(result.label)}</span>
+        <div class="speed-row${direct ? " no-speed" : ""}">
+          <span class="method-label">
+            <strong>${escapeHtml(result.label)}</strong>
+            <small>${direct ? "already exposed" : "verify guesses"}</small>
+          </span>
           <div class="bar-track"><div class="bar-fill ${methodClass(result.method)}" style="width:${width}%"></div></div>
           <b>${value}</b>
         </div>

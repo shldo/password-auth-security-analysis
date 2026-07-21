@@ -277,6 +277,10 @@ main,
   border-left-color: var(--red);
 }
 
+.result-card.exposed {
+  border-left-color: var(--dark);
+}
+
 .result-card.medium {
   border-left-color: var(--amber);
 }
@@ -521,6 +525,10 @@ code {
   background: var(--blue);
 }
 
+.bar-fill.exposed {
+  background: var(--dark);
+}
+
 .bar-fill.danger {
   background: var(--red);
 }
@@ -692,6 +700,12 @@ code {
   color: var(--teal);
 }
 
+.method-picker button.exposed.is-active {
+  border-color: var(--dark);
+  background: var(--soft);
+  color: var(--dark);
+}
+
 .method-picker button.danger.is-active {
   border-color: var(--red);
   background: var(--red-soft);
@@ -776,8 +790,32 @@ code {
   padding: 8px;
 }
 
+.method-label {
+  display: grid;
+  gap: 2px;
+}
+
+.method-label strong {
+  color: var(--ink);
+}
+
+.method-label small {
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
 .speed-row {
   margin-bottom: 10px;
+}
+
+.speed-row.no-speed .bar-track {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--soft),
+    var(--soft) 7px,
+    #dde6e2 7px,
+    #dde6e2 14px
+  );
 }
 
 .recovered-list {
