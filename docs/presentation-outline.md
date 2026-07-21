@@ -1,14 +1,14 @@
 # Five-Minute Presentation Outline
 
-## Slide 1: Client Problem
+## Slide 1: Case Study Problem
 
-"Our client thinks their password policy is safe because it requires uppercase, lowercase, numbers, and symbols. I test whether that is enough after a database leak."
+"The case-study system appears safe because it requires uppercase, lowercase, numbers, and symbols. I test whether that is enough after a database leak."
 
 ## Slide 2: Attack Chain
 
 Show the dashboard flow:
 
-Client assessment -> password types -> database leak -> offline cracking -> login with/without MFA -> final assessment.
+System assessment -> password types -> database leak -> offline cracking -> MFA risk model -> final assessment.
 
 ## Slide 3: Technical Experiment
 
@@ -24,7 +24,7 @@ Use dashboard screenshots:
 - Plaintext fails immediately.
 - Fast hash is much easier to test offline.
 - bcrypt and Argon2id increase attacker cost.
-- MFA scenario controls show how account takeover changes when MFA is off, mixed, or required.
+- MFA risk-model controls show how account takeover changes when MFA is off, mixed, or required.
 
 ## Slide 5: Final Assessment
 

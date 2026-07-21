@@ -436,7 +436,7 @@ def build_attack_chain_summary(storage_results: list[dict], policy_results: list
     layered_policy = next(result for result in policy_results if result["policy"] == "layered")
 
     return {
-        "client_assessment": {
+        "system_assessment": {
             "password_policy": "Complexity rule: uppercase, lowercase, number, symbol",
             "storage": "Salted SHA-256",
             "mfa": "Optional, not required for all users",

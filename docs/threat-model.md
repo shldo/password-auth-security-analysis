@@ -1,8 +1,8 @@
 # Threat Model
 
-## Client Scenario
+## Case Study Scenario
 
-The client is a fictional small web service with password-based authentication. The client currently believes their authentication system is reasonably secure because users must create complex-looking passwords.
+The target is a fictional small web service with password-based authentication. The system appears reasonably secure because users must create complex-looking passwords.
 
 Current configuration:
 
@@ -17,7 +17,7 @@ Current configuration:
 - Password database records.
 - Session access after successful login.
 - Account recovery and MFA reset flows.
-- Client trust and service reputation.
+- User trust and service reputation.
 
 ## Attacker Model
 
@@ -39,7 +39,7 @@ The attacker does not:
 
 ```mermaid
 flowchart TD
-    A["Client authentication design"] --> B["User chooses password"]
+    A["Case-study authentication design"] --> B["Password form is selected"]
     B --> C["Password policy accepts or rejects it"]
     C --> D["Password stored in database"]
     D --> E["Database leak"]

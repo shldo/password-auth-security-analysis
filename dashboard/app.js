@@ -212,7 +212,7 @@ function resetSimulation() {
     runButton.textContent = "Start simulation";
   }
   setActiveView("assessment");
-  qs("#execution-status").textContent = "Ready to evaluate the client's password authentication design.";
+  qs("#execution-status").textContent = "Ready to evaluate the case-study password authentication design.";
 }
 
 function startSimulation() {
@@ -260,7 +260,7 @@ function renderActiveView() {
   }
 
   const renderers = {
-    assessment: renderClientAssessment,
+    assessment: renderSystemAssessment,
     choices: renderChoices,
     leak: renderLeak,
     cracking: renderCracking,
@@ -347,14 +347,14 @@ function riskBadge(label) {
   return '<span class="risk-badge high">weak/common</span>';
 }
 
-function renderClientAssessment() {
-  const assessment = state.data.attack_chain_summary.client_assessment;
+function renderSystemAssessment() {
+  const assessment = state.data.attack_chain_summary.system_assessment;
   return `
     <div class="view-grid">
       <div>
         <p class="eyebrow">Step 1</p>
-        <h2>Client assessment</h2>
-        <p>The client believes the system is safe because users must create complex-looking passwords. This assessment tests that assumption after a database leak.</p>
+        <h2>System assessment</h2>
+        <p>The case-study system appears safe because it requires complex-looking passwords. This assessment tests that assumption after a database leak.</p>
         <div class="flow-line">
           <div class="flow-item"><span>1</span><div><strong>Password policy</strong><br><span class="small-muted">${assessment.password_policy}</span></div></div>
           <div class="flow-item"><span>2</span><div><strong>Password storage</strong><br><span class="small-muted">${assessment.storage}</span></div></div>
@@ -365,7 +365,7 @@ function renderClientAssessment() {
       <div class="sub-card">
         <h3>Attack chain used in the project</h3>
         <div class="flow-line">
-          <div class="flow-item"><span>A</span><div><strong>User chooses a password</strong><br><span class="small-muted">Policy shapes real user behaviour.</span></div></div>
+          <div class="flow-item"><span>A</span><div><strong>Password form is selected</strong><br><span class="small-muted">Policy shapes which password forms are accepted.</span></div></div>
           <div class="flow-item"><span>B</span><div><strong>Database is leaked</strong><br><span class="small-muted">The attacker gets stored password records.</span></div></div>
           <div class="flow-item"><span>C</span><div><strong>Offline cracking begins</strong><br><span class="small-muted">Storage method controls guessing cost.</span></div></div>
           <div class="flow-item"><span>D</span><div><strong>Login is attempted</strong><br><span class="small-muted">MFA changes whether cracked passwords become account takeover.</span></div></div>
@@ -403,7 +403,7 @@ function renderChoices() {
       <div>
         <p class="eyebrow">Step 2</p>
         <h2>Password types</h2>
-        <p>This stage compares password forms so the client can see why "looks complex" and "hard to guess" are different ideas.</p>
+        <p>This stage compares password forms so the audience can see why "looks complex" and "hard to guess" are different ideas.</p>
         <div class="stack">
           <div class="sub-card">
             <h3>Complexity rule</h3>
@@ -539,14 +539,14 @@ function renderLoginRisk() {
     <div>
       <p class="eyebrow">Step 5</p>
       <h2>Login risk after cracking</h2>
-      <p>Hashing affects whether the attacker obtains passwords. MFA affects whether cracked passwords become account takeover.</p>
+      <p>Hashing affects whether the attacker obtains passwords. The MFA risk model estimates whether cracked passwords become account takeover.</p>
       <div class="simulation-rule">
-        <strong>Simulation rule:</strong> cracked password + MFA off = account takeover; cracked password + MFA on = blocked or challenged.
+        <strong>MFA model rule:</strong> cracked password + MFA off = account takeover; cracked password + MFA on = blocked or challenged.
       </div>
       ${methodButtons()}
       <div class="scenario-panel">
         <div>
-          <h3>MFA scenario</h3>
+          <h3>MFA risk model</h3>
           <p class="small-muted">${scenario.description}</p>
         </div>
         ${mfaScenarioButtons()}

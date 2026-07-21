@@ -9,6 +9,7 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 - Results: `results/analysis_results.json`
 - Demonstration: `dashboard/index.html`
 - Threat model: `docs/threat-model.md`
+- MFA risk model: `docs/mfa-risk-model.md`
 - Research notes: `docs/research-notes.md`
 - Report plan: `docs/report-outline.md`
 - Presentation plan: `docs/presentation-outline.md`
@@ -26,6 +27,7 @@ This file maps project work to the COMP6841 project expectations and Tom's repor
 - Uses salted SHA-256, bcrypt, and Argon2id.
 - Runs a controlled offline wordlist attack simulation.
 - Calculates account takeover risk with and without MFA.
+- Defines MFA as a deterministic risk model rather than a real authentication implementation.
 - Distinguishes direct plaintext exposure from cracking hashed passwords.
 
 ## Professional and Ethical Boundaries

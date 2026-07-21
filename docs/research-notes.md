@@ -57,7 +57,7 @@ Relevance to this project:
 
 ## Security engineering framing
 
-The project is not trying to prove a universal ranking for all systems. It uses a controlled client scenario to show how different controls affect different stages of a realistic authentication attack chain.
+The project is not trying to prove a universal ranking for all systems. It uses a controlled case-study scenario to show how different controls affect different stages of a realistic authentication attack chain.
 
 Key distinction:
 

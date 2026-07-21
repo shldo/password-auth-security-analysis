@@ -9,7 +9,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 1.0h | Created synthetic user password dataset and local demonstration wordlist. | `data/sample_passwords.csv`, `data/attack_wordlist.txt` |
 | 2026-07-20 | 2.0h | Implemented controlled password storage and offline cracking simulation. | `scripts/generate_results.py`, `results/analysis_results.json` |
 | 2026-07-20 | 2.0h | Built first dashboard version around the database-leak attack chain. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
-| 2026-07-20 | 0.5h | Wrote client-facing demo script for the 5-minute presentation. | `docs/demo-script.md` |
+| 2026-07-20 | 0.5h | Wrote tutor-facing demo script for the 5-minute presentation. | `docs/demo-script.md` |
 | 2026-07-20 | 1.5h | Added source-grounded research notes and formal threat model. | `docs/research-notes.md`, `docs/threat-model.md` |
 | 2026-07-20 | 1.0h | Added report-ready result summary generation. | `scripts/export_analysis_summary.py`, `results/analysis_summary.md` |
 | 2026-07-20 | 1.0h | Fixed dashboard layout issue and added a start button for the attack-chain demo. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
@@ -17,6 +17,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-20 | 0.5h | Replaced spaced passphrase examples with practical long password phrase examples. | `data/sample_passwords.csv`, `data/attack_wordlist.txt`, `dashboard/app.js` |
 | 2026-07-20 | 0.5h | Renamed first and final dashboard stages to assessment-focused wording and simplified visible password-form wording. | `dashboard/index.html`, `dashboard/app.js`, `docs/demo-script.md` |
 | 2026-07-20 | 1.0h | Added MFA scenario controls to make login-risk simulation clearer during presentation. | `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md` |
+| 2026-07-21 | 0.75h | Reframed the dashboard as a tutor-facing case-study assessment and clarified MFA as a risk model. | `dashboard/app.js`, `docs/demo-script.md`, `docs/threat-model.md` |
 
 ## Planned Time Budget
 

@@ -6,11 +6,11 @@
 - Security engineering angle: evaluate the whole authentication chain.
 - Research question: how do password policy, storage method, offline cracking cost, and MFA affect account compromise risk after a database leak?
 
-## 2. Scope and Client Scenario
+## 2. Scope and Case Study Scenario
 
-- Fictional client: a small web service with password-based login.
+- Case-study system: a small web service with password-based login.
 - Assumption: the user database is leaked.
-- Goal: advise the client on which authentication controls reduce risk most effectively.
+- Goal: evaluate which authentication controls reduce risk most effectively.
 
 ## 3. Background Research
 
@@ -27,6 +27,7 @@
 - Attack path: leak database, crack password hashes, attempt login, bypass or encounter MFA.
 - Out of scope: attacking real services, phishing real users, collecting real credentials.
 - Detailed model: `docs/threat-model.md`
+- MFA model: `docs/mfa-risk-model.md`
 
 ## 5. Methodology
 
@@ -47,6 +48,7 @@
 - Which storage methods exposed passwords fastest?
 - Which users were cracked under each method?
 - How did MFA change account takeover risk?
+- How was the MFA risk model defined, and what does it not simulate?
 - Why is MFA evaluated after cracking rather than during password-type analysis?
 - Which password policies rejected weak or predictable passwords?
 - What trade-offs appeared between security and usability?

@@ -8,7 +8,7 @@ Is password security mainly about password complexity, or does the whole authent
 
 This project analyses a controlled database-leak attack chain:
 
-1. A client system allows users to create passwords.
+1. A case-study authentication system allows password creation.
 2. Those passwords are stored using different storage methods.
 3. The password database is leaked.
 4. An attacker runs an offline wordlist attack against the leaked records.
