@@ -398,16 +398,16 @@ function renderOverview() {
 function renderPasswords() {
   const composition = getPolicyResult("composition");
   const layered = getPolicyResult("layered");
-  const samples = state.data.users.slice(0, 6);
+  const samples = state.data.users.slice(0, 8);
 
   return `
     <section class="two-column wide-right">
       <div class="chart-card">
         <div class="section-head">
-          <h3>Password types</h3>
-          <span>${state.data.users.length} synthetic accounts</span>
+          <h3>Balanced password set</h3>
+          <span>4 examples per decision class</span>
         </div>
-        ${renderTypeDistribution()}
+        ${renderDecisionBalance()}
         <div class="password-gallery">
           ${samples
             .map(
@@ -426,7 +426,7 @@ function renderPasswords() {
       <div class="chart-card decision-matrix-card">
         <div class="section-head">
           <h3>Decision matrix</h3>
-          <span>${state.data.users.length} accounts shown</span>
+          <span>${state.data.users.length} accounts, balanced classes</span>
         </div>
         ${renderPolicyMatrix()}
       </div>
@@ -442,27 +442,47 @@ function renderPasswords() {
   `;
 }
 
-function renderTypeDistribution() {
+function decisionForUser(user) {
+  const complexity = getPolicyResult("composition").decisions.find((decision) => decision.username === user.username);
+  const layered = getPolicyResult("layered").decisions.find((decision) => decision.username === user.username);
+
+  if (complexity.accepted && layered.accepted) {
+    return { key: "bothAccept", label: "Both accept", className: "safe" };
+  }
+  if (complexity.accepted && !layered.accepted) {
+    return { key: "complexityOnly", label: "Complexity only", className: "danger" };
+  }
+  if (!complexity.accepted && layered.accepted) {
+    return { key: "layeredOnly", label: "Layered only", className: "medium" };
+  }
+  return { key: "bothReject", label: "Both reject", className: "neutral" };
+}
+
+function renderDecisionBalance() {
   const groups = [
-    ["Common", "weak_common", "danger"],
-    ["Pattern", "predictable_pattern", "medium"],
-    ["Long phrase", "strong_passphrase", "safe"],
+    ["bothAccept", "Both accept", "C accept / L accept", "safe"],
+    ["complexityOnly", "Complexity only", "C accept / L reject", "danger"],
+    ["layeredOnly", "Layered only", "C reject / L accept", "medium"],
+    ["bothReject", "Both reject", "C reject / L reject", "neutral"],
   ];
-  const total = state.data.users.length;
+  const counts = state.data.users.reduce((accumulator, user) => {
+    const decision = decisionForUser(user);
+    accumulator[decision.key] = (accumulator[decision.key] || 0) + 1;
+    return accumulator;
+  }, {});
 
   return `
-    <div class="type-distribution">
+    <div class="decision-balance">
       ${groups
-        .map(([label, key, className]) => {
-          const count = state.data.users.filter((user) => user.risk_label === key).length;
-          return `
-            <div>
+        .map(
+          ([key, label, caption, className]) => `
+            <article class="${className}">
               <span>${label}</span>
-              <div class="bar-track"><div class="bar-fill ${className}" style="width:${(count / total) * 100}%"></div></div>
-              <b>${count}</b>
-            </div>
-          `;
-        })
+              <strong>${counts[key] || 0}</strong>
+              <small>${caption}</small>
+            </article>
+          `,
+        )
         .join("")}
     </div>
   `;
@@ -507,6 +527,7 @@ function renderPolicyMatrix() {
     <div class="decision-tile-grid">
       ${state.data.users
         .map((user) => {
+          const decision = decisionForUser(user);
           const cells = policies
             .map((policy) => {
               const accepted = lookup.get(policy).get(user.username).accepted;
@@ -514,10 +535,10 @@ function renderPolicyMatrix() {
             })
             .join("");
           return `
-            <article class="decision-tile ${riskClass(user.risk_label)}">
+            <article class="decision-tile ${decision.className}">
               <div class="decision-title">
                 <strong>${escapeHtml(user.username)}</strong>
-                <span>${riskLabel(user.risk_label)}</span>
+                <span>${decision.label}</span>
               </div>
               <code>${escapeHtml(user.password)}</code>
               <div class="decision-pair">${cells}</div>

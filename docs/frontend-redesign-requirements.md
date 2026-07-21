@@ -207,7 +207,7 @@
 推荐视觉：
 
 - 一条横向 attack chain。
-- 三个 evidence chips：24 synthetic passwords、48 wordlist candidates、2s per method。
+- 三个 evidence chips：16 synthetic passwords、32 wordlist candidates、2s per method。
 - 一个 ethical boundary banner。
 
 ### Stage 2: Password Forms and Policy Effect

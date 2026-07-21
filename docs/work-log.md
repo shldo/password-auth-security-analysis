@@ -25,6 +25,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-21 | 0.5h | Wrote formal front-end redesign requirements to align the next dashboard iteration with the marking criteria, project topic, and presentation needs. | `docs/frontend-redesign-requirements.md` |
 | 2026-07-21 | 1.5h | Rebuilt the dashboard into a cleaner visual presentation with password type gallery, attack-window controls, storage selection, and non-repeating result views. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js`, `docs/demo-script.md`, `docs/presentation-outline.md` |
 | 2026-07-21 | 0.75h | Expanded the synthetic password dataset and wordlist, regenerated results, and changed the policy decision matrix to show every account. | `data/sample_passwords.csv`, `data/attack_wordlist.txt`, `results/analysis_results.json`, `dashboard/app.js` |
+| 2026-07-21 | 0.75h | Rebalanced the password dataset to 16 synthetic accounts with four examples in each complexity/layered decision outcome class. | `data/sample_passwords.csv`, `data/attack_wordlist.txt`, `dashboard/app.js`, `results/analysis_results.json` |
 
 ## Planned Time Budget
 
