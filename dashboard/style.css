@@ -361,6 +361,10 @@ main,
   grid-template-columns: minmax(0, 1.35fr) minmax(260px, 0.65fr);
 }
 
+.two-column.wide-right {
+  grid-template-columns: minmax(320px, 0.72fr) minmax(0, 1.28fr);
+}
+
 .three-column {
   grid-template-columns: minmax(180px, 0.55fr) minmax(0, 1.1fr) minmax(180px, 0.55fr);
 }
@@ -377,6 +381,7 @@ main,
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 10px;
+  margin-top: 12px;
 }
 
 .password-tile {
@@ -387,6 +392,28 @@ main,
   border-radius: 8px;
   background: var(--panel);
   padding: 12px;
+}
+
+.type-distribution {
+  display: grid;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.type-distribution div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 32px;
+  gap: 8px;
+  align-items: center;
+}
+
+.type-distribution span {
+  color: var(--muted);
+}
+
+.type-distribution b {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
 }
 
 .password-tile.danger {
@@ -411,19 +438,20 @@ code {
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
 }
 
-.policy-chart-row {
+.policy-score-grid {
   display: grid;
-  grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
-  align-items: center;
-  margin-bottom: 14px;
 }
 
-.policy-chart-row:last-child {
-  margin-bottom: 0;
+.policy-score-grid article {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 12px;
 }
 
-.policy-chart-row div,
 .speed-row,
 .bar-row {
   display: grid;
@@ -432,9 +460,14 @@ code {
   align-items: center;
 }
 
-.policy-chart-row span {
+.policy-score-grid span,
+.policy-score-grid small {
   color: var(--muted);
-  font-size: 0.86rem;
+}
+
+.policy-score-grid strong {
+  font-size: 1.75rem;
+  line-height: 1;
 }
 
 .bar-track {
@@ -462,7 +495,6 @@ code {
   background: var(--teal);
 }
 
-.policy-chart-row b,
 .speed-row b,
 .bar-row b {
   font-variant-numeric: tabular-nums;
@@ -502,6 +534,11 @@ code {
   text-align: center;
 }
 
+.verdict.mini {
+  min-height: 28px;
+  font-size: 0.72rem;
+}
+
 .verdict.accept {
   background: var(--blue-soft);
   color: var(--blue);
@@ -517,6 +554,59 @@ code {
 .outcome.not {
   background: var(--teal-soft);
   color: var(--teal);
+}
+
+.decision-tile-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.decision-matrix-card .decision-tile-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  max-height: 468px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.decision-tile {
+  display: grid;
+  gap: 7px;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--muted);
+  border-radius: 8px;
+  padding: 9px;
+}
+
+.decision-tile.danger {
+  border-left-color: var(--red);
+}
+
+.decision-tile.medium {
+  border-left-color: var(--amber);
+}
+
+.decision-tile.safe {
+  border-left-color: var(--teal);
+}
+
+.decision-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.decision-title span {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.decision-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
 }
 
 .control-surface {
@@ -741,10 +831,12 @@ code {
   .scope-grid,
   .two-column,
   .two-column.wide-left,
+  .two-column.wide-right,
   .three-column,
   .control-surface,
   .results-hero,
-  .recommendation-map {
+  .recommendation-map,
+  .policy-score-grid {
     grid-template-columns: 1fr;
   }
 
@@ -762,6 +854,15 @@ code {
 
   .password-gallery {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-tile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .decision-matrix-card .decision-tile-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-height: none;
   }
 }
 
@@ -798,8 +899,6 @@ code {
     display: grid;
   }
 
-  .policy-chart-row,
-  .policy-chart-row div,
   .speed-row,
   .bar-row,
   .leak-row,
@@ -817,7 +916,11 @@ code {
     grid-template-columns: 170px repeat(2, 96px);
   }
 
-  .policy-chart-row b,
+  .decision-tile-grid,
+  .type-distribution div {
+    grid-template-columns: 1fr;
+  }
+
   .speed-row b,
   .bar-row b {
     text-align: left;

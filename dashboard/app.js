@@ -398,74 +398,100 @@ function renderOverview() {
 function renderPasswords() {
   const composition = getPolicyResult("composition");
   const layered = getPolicyResult("layered");
-  const seenProfiles = new Set();
-  const samples = state.data.users.filter((user) => {
-    if (seenProfiles.has(user.profile)) {
-      return false;
-    }
-    seenProfiles.add(user.profile);
-    return true;
-  });
+  const samples = state.data.users.slice(0, 6);
 
   return `
-    <section class="chart-card">
-      <div class="section-head">
-        <h3>Password type gallery</h3>
-        <span>synthetic samples only</span>
+    <section class="two-column wide-right">
+      <div class="chart-card">
+        <div class="section-head">
+          <h3>Password types</h3>
+          <span>${state.data.users.length} synthetic accounts</span>
+        </div>
+        ${renderTypeDistribution()}
+        <div class="password-gallery">
+          ${samples
+            .map(
+              (user) => `
+                <article class="password-tile ${riskClass(user.risk_label)}">
+                  <span>${riskLabel(user.risk_label)}</span>
+                  <code>${escapeHtml(user.password)}</code>
+                  <strong>${escapeHtml(user.profile)}</strong>
+                </article>
+              `,
+            )
+            .join("")}
+        </div>
       </div>
-      <div class="password-gallery">
-        ${samples
-          .map(
-            (user) => `
-              <article class="password-tile ${riskClass(user.risk_label)}">
-                <span>${riskLabel(user.risk_label)}</span>
-                <code>${escapeHtml(user.password)}</code>
-                <strong>${escapeHtml(user.profile)}</strong>
-              </article>
-            `,
-          )
-          .join("")}
+
+      <div class="chart-card decision-matrix-card">
+        <div class="section-head">
+          <h3>Decision matrix</h3>
+          <span>${state.data.users.length} accounts shown</span>
+        </div>
+        ${renderPolicyMatrix()}
       </div>
     </section>
 
-    <section class="two-column">
-      <div class="chart-card">
+    <section class="chart-card policy-effect-card">
+      <div class="section-head">
         <h3>Policy effect</h3>
-        ${renderPolicyComparison(composition, layered)}
+        <span>weak rejection and strong acceptance</span>
       </div>
-      <div class="chart-card">
-        <h3>Decision matrix</h3>
-        ${renderPolicyMatrix()}
-      </div>
+      ${renderPolicyComparison(composition, layered)}
     </section>
   `;
 }
 
+function renderTypeDistribution() {
+  const groups = [
+    ["Common", "weak_common", "danger"],
+    ["Pattern", "predictable_pattern", "medium"],
+    ["Long phrase", "strong_passphrase", "safe"],
+  ];
+  const total = state.data.users.length;
+
+  return `
+    <div class="type-distribution">
+      ${groups
+        .map(([label, key, className]) => {
+          const count = state.data.users.filter((user) => user.risk_label === key).length;
+          return `
+            <div>
+              <span>${label}</span>
+              <div class="bar-track"><div class="bar-fill ${className}" style="width:${(count / total) * 100}%"></div></div>
+              <b>${count}</b>
+            </div>
+          `;
+        })
+        .join("")}
+    </div>
+  `;
+}
+
 function renderPolicyComparison(composition, layered) {
-  const rows = [
-    ["Weak rejected", composition.weak_password_rejection_rate, layered.weak_password_rejection_rate],
-    ["Strong accepted", composition.strong_password_acceptance_rate, layered.strong_password_acceptance_rate],
+  const cards = [
+    ["Complexity", "Weak rejected", composition.weak_password_rejection_rate, "medium"],
+    ["Layered", "Weak rejected", layered.weak_password_rejection_rate, "safe"],
+    ["Complexity", "Strong accepted", composition.strong_password_acceptance_rate, "medium"],
+    ["Layered", "Strong accepted", layered.strong_password_acceptance_rate, "safe"],
   ];
 
-  return rows
-    .map(
-      ([label, compositionValue, layeredValue]) => `
-        <div class="policy-chart-row">
-          <strong>${label}</strong>
-          <div>
-            <span>Complexity</span>
-            <div class="bar-track"><div class="bar-fill medium" style="width:${compositionValue * 100}%"></div></div>
-            <b>${Math.round(compositionValue * 100)}%</b>
-          </div>
-          <div>
-            <span>Layered</span>
-            <div class="bar-track"><div class="bar-fill safe" style="width:${layeredValue * 100}%"></div></div>
-            <b>${Math.round(layeredValue * 100)}%</b>
-          </div>
-        </div>
-      `,
-    )
-    .join("");
+  return `
+    <div class="policy-score-grid">
+      ${cards
+        .map(
+          ([policy, label, value, className]) => `
+            <article>
+              <span>${policy}</span>
+              <strong>${Math.round(value * 100)}%</strong>
+              <div class="bar-track"><div class="bar-fill ${className}" style="width:${value * 100}%"></div></div>
+              <small>${label}</small>
+            </article>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
 }
 
 function renderPolicyMatrix() {
@@ -478,20 +504,25 @@ function renderPolicyMatrix() {
   );
 
   return `
-    <div class="mini-matrix">
-      <span class="matrix-head">Password</span>
-      <span class="matrix-head">Complexity</span>
-      <span class="matrix-head">Layered</span>
+    <div class="decision-tile-grid">
       ${state.data.users
-        .slice(0, 6)
         .map((user) => {
           const cells = policies
             .map((policy) => {
               const accepted = lookup.get(policy).get(user.username).accepted;
-              return `<span class="verdict ${accepted ? "accept" : "reject"}">${accepted ? "accept" : "reject"}</span>`;
+              return `<span class="verdict mini ${accepted ? "accept" : "reject"}">${policy === "composition" ? "C" : "L"}: ${accepted ? "accept" : "reject"}</span>`;
             })
             .join("");
-          return `<code>${escapeHtml(user.password)}</code>${cells}`;
+          return `
+            <article class="decision-tile ${riskClass(user.risk_label)}">
+              <div class="decision-title">
+                <strong>${escapeHtml(user.username)}</strong>
+                <span>${riskLabel(user.risk_label)}</span>
+              </div>
+              <code>${escapeHtml(user.password)}</code>
+              <div class="decision-pair">${cells}</div>
+            </article>
+          `;
         })
         .join("")}
     </div>

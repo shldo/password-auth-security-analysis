@@ -274,9 +274,15 @@ COMMON_PASSWORD_BLOCKLIST = {
     "letmein!",
     "admin",
     "welcome",
+    "welcome2026!",
     "summer2026!",
     "unsw2026!",
     "sydney2026!",
+    "p@55w0rd!",
+    "p@ssw0rd2026",
+    "admin2026!",
+    "iloveyou2026!",
+    "dragon2026!",
 }
 
 CONTEXT_TERMS = {"unsw", "sydney", "summer", "winter", "2026"}
