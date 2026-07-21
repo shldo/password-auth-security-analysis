@@ -405,6 +405,209 @@ h3 {
   line-height: 1.18;
 }
 
+.finding-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 0.34fr);
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 16px;
+  border: 1px solid rgba(61, 99, 162, 0.25);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(220, 232, 248, 0.74), rgba(255, 253, 249, 0.88));
+  padding: 18px;
+}
+
+.finding-banner h2,
+.finding-banner p {
+  margin-bottom: 0;
+}
+
+.finding-number {
+  display: grid;
+  gap: 6px;
+  border-left: 1px solid var(--border);
+  padding-left: 16px;
+}
+
+.finding-number span,
+.finding-number small,
+.visual-caption {
+  color: var(--muted);
+}
+
+.finding-number strong {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1;
+}
+
+.visual-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.result-bar-list {
+  display: grid;
+  gap: 12px;
+}
+
+.result-bar-row {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 92px;
+  gap: 12px;
+  align-items: center;
+}
+
+.result-bar-row strong,
+.result-bar-row span {
+  display: block;
+}
+
+.result-bar-row span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.result-bar-row b {
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.result-bar-track {
+  height: 30px;
+  border-radius: 8px;
+  background: #eee6da;
+  overflow: hidden;
+}
+
+.result-bar-fill {
+  height: 100%;
+  border-radius: 8px;
+  background: var(--red);
+}
+
+.result-bar-row.medium .result-bar-fill {
+  background: var(--amber);
+}
+
+.result-bar-row.low .result-bar-fill {
+  background: var(--green);
+}
+
+.visual-caption {
+  margin-bottom: 10px;
+  font-size: 0.86rem;
+}
+
+.outcome-matrix,
+.decision-matrix {
+  display: grid;
+  gap: 6px;
+}
+
+.outcome-row {
+  display: grid;
+  grid-template-columns: minmax(160px, 1fr) repeat(4, minmax(96px, 0.65fr));
+  gap: 6px;
+  align-items: stretch;
+}
+
+.outcome-row > div:first-child {
+  display: grid;
+  gap: 2px;
+  border-radius: 8px;
+  background: #f2ebe1;
+  padding: 8px 10px;
+}
+
+.outcome-row > div:first-child span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.outcome-header {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.outcome-cell,
+.decision-cell {
+  display: grid;
+  min-height: 42px;
+  place-items: center;
+  border-radius: 8px;
+  padding: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.outcome-cell.exposed,
+.outcome-cell.cracked,
+.decision-cell.rejected {
+  background: var(--red-soft);
+  color: var(--red);
+}
+
+.outcome-cell.missed {
+  background: var(--green-soft);
+  color: var(--green);
+}
+
+.decision-cell.accepted {
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.decision-header,
+.decision-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) minmax(180px, 0.7fr);
+  gap: 8px;
+  align-items: center;
+}
+
+.decision-header {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.decision-row {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+
+.decision-row:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.decision-row code {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  border-radius: 6px;
+  background: #f2ebe1;
+  padding: 3px 5px;
+}
+
+.decision-cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.decision-cell small {
+  display: block;
+  color: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.82;
+}
+
 .view-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.25fr);
@@ -683,6 +886,7 @@ h3 {
   .simulation-control,
   .scenario-panel,
   .logic-map-header,
+  .finding-banner,
   .view-grid {
     grid-template-columns: 1fr;
   }
@@ -719,6 +923,17 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .visual-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .finding-number {
+    border-left: 0;
+    border-top: 1px solid var(--border);
+    padding-left: 0;
+    padding-top: 14px;
+  }
+
   .chain-nav {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -753,7 +968,22 @@ h3 {
     grid-template-columns: 1fr;
   }
 
+  .result-bar-row,
+  .outcome-row,
+  .decision-header,
+  .decision-row {
+    grid-template-columns: 1fr;
+  }
+
+  .outcome-header span:not(:first-child) {
+    display: none;
+  }
+
   .bar-value {
+    text-align: left;
+  }
+
+  .result-bar-row b {
     text-align: left;
   }
 }

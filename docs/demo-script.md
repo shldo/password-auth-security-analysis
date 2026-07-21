@@ -24,11 +24,11 @@ Presentation message:
 
 ## Step 2: Policy Effect
 
-Show password forms rather than individual users.
+Show the policy decision matrix and password forms rather than individual users.
 
 Presentation message:
 
-"This step tests the first control point: password policy. Some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long password phrases."
+"This step tests the first control point: password policy. The matrix shows that some password forms satisfy complexity rules but remain predictable, such as `Password123!` or `Summer2026!`. A better policy should block common and context-specific patterns while allowing long password phrases."
 
 ## Step 3: Storage Exposure
 
@@ -40,11 +40,11 @@ Presentation message:
 
 ## Step 4: Cracking Cost
 
-Show the two-second attack budget chart.
+Show the speed ratio, cracked-account chart, guessing-speed chart, and account-level outcome matrix.
 
 Presentation message:
 
-"This is the main measured technical experiment. Using the same password samples, same wordlist, and same attack budget, fast storage methods allow many more guesses. The security value of bcrypt and Argon2id is that they change the attacker's cost."
+"This is the main measured technical experiment. Using the same password samples, same wordlist, and same attack budget, fast storage methods allow many more guesses. The account matrix shows which synthetic accounts were exposed or cracked under each method. The security value of bcrypt and Argon2id is that they change the attacker's cost."
 
 ## Step 5: Layered Outcome
 

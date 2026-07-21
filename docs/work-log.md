@@ -20,6 +20,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-21 | 0.75h | Reframed the dashboard as a tutor-facing case-study assessment and clarified MFA as a risk model. | `dashboard/app.js`, `docs/demo-script.md`, `docs/threat-model.md` |
 | 2026-07-21 | 1.0h | Rebuilt the dashboard flow so each page maps one control to one attack-chain stage and one indicator. | `dashboard/index.html`, `dashboard/style.css`, `dashboard/app.js` |
 | 2026-07-21 | 0.75h | Removed MFA from the dashboard demonstration and kept it as report-only qualitative analysis. | `dashboard/index.html`, `dashboard/app.js`, `docs/mfa-risk-model.md`, `docs/report-outline.md` |
+| 2026-07-21 | 0.75h | Improved dashboard visual evidence with policy decision and cracking outcome matrices. | `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md` |
 
 ## Planned Time Budget
 

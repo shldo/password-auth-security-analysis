@@ -150,6 +150,13 @@ function formatOptionalNumber(value, suffix = "") {
   return `${formatNumber(value)}${suffix}`;
 }
 
+function formatRatio(numerator, denominator) {
+  if (!denominator) {
+    return "0%";
+  }
+  return `${Math.round((numerator / denominator) * 100)}%`;
+}
+
 function escapeHtml(value) {
   return String(value)
     .replace(/&/g, "&amp;")
@@ -192,11 +199,12 @@ function getHashView() {
 
 function updateSummaryMetrics() {
   const context = state.data.experiment_context;
-  const summary = state.data.attack_chain_summary.headline_metrics;
+  const sha256 = getStorageResult("sha256");
+  const argon2id = getStorageResult("argon2id");
   qs("#metric-budget").textContent = `${context.attack_budget_seconds_per_method}s`;
-  qs("#metric-users").textContent = context.user_count;
-  qs("#metric-wordlist").textContent = context.wordlist_size;
-  qs("#metric-secure").textContent = `${summary.argon2id_cracked_accounts}/${summary.total_accounts}`;
+  qs("#metric-users").textContent = `${context.user_count}`;
+  qs("#metric-fast").textContent = `${sha256.cracked_accounts}/${sha256.total_accounts}`;
+  qs("#metric-secure").textContent = `${argon2id.cracked_accounts}/${argon2id.total_accounts}`;
 }
 
 function setActiveView(view, options = { updateHash: true }) {
@@ -291,7 +299,7 @@ function renderActiveView() {
     final: renderFinalAssessment,
   };
 
-  qs("#view-panel").innerHTML = `${renderImpactMap()}${renderers[state.activeView]()}`;
+  qs("#view-panel").innerHTML = `${renderers[state.activeView]()}${renderImpactMap()}`;
   bindViewEvents();
 }
 
@@ -381,6 +389,170 @@ function riskBadge(label) {
     return '<span class="risk-badge medium">predictable</span>';
   }
   return '<span class="risk-badge high">weak/common</span>';
+}
+
+function methodTone(method) {
+  if (method === "plaintext" || method === "sha256") {
+    return "high";
+  }
+  if (method === "bcrypt") {
+    return "medium";
+  }
+  return "low";
+}
+
+function methodLabel(method) {
+  return getStorageResult(method).label;
+}
+
+function renderPolicyDecisionMatrix() {
+  const comparedPolicies = ["composition", "layered"];
+  const policyLookup = new Map(
+    comparedPolicies.map((policy) => [
+      policy,
+      new Map(getPolicyResult(policy).decisions.map((decision) => [decision.password, decision])),
+    ]),
+  );
+
+  const rows = passwordTypeExamples
+    .map((example) => {
+      const decisions = comparedPolicies
+        .map((policy) => {
+          const decision = policyLookup.get(policy).get(example.example);
+          const accepted = decision && decision.accepted;
+          const policyLabel = policy === "composition" ? "Complexity" : "Layered";
+          return `<span class="decision-cell ${accepted ? "accepted" : "rejected"}"><small>${policyLabel}</small>${accepted ? "accept" : "reject"}</span>`;
+        })
+        .join("");
+      return `
+        <div class="decision-row">
+          <div>
+            <strong>${escapeHtml(example.title)}</strong>
+            <code>${escapeHtml(example.example)}</code>
+          </div>
+          <div class="decision-cells">${decisions}</div>
+        </div>
+      `;
+    })
+    .join("");
+
+  return `
+    <div class="decision-matrix" aria-label="Policy acceptance comparison">
+      <div class="decision-header">
+        <span>Password form</span>
+        <span>Complexity vs layered</span>
+      </div>
+      ${rows}
+    </div>
+  `;
+}
+
+function renderCrackedBars() {
+  const total = state.data.experiment_context.user_count;
+  return state.data.storage_results
+    .map((result) => {
+      const width = Math.max(3, (result.cracked_accounts / total) * 100);
+      return `
+        <div class="result-bar-row ${methodTone(result.method)}">
+          <div>
+            <strong>${result.label}</strong>
+            <span>${formatRatio(result.cracked_accounts, total)} cracked</span>
+          </div>
+          <div class="result-bar-track">
+            <div class="result-bar-fill" style="width:${width}%"></div>
+          </div>
+          <b>${result.cracked_accounts}/${total}</b>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+function renderSpeedBars() {
+  const hashResults = state.data.storage_results.filter((result) => result.guesses_per_second !== null);
+  const maxLogSpeed = Math.max(...hashResults.map((result) => Math.log10(result.guesses_per_second + 1)));
+
+  const rows = state.data.storage_results
+    .map((result) => {
+      if (result.guesses_per_second === null) {
+        return `
+          <div class="result-bar-row high">
+            <div>
+              <strong>${result.label}</strong>
+              <span>no guessing needed</span>
+            </div>
+            <div class="result-bar-track">
+              <div class="result-bar-fill" style="width:100%"></div>
+            </div>
+            <b>exposed</b>
+          </div>
+        `;
+      }
+
+      const width = Math.max(4, (Math.log10(result.guesses_per_second + 1) / maxLogSpeed) * 100);
+      return `
+        <div class="result-bar-row ${methodTone(result.method)}">
+          <div>
+            <strong>${result.label}</strong>
+            <span>${formatOptionalNumber(result.average_verify_ms, " ms")} per guess</span>
+          </div>
+          <div class="result-bar-track">
+            <div class="result-bar-fill" style="width:${width}%"></div>
+          </div>
+          <b>${formatOptionalNumber(result.guesses_per_second)}</b>
+        </div>
+      `;
+    })
+    .join("");
+
+  return `
+    <div class="visual-caption">Guessing speed uses a log scale so slow hashes remain visible.</div>
+    ${rows}
+  `;
+}
+
+function renderOutcomeMatrix() {
+  const crackedByMethod = new Map(
+    state.data.storage_results.map((result) => [
+      result.method,
+      new Set(result.cracked.map((account) => account.username)),
+    ]),
+  );
+
+  const header = methodOrder.map((method) => `<span>${escapeHtml(methodLabel(method))}</span>`).join("");
+  const rows = state.data.users
+    .map((user) => {
+      const cells = methodOrder
+        .map((method) => {
+          const exposed = method === "plaintext";
+          const cracked = crackedByMethod.get(method).has(user.username);
+          const label = exposed ? "exposed" : cracked ? "cracked" : "not found";
+          const stateClass = exposed ? "exposed" : cracked ? "cracked" : "missed";
+          return `<span class="outcome-cell ${stateClass}" aria-label="${user.username} ${methodLabel(method)} ${label}">${label}</span>`;
+        })
+        .join("");
+
+      return `
+        <div class="outcome-row">
+          <div>
+            <strong>${escapeHtml(user.username)}</strong>
+            <span>${escapeHtml(user.profile)}</span>
+          </div>
+          ${cells}
+        </div>
+      `;
+    })
+    .join("");
+
+  return `
+    <div class="outcome-matrix" aria-label="Account-level cracking outcome by storage method">
+      <div class="outcome-row outcome-header">
+        <span>Account</span>
+        ${header}
+      </div>
+      ${rows}
+    </div>
+  `;
 }
 
 function renderSystemAssessment() {
@@ -488,9 +660,15 @@ function renderChoices() {
           </div>
         </div>
       </div>
-      <div class="sub-card">
-        <h3>Password form comparison</h3>
-        <div class="password-type-grid">${typeCards}</div>
+      <div class="stack">
+        <div class="sub-card">
+          <h3>Policy decision matrix</h3>
+          ${renderPolicyDecisionMatrix()}
+        </div>
+        <div class="sub-card">
+          <h3>Password form comparison</h3>
+          <div class="password-type-grid">${typeCards}</div>
+        </div>
       </div>
     </div>
   `;
@@ -556,23 +734,9 @@ function renderLeak() {
 }
 
 function renderCracking() {
-  const maxCracked = Math.max(...state.data.storage_results.map((result) => result.total_accounts));
-  const bars = state.data.storage_results
-    .map((result) => {
-      const width = Math.max(4, (result.cracked_accounts / maxCracked) * 100);
-      const fillClass = result.method === "plaintext" || result.method === "sha256" ? "" : result.method === "bcrypt" ? " medium" : " secure";
-      return `
-        <div class="bar-row">
-          <strong>${result.label}</strong>
-          <div class="bar-track" aria-label="${result.label} cracked ${result.cracked_accounts} of ${result.total_accounts}">
-            <div class="bar-fill${fillClass}" style="width:${width}%"></div>
-          </div>
-          <span class="bar-value">${result.cracked_accounts}/${result.total_accounts}</span>
-        </div>
-      `;
-    })
-    .join("");
-
+  const sha256 = getStorageResult("sha256");
+  const argon2id = getStorageResult("argon2id");
+  const speedRatio = Math.round(sha256.guesses_per_second / argon2id.guesses_per_second);
   const speedRows = state.data.storage_results
     .map(
       (result) => `
@@ -587,6 +751,18 @@ function renderCracking() {
     .join("");
 
   return `
+    <div class="finding-banner">
+      <div>
+        <p class="eyebrow">Step 4</p>
+        <h2>Offline cracking cost</h2>
+        <p>Same passwords, same wordlist, same ${state.data.experiment_context.attack_budget_seconds_per_method}-second budget. The result is not just "hashed or not"; it is how expensive each guess becomes.</p>
+      </div>
+      <div class="finding-number">
+        <span>SHA-256 vs Argon2id speed</span>
+        <strong>${formatNumber(speedRatio)}x</strong>
+        <small>more guesses per second in this run</small>
+      </div>
+    </div>
     ${renderStageEvidence([
       {
         label: "Control being tested",
@@ -604,30 +780,34 @@ function renderCracking() {
         note: "This is the main measured technical experiment.",
       },
     ])}
-    <div class="view-grid">
-      <div>
-        <p class="eyebrow">Step 4</p>
-        <h2>Offline cracking cost</h2>
-        <p>Each method gets the same users, same wordlist, and the same ${state.data.experiment_context.attack_budget_seconds_per_method}-second attack budget.</p>
-        <div class="sub-card">
-          <h3>Accounts cracked within budget</h3>
-          <div class="bar-list">${bars}</div>
-        </div>
+    <div class="visual-grid">
+      <div class="sub-card">
+        <h3>Cracked accounts within budget</h3>
+        <div class="result-bar-list">${renderCrackedBars()}</div>
       </div>
       <div class="sub-card">
-        <h3>Cost indicators</h3>
-        <table class="data-table">
-          <thead>
-            <tr>
-              <th>Storage</th>
-              <th>Guesses/sec</th>
-              <th>Avg verify</th>
-              <th>First crack</th>
-            </tr>
-          </thead>
-          <tbody>${speedRows}</tbody>
-        </table>
+        <h3>Guessing speed comparison</h3>
+        <div class="result-bar-list">${renderSpeedBars()}</div>
       </div>
+    </div>
+    <div class="sub-card" style="margin-top: 14px;">
+      <h3>Account-level outcome matrix</h3>
+      <p class="small-muted">This shows which synthetic accounts became exposed or cracked under each storage method.</p>
+      ${renderOutcomeMatrix()}
+    </div>
+    <div class="sub-card" style="margin-top: 14px;">
+      <h3>Exact timing indicators</h3>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Storage</th>
+            <th>Guesses/sec</th>
+            <th>Avg verify</th>
+            <th>First crack</th>
+          </tr>
+        </thead>
+        <tbody>${speedRows}</tbody>
+      </table>
     </div>
   `;
 }

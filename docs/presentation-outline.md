@@ -16,6 +16,7 @@ Case setup -> policy effect -> storage exposure -> cracking cost -> layered outc
 - Same wordlist.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
 - Metrics: cracked rate, verification time, guesses per second, and time to first crack.
+- Visual evidence: policy decision matrix, cracked-account chart, guessing-speed chart, and account-level outcome matrix.
 
 ## Slide 4: Results
 
