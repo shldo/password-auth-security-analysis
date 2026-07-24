@@ -88,7 +88,7 @@
 - 展示技术实现结果：cracked rate、guesses per second、verification time、account-level outcome。
 - 展示分析，不只是数字：为什么 plaintext 直接暴露，为什么 fast hash 便宜，为什么 bcrypt/Argon2id 提高攻击成本。
 - 展示伦理边界：synthetic data only, local experiment, no real credentials。
-- 展示 limitation：small synthetic dataset、local wordlist、MFA not implemented/tested。
+- 展示 limitation：controlled synthetic dataset、local wordlist、MFA not implemented/tested。
 
 前端不得：
 
@@ -207,7 +207,7 @@
 推荐视觉：
 
 - 一条横向 attack chain。
-- 三个 evidence chips：16 synthetic passwords、32 wordlist candidates、2s per method。
+- 三个 evidence chips：64 synthetic passwords、320 ordered candidates、2s per method。
 - 一个 ethical boundary banner。
 
 ### Stage 2: Password Forms and Policy Effect

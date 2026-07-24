@@ -234,7 +234,6 @@ main,
 .result-card span,
 .result-card small,
 .section-head span,
-.password-tile span,
 .speed-row span,
 .control-label,
 .recovered-list span {
@@ -382,45 +381,6 @@ main,
   margin-bottom: 12px;
 }
 
-.password-gallery {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.password-tile {
-  display: grid;
-  gap: 8px;
-  border: 1px solid var(--line);
-  border-left: 6px solid var(--muted);
-  border-radius: 8px;
-  background: var(--panel);
-  padding: 12px;
-}
-
-.type-distribution {
-  display: grid;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.type-distribution div {
-  display: grid;
-  grid-template-columns: 92px minmax(0, 1fr) 32px;
-  gap: 8px;
-  align-items: center;
-}
-
-.type-distribution span {
-  color: var(--muted);
-}
-
-.type-distribution b {
-  font-variant-numeric: tabular-nums;
-  text-align: right;
-}
-
 .decision-balance {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -431,6 +391,7 @@ main,
 .decision-balance article {
   display: grid;
   gap: 5px;
+  align-content: start;
   border: 1px solid var(--line);
   border-left: 5px solid var(--muted);
   border-radius: 8px;
@@ -459,18 +420,6 @@ main,
   line-height: 1;
 }
 
-.password-tile.danger {
-  border-left-color: var(--red);
-}
-
-.password-tile.medium {
-  border-left-color: var(--amber);
-}
-
-.password-tile.safe {
-  border-left-color: var(--teal);
-}
-
 code {
   display: inline-block;
   max-width: 100%;
@@ -479,6 +428,10 @@ code {
   background: var(--soft);
   padding: 4px 6px;
   font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+
+.decision-balance code {
+  margin-top: 2px;
 }
 
 .policy-score-grid {
@@ -607,6 +560,52 @@ code {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
+}
+
+.policy-matrix-grid {
+  display: grid;
+  grid-template-columns: 108px repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  align-items: stretch;
+}
+
+.policy-matrix-grid .axis {
+  align-self: center;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.policy-matrix-grid article {
+  display: grid;
+  gap: 6px;
+  min-height: 98px;
+  border: 1px solid var(--line);
+  border-left: 5px solid var(--muted);
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.policy-matrix-grid article.safe {
+  border-left-color: var(--teal);
+}
+
+.policy-matrix-grid article.danger {
+  border-left-color: var(--red);
+}
+
+.policy-matrix-grid article.medium {
+  border-left-color: var(--amber);
+}
+
+.policy-matrix-grid article span,
+.policy-matrix-grid article small {
+  color: var(--muted);
+}
+
+.policy-matrix-grid article strong {
+  font-size: 2rem;
+  line-height: 1;
 }
 
 .decision-matrix-card .decision-tile-grid {
@@ -847,6 +846,12 @@ code {
   padding-bottom: 0;
 }
 
+.list-note {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
 .compact {
   align-content: start;
 }
@@ -899,10 +904,6 @@ code {
     display: none;
   }
 
-  .password-gallery {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .decision-tile-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -936,8 +937,7 @@ code {
   }
 
   .header-actions,
-  .stage-tabs,
-  .password-gallery {
+  .stage-tabs {
     grid-template-columns: 1fr;
   }
 
@@ -963,7 +963,6 @@ code {
   }
 
   .decision-tile-grid,
-  .type-distribution div,
   .decision-balance {
     grid-template-columns: 1fr;
   }

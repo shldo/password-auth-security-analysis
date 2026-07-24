@@ -30,6 +30,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-21 | 0.75h | Refocused the project title, dashboard flow, report outline, and presentation script around fixed attack budget and offline cracking cost. | `README.md`, `dashboard/index.html`, `dashboard/app.js`, `docs/report-outline.md`, `docs/demo-script.md`, `docs/presentation-outline.md` |
 | 2026-07-24 | 0.5h | Simplified the dashboard text density so the front end works better as a live demo than as slide-style narration. | `dashboard/index.html`, `dashboard/app.js` |
 | 2026-07-24 | 0.5h | Removed the dashboard Findings page and moved recommendations to the presentation/report layer so the live demo ends on measured results. | `dashboard/index.html`, `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md`, `docs/presentation-outline.md` |
+| 2026-07-24 | 1.0h | Expanded the synthetic dataset to 64 accounts and 320 ordered wordlist candidates while keeping dashboard visualisations aggregated and demo-sized. | `scripts/build_synthetic_dataset.py`, `data/sample_passwords.csv`, `data/attack_wordlist.txt`, `dashboard/app.js`, `results/analysis_results.json` |
 
 ## Planned Time Budget
 

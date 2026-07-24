@@ -12,8 +12,8 @@ Cost Model -> Password Set -> Attack Budget -> Results.
 
 ## Slide 3: Controlled Experiment
 
-- Synthetic password samples.
-- Local wordlist.
+- 64 synthetic password samples.
+- 320 ordered local wordlist candidates.
 - Selectable attack budget.
 - Four storage methods: plaintext, salted SHA-256, bcrypt, Argon2id.
 - Metrics: recovered accounts, guesses per second, verification time, and account-level outcome.

@@ -33,8 +33,8 @@
 
 ## 5. Methodology
 
-- Create fake users and fake passwords.
-- Define an ordered local wordlist to represent attacker candidate priority.
+- Create 64 fake users and fake passwords.
+- Define a 320-candidate ordered local wordlist to represent attacker candidate priority.
 - Store the same passwords using plaintext, salted SHA-256, bcrypt, and Argon2id.
 - Run the same wordlist and same time budget against each method.
 - Measure cracking success rate, time to first crack, average verification time, and guesses per second.

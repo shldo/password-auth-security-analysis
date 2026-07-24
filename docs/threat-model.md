@@ -70,7 +70,7 @@ This project uses synthetic users, synthetic passwords, and a local wordlist. It
 
 ## Assumptions and Limitations
 
-- The wordlist is intentionally small so the demonstration is safe and understandable.
+- The wordlist is intentionally local, ordered, and bounded so the demonstration stays safe and understandable.
 - The exact timing results depend on the machine running the experiment.
 - The synthetic password set is designed to illustrate categories, not to represent all user behaviour.
 - The dashboard does not implement or model MFA. MFA is discussed qualitatively in the report because real MFA strength depends on factor type, recovery process, user behaviour, and phishing resistance.

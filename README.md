@@ -34,6 +34,7 @@ python -m pip install -r requirements.txt
 Generate experiment results:
 
 ```powershell
+python scripts/build_synthetic_dataset.py
 python scripts/generate_results.py
 python scripts/export_analysis_summary.py
 ```

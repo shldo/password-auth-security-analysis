@@ -1,11 +1,11 @@
 {
   "project": "Raising the Cost of Offline Password Cracking",
-  "generated_at": "2026-07-21 15:55:41",
+  "generated_at": "2026-07-24 13:22:11",
   "experiment_context": {
     "purpose": "Controlled demonstration of offline cracking cost using synthetic users and passwords.",
     "ethical_boundary": "No real systems, accounts, or credentials are attacked.",
-    "wordlist_size": 32,
-    "user_count": 16,
+    "wordlist_size": 320,
+    "user_count": 64,
     "attack_budget_seconds_per_method": 2.0,
     "bcrypt_rounds": 10,
     "argon2id_parameters": {
@@ -110,6 +110,294 @@
       "password": "dragon2026",
       "profile": "Dictionary word with year",
       "risk_label": "weak_common"
+    },
+    {
+      "username": "quinn",
+      "password": "CedarPlanet82@",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "riley",
+      "password": "Welcome2026!",
+      "profile": "Welcome pattern with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "sara",
+      "password": "SilverGardenCloudTrail",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "toby",
+      "password": "admin2026",
+      "profile": "Admin word with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "uma",
+      "password": "CopperSignal47%",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "victor",
+      "password": "Winter2026!",
+      "profile": "Season and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "wendy",
+      "password": "ForestCopperSignalBridge",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "xavier",
+      "password": "football2026",
+      "profile": "Common interest with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "yara",
+      "password": "QuartzRiver64&",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "zoe",
+      "password": "Sydney2026!",
+      "profile": "Location and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "aaron",
+      "password": "MapleStoneLantern",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "bella",
+      "password": "music2026",
+      "profile": "Common word with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "carlos",
+      "password": "NimbusHarbor91*",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "dana",
+      "password": "Canberra2026!",
+      "profile": "Location and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "eric",
+      "password": "LanternCoffeeMuseum",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "frida",
+      "password": "abc12345",
+      "profile": "Simple sequence",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "george",
+      "password": "AmberRocket36?",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "hazel",
+      "password": "Project2026!",
+      "profile": "Work context pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "irene",
+      "password": "CobaltGardenRiverStone",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "jack",
+      "password": "password2026",
+      "profile": "Password word with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "kira",
+      "password": "VelvetOrbit53#",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "leo",
+      "password": "Cyber2026!",
+      "profile": "Topic and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "maya",
+      "password": "PaperMoonSignalHarbor",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "nate",
+      "password": "welcome1",
+      "profile": "Common welcome variant",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "opal",
+      "password": "SaffronBeacon28$",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "paul",
+      "password": "Comp6841!",
+      "profile": "Course code pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "rosa",
+      "password": "BlueCometPaperMoon",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "sam",
+      "password": "trustno1",
+      "profile": "Common phrase variant",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "tara",
+      "password": "OrchidVector75!",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "ugo",
+      "password": "Tutor2026!",
+      "profile": "Role and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "vera",
+      "password": "GoldenSignalRiverCloud",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "will",
+      "password": "iloveyou2026",
+      "profile": "Common phrase with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "xena",
+      "password": "LunarBridge49%",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "yusuf",
+      "password": "Exam2026!",
+      "profile": "Assessment context pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "zara",
+      "password": "MuseumOrbitCoffeeRiver",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "abby",
+      "password": "login2026",
+      "profile": "Login word with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "bruno",
+      "password": "ScarletHarbor62?",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "claire",
+      "password": "Assignment2026!",
+      "profile": "Assessment context pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "derek",
+      "password": "CloudStoneRiverGarden",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "emily",
+      "password": "qazwsx2026",
+      "profile": "Keyboard pattern with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "felix",
+      "password": "IvorySignal84@",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "grace",
+      "password": "Security2026!",
+      "profile": "Topic and year pattern",
+      "risk_label": "predictable_pattern"
+    },
+    {
+      "username": "henry",
+      "password": "HarborLanternStoneRiver",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "isla",
+      "password": "starwars2026",
+      "profile": "Popular phrase with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "jules",
+      "password": "TopazVector31#",
+      "profile": "Strong complex password",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "kevin",
+      "password": "Password2026!",
+      "profile": "Password word with year",
+      "risk_label": "weak_common"
+    },
+    {
+      "username": "laura",
+      "password": "OrbitGardenCoffeeTrail",
+      "profile": "Long joined phrase",
+      "risk_label": "strong_passphrase"
+    },
+    {
+      "username": "miles",
+      "password": "asdf2026",
+      "profile": "Keyboard pattern with year",
+      "risk_label": "weak_common"
     }
   ],
   "leaked_record_previews": {
@@ -170,54 +458,54 @@
     "bcrypt": [
       {
         "username": "alice",
-        "leaked_value": "$2b$10$uEtH6wpvl7ovz77R8jd06eY8EKb...",
+        "leaked_value": "$2b$10$nGzySpvpfo78HLdiXnNZyOUB95V...",
         "profile": "Strong complex password"
       },
       {
         "username": "ben",
-        "leaked_value": "$2b$10$Cv/zlQ236ceu6g9.rlduvuYHKzu...",
+        "leaked_value": "$2b$10$v4/iC/p836tWKPSaN/pGV.kBTFl...",
         "profile": "Complex but common"
       },
       {
         "username": "chen",
-        "leaked_value": "$2b$10$yNQgnR8uqUdcad7G6PhxZOPbfsI...",
+        "leaked_value": "$2b$10$Gk/2bAt/6/qPEJBbUSXeB.icWOm...",
         "profile": "Long joined phrase"
       },
       {
         "username": "diya",
-        "leaked_value": "$2b$10$lJ6i6kVhIYZ2ZRekyp4L/euN1AH...",
+        "leaked_value": "$2b$10$O3n17zDUPuZKbOImHoQMYerFg6l...",
         "profile": "Common base with year"
       },
       {
         "username": "eli",
-        "leaked_value": "$2b$10$UmvMH3LWoWcMcr./0anBbOt5398...",
+        "leaked_value": "$2b$10$NIYctO4X3wi/sMu3lGtYDecF8gf...",
         "profile": "Strong complex password"
       }
     ],
     "argon2id": [
       {
         "username": "alice",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$UN0...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$Lqe...",
         "profile": "Strong complex password"
       },
       {
         "username": "ben",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$XhB...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$5FK...",
         "profile": "Complex but common"
       },
       {
         "username": "chen",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$T4o...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$059...",
         "profile": "Long joined phrase"
       },
       {
         "username": "diya",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$tfV...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$H3+...",
         "profile": "Common base with year"
       },
       {
         "username": "eli",
-        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$4zK...",
+        "leaked_value": "$argon2id$v=19$m=65536,t=3,p=1$IXx...",
         "profile": "Strong complex password"
       }
     ]
@@ -236,8 +524,8 @@
       "average_verify_ms": 0,
       "median_verify_ms": 0,
       "guesses_per_second": null,
-      "cracked_accounts": 16,
-      "total_accounts": 16,
+      "cracked_accounts": 64,
+      "total_accounts": 64,
       "cracked_rate": 1.0,
       "cracked": [
         {
@@ -367,6 +655,390 @@
           "risk_label": "weak_common",
           "attempts_for_user": 0,
           "seconds_for_user": 0
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "profile": "Common word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "profile": "Password word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "profile": "Login word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "profile": "Password word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 0,
+          "seconds_for_user": 0
         }
       ]
     },
@@ -375,16 +1047,16 @@
       "label": "Salted SHA-256",
       "summary": "A fast general-purpose hash. Salt helps, but fast verification still helps offline attackers.",
       "security_role": "Shows why hash alone is not enough for password storage.",
-      "attempts": 207,
+      "attempts": 2601,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": false,
-      "total_seconds": 0.0003,
+      "total_seconds": 0.0028,
       "time_to_first_crack_seconds": 0.0,
-      "average_verify_ms": 0.0012,
-      "median_verify_ms": 0.0009,
-      "guesses_per_second": 629753.69,
-      "cracked_accounts": 16,
-      "total_accounts": 16,
+      "average_verify_ms": 0.0009,
+      "median_verify_ms": 0.0008,
+      "guesses_per_second": 913144.22,
+      "cracked_accounts": 64,
+      "total_accounts": 64,
       "cracked_rate": 1.0,
       "cracked": [
         {
@@ -514,6 +1186,390 @@
           "risk_label": "weak_common",
           "attempts_for_user": 21,
           "seconds_for_user": 0.0
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 52,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 24,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 64,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 40,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 53,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 22,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 65,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 41,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 54,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 23,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 66,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "profile": "Common word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 42,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 55,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 28,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 67,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common",
+          "attempts_for_user": 39,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 56,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 29,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 68,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "profile": "Password word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 43,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 57,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 30,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 69,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common",
+          "attempts_for_user": 37,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 58,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 31,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 70,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common",
+          "attempts_for_user": 38,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 59,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 32,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 71,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 51,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 60,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 33,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 72,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "profile": "Login word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 44,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 61,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 34,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 73,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 45,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 62,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern",
+          "attempts_for_user": 35,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 74,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 46,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 63,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "profile": "Password word with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 36,
+          "seconds_for_user": 0.0
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 75,
+          "seconds_for_user": 0.0001
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common",
+          "attempts_for_user": 47,
+          "seconds_for_user": 0.0
         }
       ]
     },
@@ -522,17 +1578,17 @@
       "label": "bcrypt",
       "summary": "Adaptive password hashing with a cost factor.",
       "security_role": "Raises offline guessing cost after a database leak.",
-      "attempts": 40,
+      "attempts": 42,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0282,
-      "time_to_first_crack_seconds": 0.4551,
-      "average_verify_ms": 50.6996,
-      "median_verify_ms": 50.3143,
-      "guesses_per_second": 19.72,
-      "cracked_accounts": 4,
-      "total_accounts": 16,
-      "cracked_rate": 0.25,
+      "total_seconds": 2.0376,
+      "time_to_first_crack_seconds": 0.4501,
+      "average_verify_ms": 48.5095,
+      "median_verify_ms": 48.197,
+      "guesses_per_second": 20.61,
+      "cracked_accounts": 5,
+      "total_accounts": 64,
+      "cracked_rate": 0.078,
       "cracked": [
         {
           "username": "alice",
@@ -540,7 +1596,7 @@
           "profile": "Strong complex password",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 9,
-          "seconds_for_user": 0.4551
+          "seconds_for_user": 0.4501
         },
         {
           "username": "ben",
@@ -548,7 +1604,7 @@
           "profile": "Complex but common",
           "risk_label": "weak_common",
           "attempts_for_user": 2,
-          "seconds_for_user": 0.1014
+          "seconds_for_user": 0.0976
         },
         {
           "username": "chen",
@@ -556,7 +1612,7 @@
           "profile": "Long joined phrase",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 16,
-          "seconds_for_user": 0.8143
+          "seconds_for_user": 0.7765
         },
         {
           "username": "diya",
@@ -564,7 +1620,15 @@
           "profile": "Common base with year",
           "risk_label": "weak_common",
           "attempts_for_user": 4,
-          "seconds_for_user": 0.2003
+          "seconds_for_user": 0.192
+        },
+        {
+          "username": "eli",
+          "password": "VioletCoffee29#",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase",
+          "attempts_for_user": 10,
+          "seconds_for_user": 0.4737
         }
       ]
     },
@@ -573,17 +1637,17 @@
       "label": "Argon2id",
       "summary": "Modern memory-hard password hashing.",
       "security_role": "Raises CPU and memory cost for offline guessing.",
-      "attempts": 11,
+      "attempts": 13,
       "attack_budget_seconds": 2.0,
       "budget_exhausted": true,
-      "total_seconds": 2.0109,
-      "time_to_first_crack_seconds": 1.6489,
-      "average_verify_ms": 182.8007,
-      "median_verify_ms": 182.3321,
-      "guesses_per_second": 5.47,
+      "total_seconds": 2.1425,
+      "time_to_first_crack_seconds": 1.4897,
+      "average_verify_ms": 164.7976,
+      "median_verify_ms": 165.2208,
+      "guesses_per_second": 6.07,
       "cracked_accounts": 2,
-      "total_accounts": 16,
-      "cracked_rate": 0.125,
+      "total_accounts": 64,
+      "cracked_rate": 0.031,
       "cracked": [
         {
           "username": "alice",
@@ -591,7 +1655,7 @@
           "profile": "Strong complex password",
           "risk_label": "strong_passphrase",
           "attempts_for_user": 9,
-          "seconds_for_user": 1.6489
+          "seconds_for_user": 1.4897
         },
         {
           "username": "ben",
@@ -599,7 +1663,7 @@
           "profile": "Complex but common",
           "risk_label": "weak_common",
           "attempts_for_user": 2,
-          "seconds_for_user": 0.362
+          "seconds_for_user": 0.3268
         }
       ]
     }
@@ -611,8 +1675,8 @@
       "description": "At least 8 characters with uppercase, lowercase, digit, and symbol.",
       "weak_password_rejection_rate": 0.5,
       "strong_password_acceptance_rate": 0.5,
-      "false_accepts": 4,
-      "false_rejects": 4,
+      "false_accepts": 16,
+      "false_rejects": 16,
       "decisions": [
         {
           "username": "alice",
@@ -741,6 +1805,390 @@
           "reason": "requires length, uppercase, lowercase, digit, and symbol",
           "profile": "Dictionary word with year",
           "risk_label": "weak_common"
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Login word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "accepted": true,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "accepted": false,
+          "reason": "requires length, uppercase, lowercase, digit, and symbol",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
         }
       ]
     },
@@ -748,9 +2196,9 @@
       "policy": "length",
       "label": "Length-first rule",
       "description": "At least 14 characters. Allows long password phrases.",
-      "weak_password_rejection_rate": 0.875,
-      "strong_password_acceptance_rate": 0.875,
-      "false_accepts": 1,
+      "weak_password_rejection_rate": 0.938,
+      "strong_password_acceptance_rate": 0.969,
+      "false_accepts": 2,
       "false_rejects": 1,
       "decisions": [
         {
@@ -880,6 +2328,390 @@
           "reason": "requires at least 14 characters",
           "profile": "Dictionary word with year",
           "risk_label": "weak_common"
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Login word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "accepted": true,
+          "reason": "requires at least 14 characters",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "accepted": false,
+          "reason": "requires at least 14 characters",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
         }
       ]
     },
@@ -887,9 +2719,9 @@
       "policy": "blocklist",
       "label": "Blocklist rule",
       "description": "At least 8 characters and not common, breached, or context-specific.",
-      "weak_password_rejection_rate": 1.0,
+      "weak_password_rejection_rate": 0.875,
       "strong_password_acceptance_rate": 1.0,
-      "false_accepts": 0,
+      "false_accepts": 4,
       "false_rejects": 0,
       "decisions": [
         {
@@ -1018,6 +2850,390 @@
           "accepted": false,
           "reason": "common, breached, or context-specific pattern",
           "profile": "Dictionary word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Login word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "accepted": true,
+          "reason": "passes minimum length and blocklist",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Keyboard pattern with year",
           "risk_label": "weak_common"
         }
       ]
@@ -1158,6 +3374,390 @@
           "reason": "too short for layered policy",
           "profile": "Dictionary word with year",
           "risk_label": "weak_common"
+        },
+        {
+          "username": "quinn",
+          "password": "CedarPlanet82@",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "riley",
+          "password": "Welcome2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Welcome pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "sara",
+          "password": "SilverGardenCloudTrail",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "toby",
+          "password": "admin2026",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Admin word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "uma",
+          "password": "CopperSignal47%",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "victor",
+          "password": "Winter2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Season and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "wendy",
+          "password": "ForestCopperSignalBridge",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "xavier",
+          "password": "football2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common interest with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "yara",
+          "password": "QuartzRiver64&",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "zoe",
+          "password": "Sydney2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "aaron",
+          "password": "MapleStoneLantern",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "bella",
+          "password": "music2026",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Common word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "carlos",
+          "password": "NimbusHarbor91*",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "dana",
+          "password": "Canberra2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Location and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "eric",
+          "password": "LanternCoffeeMuseum",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "frida",
+          "password": "abc12345",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Simple sequence",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "george",
+          "password": "AmberRocket36?",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "hazel",
+          "password": "Project2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Work context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "irene",
+          "password": "CobaltGardenRiverStone",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "jack",
+          "password": "password2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "kira",
+          "password": "VelvetOrbit53#",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "leo",
+          "password": "Cyber2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "maya",
+          "password": "PaperMoonSignalHarbor",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "nate",
+          "password": "welcome1",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Common welcome variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "opal",
+          "password": "SaffronBeacon28$",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "paul",
+          "password": "Comp6841!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Course code pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "rosa",
+          "password": "BlueCometPaperMoon",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "sam",
+          "password": "trustno1",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Common phrase variant",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "tara",
+          "password": "OrchidVector75!",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "ugo",
+          "password": "Tutor2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Role and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "vera",
+          "password": "GoldenSignalRiverCloud",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "will",
+          "password": "iloveyou2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Common phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "xena",
+          "password": "LunarBridge49%",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "yusuf",
+          "password": "Exam2026!",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "zara",
+          "password": "MuseumOrbitCoffeeRiver",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "abby",
+          "password": "login2026",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Login word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "bruno",
+          "password": "ScarletHarbor62?",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "claire",
+          "password": "Assignment2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Assessment context pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "derek",
+          "password": "CloudStoneRiverGarden",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "emily",
+          "password": "qazwsx2026",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "felix",
+          "password": "IvorySignal84@",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "grace",
+          "password": "Security2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Topic and year pattern",
+          "risk_label": "predictable_pattern"
+        },
+        {
+          "username": "henry",
+          "password": "HarborLanternStoneRiver",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "isla",
+          "password": "starwars2026",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Popular phrase with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "jules",
+          "password": "TopazVector31#",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Strong complex password",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "kevin",
+          "password": "Password2026!",
+          "accepted": false,
+          "reason": "common, breached, or context-specific pattern",
+          "profile": "Password word with year",
+          "risk_label": "weak_common"
+        },
+        {
+          "username": "laura",
+          "password": "OrbitGardenCoffeeTrail",
+          "accepted": true,
+          "reason": "long enough and not blocklisted",
+          "profile": "Long joined phrase",
+          "risk_label": "strong_passphrase"
+        },
+        {
+          "username": "miles",
+          "password": "asdf2026",
+          "accepted": false,
+          "reason": "too short for layered policy",
+          "profile": "Keyboard pattern with year",
+          "risk_label": "weak_common"
         }
       ]
     }
@@ -1176,10 +3776,10 @@
       "The report records later login-stage controls as out-of-scope analysis rather than dashboard evidence."
     ],
     "headline_metrics": {
-      "sha256_guesses_per_second": 629753.69,
-      "argon2id_guesses_per_second": 5.47,
+      "sha256_guesses_per_second": 913144.22,
+      "argon2id_guesses_per_second": 6.07,
       "argon2id_cracked_accounts": 2,
-      "total_accounts": 16,
+      "total_accounts": 64,
       "layered_policy_weak_rejection_rate": 1.0
     }
   }

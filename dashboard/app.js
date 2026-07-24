@@ -9,6 +9,8 @@ const state = {
 
 const methodOrder = ["plaintext", "sha256", "bcrypt", "argon2id"];
 const attackWindows = [0.25, 1, 2, 5, 10];
+const outcomeGridLimit = 16;
+const recoveredListLimit = 12;
 
 const legacyViews = {
   assessment: "overview",
@@ -373,35 +375,21 @@ function renderOverview() {
 function renderPasswords() {
   const composition = getPolicyResult("composition");
   const layered = getPolicyResult("layered");
-  const samples = state.data.users.slice(0, 8);
 
   return `
     <section class="two-column wide-right">
       <div class="chart-card">
         <div class="section-head">
-          <h3>Balanced password set</h3>
+          <h3>Balanced password classes</h3>
           <span>${state.data.users.length} samples</span>
         </div>
         ${renderDecisionBalance()}
-        <div class="password-gallery">
-          ${samples
-            .map(
-              (user) => `
-                <article class="password-tile ${riskClass(user.risk_label)}">
-                  <span>${riskLabel(user.risk_label)}</span>
-                  <code>${escapeHtml(user.password)}</code>
-                  <strong>${escapeHtml(user.profile)}</strong>
-                </article>
-              `,
-            )
-            .join("")}
-        </div>
       </div>
 
       <div class="chart-card decision-matrix-card">
         <div class="section-head">
           <h3>Decision matrix</h3>
-          <span>Complexity vs layered</span>
+          <span>${state.data.users.length} accounts aggregated</span>
         </div>
         ${renderPolicyMatrix()}
       </div>
@@ -435,29 +423,32 @@ function decisionForUser(user) {
 
 function renderDecisionBalance() {
   const groups = [
-    ["bothAccept", "Both accept", "C accept / L accept", "safe"],
-    ["complexityOnly", "Complexity only", "C accept / L reject", "danger"],
-    ["layeredOnly", "Layered only", "C reject / L accept", "medium"],
-    ["bothReject", "Both reject", "C reject / L reject", "neutral"],
+    ["bothAccept", "Strong and uncommon", "C accept / L accept", "safe"],
+    ["complexityOnly", "Complex but common", "C accept / L reject", "danger"],
+    ["layeredOnly", "Simple but uncommon", "C reject / L accept", "medium"],
+    ["bothReject", "Weak and common", "C reject / L reject", "neutral"],
   ];
-  const counts = state.data.users.reduce((accumulator, user) => {
+  const usersByClass = state.data.users.reduce((accumulator, user) => {
     const decision = decisionForUser(user);
-    accumulator[decision.key] = (accumulator[decision.key] || 0) + 1;
+    accumulator[decision.key] = [...(accumulator[decision.key] || []), user];
     return accumulator;
   }, {});
 
   return `
     <div class="decision-balance">
       ${groups
-        .map(
-          ([key, label, caption, className]) => `
+        .map(([key, label, caption, className]) => {
+          const users = usersByClass[key] || [];
+          const example = users[0];
+          return `
             <article class="${className}">
               <span>${label}</span>
-              <strong>${counts[key] || 0}</strong>
+              <strong>${users.length}</strong>
+              ${example ? `<code>${escapeHtml(example.password)}</code>` : ""}
               <small>${caption}</small>
             </article>
-          `,
-        )
+          `;
+        })
         .join("")}
     </div>
   `;
@@ -490,37 +481,44 @@ function renderPolicyComparison(composition, layered) {
 }
 
 function renderPolicyMatrix() {
-  const policies = ["composition", "layered"];
-  const lookup = new Map(
-    policies.map((policy) => [
-      policy,
-      new Map(getPolicyResult(policy).decisions.map((decision) => [decision.username, decision])),
-    ]),
-  );
+  const groups = [
+    ["bothAccept", "Both accept", "Complexity accept", "Layered accept", "safe"],
+    ["complexityOnly", "Complexity only", "Complexity accept", "Layered reject", "danger"],
+    ["layeredOnly", "Layered only", "Complexity reject", "Layered accept", "medium"],
+    ["bothReject", "Both reject", "Complexity reject", "Layered reject", "neutral"],
+  ];
+  const usersByClass = state.data.users.reduce((accumulator, user) => {
+    const decision = decisionForUser(user);
+    accumulator[decision.key] = [...(accumulator[decision.key] || []), user];
+    return accumulator;
+  }, {});
+
+  const renderCell = (key, label, className) => {
+    const users = usersByClass[key] || [];
+    const examples = users
+      .slice(0, 3)
+      .map((user) => user.username)
+      .join(", ");
+    return `
+      <article class="${className}">
+        <span>${label}</span>
+        <strong>${users.length}</strong>
+        <small>${escapeHtml(examples)}</small>
+      </article>
+    `;
+  };
 
   return `
-    <div class="decision-tile-grid">
-      ${state.data.users
-        .map((user) => {
-          const decision = decisionForUser(user);
-          const cells = policies
-            .map((policy) => {
-              const accepted = lookup.get(policy).get(user.username).accepted;
-              return `<span class="verdict mini ${accepted ? "accept" : "reject"}">${policy === "composition" ? "C" : "L"}: ${accepted ? "accept" : "reject"}</span>`;
-            })
-            .join("");
-          return `
-            <article class="decision-tile ${decision.className}">
-              <div class="decision-title">
-                <strong>${escapeHtml(user.username)}</strong>
-                <span>${decision.label}</span>
-              </div>
-              <code>${escapeHtml(user.password)}</code>
-              <div class="decision-pair">${cells}</div>
-            </article>
-          `;
-        })
-        .join("")}
+    <div class="policy-matrix-grid">
+      <span></span>
+      <span class="axis">Layered accept</span>
+      <span class="axis">Layered reject</span>
+      <span class="axis">Complexity accept</span>
+      ${renderCell(groups[0][0], groups[0][1], groups[0][4])}
+      ${renderCell(groups[1][0], groups[1][1], groups[1][4])}
+      <span class="axis">Complexity reject</span>
+      ${renderCell(groups[2][0], groups[2][1], groups[2][4])}
+      ${renderCell(groups[3][0], groups[3][1], groups[3][4])}
     </div>
   `;
 }
@@ -628,7 +626,7 @@ function renderResults() {
       <div class="chart-card">
         <div class="section-head">
           <h3>Account outcome grid</h3>
-          <span>exposed / cracked / not found</span>
+          <span>first ${Math.min(outcomeGridLimit, total)} of ${total}</span>
         </div>
         ${renderOutcomeGrid()}
       </div>
@@ -689,11 +687,12 @@ function renderSpeedBars() {
 
 function renderOutcomeGrid() {
   const estimates = new Map(methodOrder.map((method) => [method, estimateAttack(method, state.attackWindow)]));
+  const shownUsers = state.data.users.slice(0, outcomeGridLimit);
   return `
     <div class="outcome-grid">
       <span class="matrix-head">Account</span>
       ${methodOrder.map((method) => `<span class="matrix-head">${escapeHtml(getStorageResult(method).label)}</span>`).join("")}
-      ${state.data.users
+      ${shownUsers
         .map((user) => {
           const cells = methodOrder
             .map((method) => {
@@ -714,9 +713,12 @@ function renderRecoveredList(estimate) {
     return '<div class="empty-state small">No passwords recovered in this window.</div>';
   }
 
+  const shown = visible.slice(0, recoveredListLimit);
+  const remaining = visible.length - shown.length;
+
   return `
     <div class="recovered-list">
-      ${visible
+      ${shown
         .map(
           (detail) => `
             <div>
@@ -727,6 +729,7 @@ function renderRecoveredList(estimate) {
           `,
         )
         .join("")}
+      ${remaining > 0 ? `<p class="list-note">+ ${remaining} more in full result set</p>` : ""}
     </div>
   `;
 }

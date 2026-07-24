@@ -42,7 +42,7 @@ Message:
 
 "This is the main technical result. Under the same budget, SHA-256 allows far more guesses, so more accounts are recovered. bcrypt and Argon2id reduce the attack result by making each guess slower."
 
-"Plain text and SHA-256 can both show 16/16, but they mean different things. Plain text is direct exposure with no guessing. SHA-256 is recovered by offline wordlist cracking because each guess is very cheap."
+"Plain text and SHA-256 can both show 64/64, but they mean different things. Plain text is direct exposure with no guessing. SHA-256 is recovered by offline wordlist cracking because each guess is very cheap."
 
 ## PPT Findings Slide
 
