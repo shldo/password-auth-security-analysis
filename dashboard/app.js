@@ -23,31 +23,31 @@ const stages = [
     id: "overview",
     kicker: "Cost model",
     title: "How much can an offline attacker recover within a fixed budget?",
-    takeaway: "The main variable is attack cost, not password complexity alone.",
+    takeaway: "coverage x rank x cost x budget",
   },
   {
     id: "passwords",
     kicker: "Password set",
     title: "Password types shape wordlist coverage and guess order",
-    takeaway: "Predictable patterns are cheaper to include; unique long phrases are harder to cover.",
+    takeaway: "patterns, policies, priorities",
   },
   {
     id: "setup",
     kicker: "Attack budget",
     title: "Choose the storage method and attacker time budget",
-    takeaway: "The budget turns storage design into a measurable cost comparison.",
+    takeaway: "same list, same budget",
   },
   {
     id: "results",
     kicker: "Attack results",
     title: "Higher verification cost reduces recovered passwords",
-    takeaway: "The same wordlist recovers fewer accounts when each guess is expensive.",
+    takeaway: "recovered accounts by storage method",
   },
   {
     id: "findings",
     kicker: "Final assessment",
     title: "The security goal is to raise offline attack cost",
-    takeaway: "Good policy reduces cheap candidates; slow storage spends the attacker's budget.",
+    takeaway: "block cheap guesses; slow the rest",
   },
 ];
 
@@ -392,26 +392,6 @@ function renderOverview() {
         <small>more guesses per second for SHA-256 in this run</small>
       </section>
     </div>
-
-    <section class="chart-card compact">
-      <h3>Attack-cost model</h3>
-      <div class="scope-grid">
-        <span><b>coverage</b>is the password in the candidate list?</span>
-        <span><b>rank</b>how early is it guessed?</span>
-        <span><b>cost</b>how slow is one verification?</span>
-        <span><b>budget</b>how long can guessing run?</span>
-      </div>
-    </section>
-
-    <section class="chart-card compact">
-      <h3>Experiment scope</h3>
-      <div class="scope-grid">
-        <span><b>${context.user_count}</b> synthetic passwords</span>
-        <span><b>${context.wordlist_size}</b> local candidates</span>
-        <span><b>${context.attack_budget_seconds_per_method}s</b> attack budget</span>
-        <span><b>0</b> real credentials</span>
-      </div>
-    </section>
   `;
 }
 
@@ -425,7 +405,7 @@ function renderPasswords() {
       <div class="chart-card">
         <div class="section-head">
           <h3>Balanced password set</h3>
-          <span>coverage and policy categories</span>
+          <span>${state.data.users.length} samples</span>
         </div>
         ${renderDecisionBalance()}
         <div class="password-gallery">
@@ -446,7 +426,7 @@ function renderPasswords() {
       <div class="chart-card decision-matrix-card">
         <div class="section-head">
           <h3>Decision matrix</h3>
-          <span>${state.data.users.length} accounts, balanced classes</span>
+          <span>Complexity vs layered</span>
         </div>
         ${renderPolicyMatrix()}
       </div>
@@ -455,7 +435,7 @@ function renderPasswords() {
     <section class="chart-card policy-effect-card">
       <div class="section-head">
         <h3>Policy effect</h3>
-        <span>which passwords become cheap candidates?</span>
+        <span>weak rejected / strong accepted</span>
       </div>
       ${renderPolicyComparison(composition, layered)}
     </section>
@@ -614,12 +594,11 @@ function renderSetup() {
       </article>
 
       <article class="chart-card compact">
-        <h3>Attack path</h3>
+        <h3>Cost signal</h3>
         <div class="vertical-flow">
-          <span>leak</span>
-          <span>candidate rank</span>
-          <span>verify cost</span>
-          <span>budget outcome</span>
+          <span>${selected.guesses_per_second === null ? "direct exposure" : `${formatNumber(selected.guesses_per_second)} guesses/sec`}</span>
+          <span>${formatNumber(selected.average_verify_ms)} ms / verify</span>
+          <span>${selected.budget_exhausted ? "budget exhausted" : "budget available"}</span>
         </div>
       </article>
     </section>
@@ -801,7 +780,7 @@ function renderFindings() {
 
     <section class="final-strip">
       <strong>Core point</strong>
-      <span>Password security improves when cheap guesses are blocked and each remaining guess costs more.</span>
+      <span>Block cheap guesses; make remaining guesses expensive.</span>
     </section>
   `;
 }
