@@ -185,7 +185,7 @@
 - `Password Set` 页面负责展示密码形式、wordlist priority 和 policy effect。
 - `Attack Budget` 页面负责选择攻击预算和存储方式。
 - `Results` 页面负责集中展示攻击结果和可视化图表。
-- `Findings` 页面负责把证据映射到安全工程建议。
+- `Findings` 不再作为 dashboard 页面，证据到建议的映射放入 PPT 和 report。
 
 ## 5. 信息架构
 

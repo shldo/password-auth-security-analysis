@@ -29,6 +29,7 @@ This work log is intended to show a credible development process for the COMP684
 | 2026-07-21 | 0.5h | Clarified the results dashboard so plaintext exposure is visually separated from SHA-256 offline cracking even when both recover all accounts. | `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md` |
 | 2026-07-21 | 0.75h | Refocused the project title, dashboard flow, report outline, and presentation script around fixed attack budget and offline cracking cost. | `README.md`, `dashboard/index.html`, `dashboard/app.js`, `docs/report-outline.md`, `docs/demo-script.md`, `docs/presentation-outline.md` |
 | 2026-07-24 | 0.5h | Simplified the dashboard text density so the front end works better as a live demo than as slide-style narration. | `dashboard/index.html`, `dashboard/app.js` |
+| 2026-07-24 | 0.5h | Removed the dashboard Findings page and moved recommendations to the presentation/report layer so the live demo ends on measured results. | `dashboard/index.html`, `dashboard/app.js`, `dashboard/style.css`, `docs/demo-script.md`, `docs/presentation-outline.md` |
 
 ## Planned Time Budget
 

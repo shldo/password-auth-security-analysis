@@ -15,7 +15,8 @@ const legacyViews = {
   choices: "passwords",
   leak: "setup",
   cracking: "results",
-  final: "findings",
+  final: "results",
+  findings: "results",
 };
 
 const stages = [
@@ -42,31 +43,6 @@ const stages = [
     kicker: "Attack results",
     title: "Higher verification cost reduces recovered passwords",
     takeaway: "recovered accounts by storage method",
-  },
-  {
-    id: "findings",
-    kicker: "Final assessment",
-    title: "The security goal is to raise offline attack cost",
-    takeaway: "block cheap guesses; slow the rest",
-  },
-];
-
-const recommendationItems = [
-  {
-    evidence: "Predictable passwords appear early in the wordlist",
-    action: "Use blocklists and long-password-friendly rules",
-  },
-  {
-    evidence: "Plaintext has zero cracking cost",
-    action: "Never store recoverable passwords",
-  },
-  {
-    evidence: "SHA-256 makes each guess extremely cheap",
-    action: "Do not use fast general-purpose hashes for passwords",
-  },
-  {
-    evidence: "bcrypt and Argon2id spend the attack budget",
-    action: "Tune adaptive password hashing cost deliberately",
   },
 ];
 
@@ -115,7 +91,7 @@ async function loadData() {
     }
     state.data = await response.json();
     state.attackWindow = state.data.experiment_context.attack_budget_seconds_per_method;
-    setActiveView(getHashView(), { updateHash: false });
+    setActiveView(getHashView());
   } catch (error) {
     qs("#view-panel").innerHTML = `
       <div class="empty-state error">
@@ -172,7 +148,6 @@ function renderActiveView() {
     passwords: renderPasswords,
     setup: renderSetup,
     results: renderResults,
-    findings: renderFindings,
   };
 
   qs("#view-panel").innerHTML = renderers[state.activeView]();
@@ -753,35 +728,6 @@ function renderRecoveredList(estimate) {
         )
         .join("")}
     </div>
-  `;
-}
-
-function renderFindings() {
-  return `
-    <section class="chart-card">
-      <div class="section-head">
-        <h3>Evidence to recommendation</h3>
-        <span>measured path only</span>
-      </div>
-      <div class="recommendation-map">
-        ${recommendationItems
-          .map(
-            (item) => `
-              <article>
-                <span>Evidence</span>
-                <strong>${escapeHtml(item.evidence)}</strong>
-                <b>${escapeHtml(item.action)}</b>
-              </article>
-            `,
-          )
-          .join("")}
-      </div>
-    </section>
-
-    <section class="final-strip">
-      <strong>Core point</strong>
-      <span>Block cheap guesses; make remaining guesses expensive.</span>
-    </section>
   `;
 }
 

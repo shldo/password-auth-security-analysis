@@ -144,7 +144,7 @@ h3 {
 
 .stage-tabs {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
 }
 
@@ -195,8 +195,7 @@ main,
 .metric-strip,
 .chart-card,
 .result-card,
-.control-surface,
-.final-strip {
+.control-surface {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: var(--panel);
@@ -848,44 +847,6 @@ code {
   padding-bottom: 0;
 }
 
-.recommendation-map {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 10px;
-}
-
-.recommendation-map article {
-  display: grid;
-  gap: 8px;
-  border: 1px solid var(--line);
-  border-left: 6px solid var(--teal);
-  border-radius: 8px;
-  padding: 12px;
-}
-
-.recommendation-map span {
-  color: var(--muted);
-  font-size: 0.78rem;
-  font-weight: 800;
-  text-transform: uppercase;
-}
-
-.recommendation-map b {
-  color: var(--teal);
-}
-
-.final-strip {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  border-left: 6px solid var(--teal);
-  padding: 16px;
-}
-
-.final-strip span {
-  color: var(--muted);
-}
-
 .compact {
   align-content: start;
 }
@@ -922,7 +883,6 @@ code {
   .three-column,
   .control-surface,
   .results-hero,
-  .recommendation-map,
   .policy-score-grid {
     grid-template-columns: 1fr;
   }
@@ -963,8 +923,7 @@ code {
   .stage-intro,
   .chart-card,
   .result-card,
-  .control-surface,
-  .final-strip {
+  .control-surface {
     padding: 14px;
   }
 

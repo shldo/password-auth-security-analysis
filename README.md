@@ -52,6 +52,6 @@ This repository is structured to support the COMP6841 marking criteria:
 
 - research evidence: see `docs/references.md`
 - technical implementation: see `scripts/`
-- analysis and findings: see `results/` and `dashboard/`
+- analysis and findings: see `results/` and `docs/presentation-outline.md`
 - presentation evidence: see `dashboard/` and `docs/presentation-outline.md`
 - report structure: see `docs/report-outline.md`

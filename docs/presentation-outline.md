@@ -6,9 +6,9 @@
 
 ## Slide 2: Dashboard Flow
 
-Show the five dashboard views:
+Show the four dashboard demo views:
 
-Cost Model -> Password Set -> Attack Budget -> Results -> Findings.
+Cost Model -> Password Set -> Attack Budget -> Results.
 
 ## Slide 3: Controlled Experiment
 
@@ -35,6 +35,8 @@ Use the Results view:
 - bcrypt and Argon2id reduce recovered accounts under the same attack budget.
 
 ## Slide 6: Final Findings
+
+This is a PPT-only slide, not a dashboard page.
 
 The engineering goal is to raise offline attack cost:
 

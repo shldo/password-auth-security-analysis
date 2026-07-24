@@ -6,7 +6,7 @@ Use this as the 5-minute tutor presentation story. Keep the speech short and let
 
 "My project is about raising the cost of offline password cracking after a database leak. I built a controlled lab to show how password choice, wordlist priority, and storage method change what an attacker can recover within the same time budget."
 
-Click **Run demo** if you want the dashboard to move through the five views automatically.
+Click **Run demo** if you want the dashboard to move through the four demo views automatically.
 
 ## 1. Overview
 
@@ -44,11 +44,9 @@ Message:
 
 "Plain text and SHA-256 can both show 16/16, but they mean different things. Plain text is direct exposure with no guessing. SHA-256 is recovered by offline wordlist cracking because each guess is very cheap."
 
-## 5. Findings
+## PPT Findings Slide
 
-Show evidence-to-recommendation mapping.
-
-Message:
+Use the final presentation slide for recommendations:
 
 "The final recommendation is cost-based: block cheap candidate passwords, never store plaintext, avoid fast password hashes, and tune bcrypt or Argon2id so offline guessing consumes the attacker's budget."
 
